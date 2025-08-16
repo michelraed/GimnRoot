@@ -1,0 +1,14 @@
+digraph "GimnData::GimnData"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="GimnData::GimnData",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="GimnData::initializeHistograms",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnData.html#a6242b1694a5556eac794f63a687847d2",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="Identificator::getDetectorName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIdentificator.html#aa4ca9f9de600bda6bb02fea9d8c4ddcd",tooltip="Método Getter para obter um vetor contendo os nomes dos detectores."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="Identificator::getDetNum",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIdentificator.html#a293400f9ccf526607b178bfa6bade362",tooltip="Metodo getter para obter o valor do numero total de detectores conectados."];
+}

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "☢️  Activating Environment Root"
+
+# Diretório onde o script está instalado
+rootPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+cd "$rootPath" || exit 1
+
+if [ -f "Run.C" ]; then
+    echo "📄 Executando Run.C com ROOT no diretório $rootPath ..."
+    root -l -b Run.C
+else
+    echo "❌ Arquivo Run.C não encontrado em $rootPath"
+    exit 1
+fi

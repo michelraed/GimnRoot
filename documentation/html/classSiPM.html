@@ -1,0 +1,1087 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GimnRoot: Referência à classe SiPM</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GimnRoot
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Membros públicos</a> &#124;
+<a href="#pub-attribs">Atributos Públicos</a> &#124;
+<a href="classSiPM-members.html">Mostrar lista completa dos membros</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência à classe SiPM</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>This class stores information from the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> used while processing acquired data. It have some important features such as convert channelID into an index for rows and columns, or into the position of the event in mm, in this case the zero is located in the center of the crystal array. <br  />
+ In the case of segmented crystals the position represents the center of the crystal element. <br  />
+ Other options such as microCells have been added for future works. <br  />
+ This class have hard coded the positions of the channels in a matrix using as reference the Ketek Pa 3325 wb 0808 channels disposition <br  />
+ It also have implemented a method for converting the crystalID from a gate acquisition into a i,j index that represents the position in a mxn matrix.  
+ <a href="classSiPM.html#details">Mais...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Membros públicos</h2></td></tr>
+<tr class="memitem:aab25789ea9e314015bbfaf5b6f0faabc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#aab25789ea9e314015bbfaf5b6f0faabc">SiPM</a> ()</td></tr>
+<tr class="memdesc:aab25789ea9e314015bbfaf5b6f0faabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a>. In this case the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> will be builded using the parameters for a Ketek 3325WB0808.  <a href="classSiPM.html#aab25789ea9e314015bbfaf5b6f0faabc">Mais...</a><br /></td></tr>
+<tr class="separator:aab25789ea9e314015bbfaf5b6f0faabc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33c543b56956a33df6728ee5d380ca97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a33c543b56956a33df6728ee5d380ca97">SiPM</a> (<a class="el" href="classSiPM.html">SiPM</a> const &amp;s)</td></tr>
+<tr class="memdesc:a33c543b56956a33df6728ee5d380ca97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Si P M:: Si P M object.  <a href="classSiPM.html#a33c543b56956a33df6728ee5d380ca97">Mais...</a><br /></td></tr>
+<tr class="separator:a33c543b56956a33df6728ee5d380ca97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3802e1d20c609eb4e01ae978649c8e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#ad3802e1d20c609eb4e01ae978649c8e0">SiPM</a> (Int_t ChanNum, Int_t Rows, Int_t Columns, Float_t Pitch, <a class="el" href="classIdentificator.html">Identificator</a> Id)</td></tr>
+<tr class="separator:ad3802e1d20c609eb4e01ae978649c8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635ae10d24ec15e014ce2304b6a2cacd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Float_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a635ae10d24ec15e014ce2304b6a2cacd">getPositionsX</a> ()</td></tr>
+<tr class="memdesc:a635ae10d24ec15e014ce2304b6a2cacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builded to give access to the vector containing the positions of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> centers in X direction;.  <a href="classSiPM.html#a635ae10d24ec15e014ce2304b6a2cacd">Mais...</a><br /></td></tr>
+<tr class="separator:a635ae10d24ec15e014ce2304b6a2cacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ddd2833d562976f7a337c702fce42e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Float_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#af5ddd2833d562976f7a337c702fce42e">getPositionsY</a> ()</td></tr>
+<tr class="memdesc:af5ddd2833d562976f7a337c702fce42e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builded to give access to the vector containing the positions of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> centers in Y direction;.  <a href="classSiPM.html#af5ddd2833d562976f7a337c702fce42e">Mais...</a><br /></td></tr>
+<tr class="separator:af5ddd2833d562976f7a337c702fce42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5b61b22a6c990112b0c80d0043c5382"><td class="memItemLeft" align="right" valign="top">Int_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#aa5b61b22a6c990112b0c80d0043c5382">getChannelNumber</a> ()</td></tr>
+<tr class="memdesc:aa5b61b22a6c990112b0c80d0043c5382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give acces to protected data containing number of channels;.  <a href="classSiPM.html#aa5b61b22a6c990112b0c80d0043c5382">Mais...</a><br /></td></tr>
+<tr class="separator:aa5b61b22a6c990112b0c80d0043c5382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac345801d5bcdea4981ffdc2e7f0aff68"><td class="memItemLeft" align="right" valign="top">Int_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#ac345801d5bcdea4981ffdc2e7f0aff68">getMicrocellNum</a> ()</td></tr>
+<tr class="memdesc:ac345801d5bcdea4981ffdc2e7f0aff68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give acces to protected data containing the number of channels;.  <a href="classSiPM.html#ac345801d5bcdea4981ffdc2e7f0aff68">Mais...</a><br /></td></tr>
+<tr class="separator:ac345801d5bcdea4981ffdc2e7f0aff68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1178435dc33fe7f0bdd1998c48f77fc"><td class="memItemLeft" align="right" valign="top">Int_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#ad1178435dc33fe7f0bdd1998c48f77fc">getRows</a> ()</td></tr>
+<tr class="memdesc:ad1178435dc33fe7f0bdd1998c48f77fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give acces to protected data containing the number of rows.  <a href="classSiPM.html#ad1178435dc33fe7f0bdd1998c48f77fc">Mais...</a><br /></td></tr>
+<tr class="separator:ad1178435dc33fe7f0bdd1998c48f77fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfe3857e236bcafc3c033d15e5605667"><td class="memItemLeft" align="right" valign="top">Int_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#adfe3857e236bcafc3c033d15e5605667">getCols</a> ()</td></tr>
+<tr class="memdesc:adfe3857e236bcafc3c033d15e5605667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Give acces to protected data containing the number of columns.  <a href="classSiPM.html#adfe3857e236bcafc3c033d15e5605667">Mais...</a><br /></td></tr>
+<tr class="separator:adfe3857e236bcafc3c033d15e5605667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25c3406597f606d9cf7771074d4e227b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Float_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a25c3406597f606d9cf7771074d4e227b">getDimensions</a> ()</td></tr>
+<tr class="memdesc:a25c3406597f606d9cf7771074d4e227b"><td class="mdescLeft">&#160;</td><td class="mdescRight">this method is designed for returning the dimensions of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> used;  <a href="classSiPM.html#a25c3406597f606d9cf7771074d4e227b">Mais...</a><br /></td></tr>
+<tr class="separator:a25c3406597f606d9cf7771074d4e227b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d63240ab536c2e10732a4285738d02"><td class="memItemLeft" align="right" valign="top">Float_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#aa0d63240ab536c2e10732a4285738d02">getXposition</a> (Int_t pos)</td></tr>
+<tr class="memdesc:aa0d63240ab536c2e10732a4285738d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This metod is designed to return the position in mm from a given index in the X direction.  <a href="classSiPM.html#aa0d63240ab536c2e10732a4285738d02">Mais...</a><br /></td></tr>
+<tr class="separator:aa0d63240ab536c2e10732a4285738d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a517675bb906acde68d89bd8bac9f4638"><td class="memItemLeft" align="right" valign="top">Float_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a517675bb906acde68d89bd8bac9f4638">getYposition</a> (Int_t pos)</td></tr>
+<tr class="memdesc:a517675bb906acde68d89bd8bac9f4638"><td class="mdescLeft">&#160;</td><td class="mdescRight">This metod is designed to return the position in mm from a given index in the Y direction.  <a href="classSiPM.html#a517675bb906acde68d89bd8bac9f4638">Mais...</a><br /></td></tr>
+<tr class="separator:a517675bb906acde68d89bd8bac9f4638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a707877fb3c8fce44afb0a6e9236ca474"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a707877fb3c8fce44afb0a6e9236ca474">setChannelNumber</a> (Int_t chn)</td></tr>
+<tr class="separator:a707877fb3c8fce44afb0a6e9236ca474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc5da24163d624506439e3948a31b56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a4cc5da24163d624506439e3948a31b56">setRows</a> (Int_t row)</td></tr>
+<tr class="separator:a4cc5da24163d624506439e3948a31b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bf1bcb70ec56dca538f9bfc23a7e08d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a5bf1bcb70ec56dca538f9bfc23a7e08d">setCols</a> (Int_t col)</td></tr>
+<tr class="separator:a5bf1bcb70ec56dca538f9bfc23a7e08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cba76fe18117b949101ec0f72923e7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a1cba76fe18117b949101ec0f72923e7c">setDimensionX</a> (Float_t x)</td></tr>
+<tr class="separator:a1cba76fe18117b949101ec0f72923e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e1678e39fe3dc7a0e811794efcc55a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a32e1678e39fe3dc7a0e811794efcc55a">setDimensionY</a> (Float_t y)</td></tr>
+<tr class="separator:a32e1678e39fe3dc7a0e811794efcc55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c5b32d0e53a35b60a1ccd9c5a077634"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a0c5b32d0e53a35b60a1ccd9c5a077634">setMicrocellNum</a> (Int_t mcn)</td></tr>
+<tr class="separator:a0c5b32d0e53a35b60a1ccd9c5a077634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61be9de7c3ffc5a610414f69b42f12d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a61be9de7c3ffc5a610414f69b42f12d6">setDimensions</a> (Float_t x, Float_t y)</td></tr>
+<tr class="separator:a61be9de7c3ffc5a610414f69b42f12d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8df9ebc8e2d8f5d71bbc2d1439ad12f2"><td class="memItemLeft" align="right" valign="top">TMatrixT&lt; Long64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a8df9ebc8e2d8f5d71bbc2d1439ad12f2">getTimeMatrix</a> (int det)</td></tr>
+<tr class="separator:a8df9ebc8e2d8f5d71bbc2d1439ad12f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae983128182d6124568a231854ebd62d8"><td class="memItemLeft" align="right" valign="top">TMatrixT&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#ae983128182d6124568a231854ebd62d8">getEnergyMatrix</a> (int det)</td></tr>
+<tr class="separator:ae983128182d6124568a231854ebd62d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dcb9edc3ce468c32275b56b5e10f6f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a7dcb9edc3ce468c32275b56b5e10f6f3">InitializePixels</a> ()</td></tr>
+<tr class="separator:a7dcb9edc3ce468c32275b56b5e10f6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2fe429923a080c0e2617fae73af5db3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Int_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#aa2fe429923a080c0e2617fae73af5db3">CorrectChannelToPixelPs</a> (Int_t Channel)</td></tr>
+<tr class="memdesc:aa2fe429923a080c0e2617fae73af5db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is designed for returning the index j,i relative to the position of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> inside the array. Is designed for a Ketek 3325 Wb0808 PA.  <a href="classSiPM.html#aa2fe429923a080c0e2617fae73af5db3">Mais...</a><br /></td></tr>
+<tr class="separator:aa2fe429923a080c0e2617fae73af5db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329f4f64f8a203d758216f101c7115b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a329f4f64f8a203d758216f101c7115b6">showPositions</a> ()</td></tr>
+<tr class="memdesc:a329f4f64f8a203d758216f101c7115b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the position of the center of each pixel in X and Y directions.  <a href="classSiPM.html#a329f4f64f8a203d758216f101c7115b6">Mais...</a><br /></td></tr>
+<tr class="separator:a329f4f64f8a203d758216f101c7115b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ba1771799aab899dd65ae4ffe76ccc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSiPM.html">SiPM</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#ae8ba1771799aab899dd65ae4ffe76ccc">operator=</a> (<a class="el" href="classSiPM.html">SiPM</a> const &amp;)</td></tr>
+<tr class="separator:ae8ba1771799aab899dd65ae4ffe76ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Atributos Públicos</h2></td></tr>
+<tr class="memitem:a85ea416882f95cbfbab0e51aab5e9d7a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; TMatrixT&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a85ea416882f95cbfbab0e51aab5e9d7a">Sipm_e</a></td></tr>
+<tr class="separator:a85ea416882f95cbfbab0e51aab5e9d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3695fc10408feba97c3a20b20df8b35d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; TMatrixT&lt; long long &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSiPM.html#a3695fc10408feba97c3a20b20df8b35d">Sipm_t</a></td></tr>
+<tr class="separator:a3695fc10408feba97c3a20b20df8b35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
+<div class="textblock"><p>This class stores information from the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> used while processing acquired data. It have some important features such as convert channelID into an index for rows and columns, or into the position of the event in mm, in this case the zero is located in the center of the crystal array. <br  />
+ In the case of segmented crystals the position represents the center of the crystal element. <br  />
+ Other options such as microCells have been added for future works. <br  />
+ This class have hard coded the positions of the channels in a matrix using as reference the Ketek Pa 3325 wb 0808 channels disposition <br  />
+ It also have implemented a method for converting the crystalID from a gate acquisition into a i,j index that represents the position in a mxn matrix. </p>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00012">12</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+</div><h2 class="groupheader">Documentação dos Construtores &amp; Destrutor</h2>
+<a id="aab25789ea9e314015bbfaf5b6f0faabc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab25789ea9e314015bbfaf5b6f0faabc">&#9670;&nbsp;</a></span>SiPM() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SiPM::SiPM </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default constructor of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a>. In this case the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> will be builded using the parameters for a Ketek 3325WB0808. </p>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00109">109</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;          {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// default start;</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    rows = 8;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    cols = 8;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    channelNum = 64;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    PichX = 3.36;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    PichY = 3.36;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    Initialize();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a33c543b56956a33df6728ee5d380ca97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33c543b56956a33df6728ee5d380ca97">&#9670;&nbsp;</a></span>SiPM() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SiPM::SiPM </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classSiPM.html">SiPM</a> const &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Si P M:: Si P M object. </p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00125">125</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                       :</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                            PichX { s.PichX}, PichY {s.PichY},</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                            positionsX{s.positionsX},positionsY{s.positionsY},</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                            channelNum {s.channelNum}, microCells{s.microCells},</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                            rows{s.rows},cols{s.cols},</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                            dimensionXmm{s.dimensionXmm},dimensionYmm{s.dimensionYmm}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;{}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad3802e1d20c609eb4e01ae978649c8e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3802e1d20c609eb4e01ae978649c8e0">&#9670;&nbsp;</a></span>SiPM() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SiPM::SiPM </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>ChanNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>Rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>Columns</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Float_t&#160;</td>
+          <td class="paramname"><em>Pitch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classIdentificator.html">Identificator</a>&#160;</td>
+          <td class="paramname"><em>Id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00133">133</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                                                                    {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    this-&gt;channelNum = ChanNum;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    this-&gt;rows = Rows;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    this-&gt;cols = Columns;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    this-&gt;PichX = this-&gt;PichY = Pitch;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    this-&gt;Id = Id;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    std::cout&lt;&lt;<span class="stringliteral">&quot;sendo Chamado&quot;</span>&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    Initialize();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <a class="code" href="classSiPM.html#a7dcb9edc3ce468c32275b56b5e10f6f3">InitializePixels</a>();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
+<div class="ttc" id="aclassSiPM_html_a7dcb9edc3ce468c32275b56b5e10f6f3"><div class="ttname"><a href="classSiPM.html#a7dcb9edc3ce468c32275b56b5e10f6f3">SiPM::InitializePixels</a></div><div class="ttdeci">void InitializePixels()</div><div class="ttdef"><b>Definition:</b> <a href="SiPM_8C_source.html#l00081">SiPM.C:81</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referências <a class="el" href="SiPM_8C_source.html#l00081">InitializePixels()</a>.</p>
+<div class="dynheader">
+Grafo de chamadas desta função:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSiPM_ad3802e1d20c609eb4e01ae978649c8e0_cgraph.png" border="0" usemap="#aclassSiPM_ad3802e1d20c609eb4e01ae978649c8e0_cgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Documentação dos métodos</h2>
+<a id="aa2fe429923a080c0e2617fae73af5db3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2fe429923a080c0e2617fae73af5db3">&#9670;&nbsp;</a></span>CorrectChannelToPixelPs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; Int_t &gt; SiPM::CorrectChannelToPixelPs </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>Channel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This method is designed for returning the index j,i relative to the position of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> inside the array. Is designed for a Ketek 3325 Wb0808 PA. </p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Channel</td><td>Representes the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> channel to be converted into a pair &lt;y,x&gt; </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>the indexes of the position of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> inside the array as a pair &lt;y,x&gt; </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00165">165</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                                                           {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordtype">int</span> CORRECTION_MAP[64][3]{ <span class="comment">// {Channel,X,Y}</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                                {0,1,7},{1,1,6},{2,2,4},{3,0,6},{4,0,5},{5,3,7},{6,0,4},{7,2,6},</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                                {8,1,5},{9,3,3},{10,0,7},{11,3,4},{12,3,6},{13,2,5},{14,2,7},{15,1,4},</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                                                {16,6,6},{17,7,7},{18,6,7},{19,7,6},{20,4,7},{21,4,6},{22,5,6},{23,5,7},</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                                                {24,7,4},{25,7,5},{26,6,4},{27,3,5},{28,6,5},{29,5,5},{30,5,4},{31,4,4},</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                                                {32,4,5},{33,4,3},{34,4,2},{35,5,2},{36,5,3},{37,6,2},{38,3,2},{39,6,3},</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                                {40,7,2},{41,7,3},{42,4,0},{43,4,1},{44,5,0},{45,6,1},{46,5,1},{47,6,0},</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                                                {48,7,0},{49,7,1},{50,0,3},{51,3,0},{52,3,1},{53,2,1},{54,2,0},{55,1,0},</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                                                {56,1,1},{57,0,2},{58,2,2},{59,1,3},{60,0,0},{61,1,2},{62,2,3},{63,0,1},};</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="comment">//RETORNA X,Y</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    std::vector&lt;Int_t&gt; aux {CORRECTION_MAP[channel][1],CORRECTION_MAP[channel][2]};</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">return</span> aux;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa5b61b22a6c990112b0c80d0043c5382"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5b61b22a6c990112b0c80d0043c5382">&#9670;&nbsp;</a></span>getChannelNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Int_t SiPM::getChannelNumber </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Give acces to protected data containing number of channels;. </p>
+<dl class="section return"><dt>Retorna</dt><dd>The number of channels in the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00046">46</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{<span class="keywordflow">return</span> channelNum;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adfe3857e236bcafc3c033d15e5605667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfe3857e236bcafc3c033d15e5605667">&#9670;&nbsp;</a></span>getCols()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Int_t SiPM::getCols </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Give acces to protected data containing the number of columns. </p>
+<dl class="section return"><dt>Retorna</dt><dd>The number of columns </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00055">55</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{<span class="keywordflow">return</span> cols;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a25c3406597f606d9cf7771074d4e227b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25c3406597f606d9cf7771074d4e227b">&#9670;&nbsp;</a></span>getDimensions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;Float_t&gt; SiPM::getDimensions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>this method is designed for returning the dimensions of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> used; </p>
+<dl class="section return"><dt>Retorna</dt><dd>a vector containing in the index 0 the dimensions in mm of the X axis and in the index 1 the dimensions in mm of Y axis </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00058">58</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{ std::vector&lt;Float_t&gt; a {dimensionXmm, dimensionYmm}; <span class="keywordflow">return</span> a;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae983128182d6124568a231854ebd62d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae983128182d6124568a231854ebd62d8">&#9670;&nbsp;</a></span>getEnergyMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMatrixT&lt;double&gt; SiPM::getEnergyMatrix </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>det</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00078">78</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{<span class="keywordflow">return</span> <a class="code" href="classSiPM.html#a85ea416882f95cbfbab0e51aab5e9d7a">Sipm_e</a>[det];}</div>
+<div class="ttc" id="aclassSiPM_html_a85ea416882f95cbfbab0e51aab5e9d7a"><div class="ttname"><a href="classSiPM.html#a85ea416882f95cbfbab0e51aab5e9d7a">SiPM::Sipm_e</a></div><div class="ttdeci">std::vector&lt; TMatrixT&lt; double &gt; &gt; Sipm_e</div><div class="ttdef"><b>Definition:</b> <a href="SiPM_8C_source.html#l00029">SiPM.C:29</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referências <a class="el" href="SiPM_8C_source.html#l00029">Sipm_e</a>.</p>
+
+</div>
+</div>
+<a id="ac345801d5bcdea4981ffdc2e7f0aff68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac345801d5bcdea4981ffdc2e7f0aff68">&#9670;&nbsp;</a></span>getMicrocellNum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Int_t SiPM::getMicrocellNum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Give acces to protected data containing the number of channels;. </p>
+<dl class="section return"><dt>Retorna</dt><dd>The number of channels that the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> have; </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00049">49</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{<span class="keywordflow">return</span> microCells;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a635ae10d24ec15e014ce2304b6a2cacd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a635ae10d24ec15e014ce2304b6a2cacd">&#9670;&nbsp;</a></span>getPositionsX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;Float_t&gt; SiPM::getPositionsX </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Builded to give access to the vector containing the positions of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> centers in X direction;. </p>
+<dl class="section return"><dt>Retorna</dt><dd>returns the vector containing the centers of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a>'s in mm in X direction </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00040">40</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{<span class="keywordflow">return</span> positionsX;}</div>
+</div><!-- fragment --><div class="dynheader">
+Este é o diagrama das funções que utilizam esta função:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSiPM_a635ae10d24ec15e014ce2304b6a2cacd_icgraph.png" border="0" usemap="#aclassSiPM_a635ae10d24ec15e014ce2304b6a2cacd_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="af5ddd2833d562976f7a337c702fce42e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5ddd2833d562976f7a337c702fce42e">&#9670;&nbsp;</a></span>getPositionsY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;Float_t&gt; SiPM::getPositionsY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Builded to give access to the vector containing the positions of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> centers in Y direction;. </p>
+<dl class="section return"><dt>Retorna</dt><dd>returns the vector containing the centers of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a>'s in mm in Y direction </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00043">43</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{<span class="keywordflow">return</span> positionsY;}</div>
+</div><!-- fragment --><div class="dynheader">
+Este é o diagrama das funções que utilizam esta função:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSiPM_af5ddd2833d562976f7a337c702fce42e_icgraph.png" border="0" usemap="#aclassSiPM_af5ddd2833d562976f7a337c702fce42e_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="ad1178435dc33fe7f0bdd1998c48f77fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1178435dc33fe7f0bdd1998c48f77fc">&#9670;&nbsp;</a></span>getRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Int_t SiPM::getRows </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Give acces to protected data containing the number of rows. </p>
+<dl class="section return"><dt>Retorna</dt><dd>The number of rows </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00052">52</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{<span class="keywordflow">return</span> rows;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8df9ebc8e2d8f5d71bbc2d1439ad12f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df9ebc8e2d8f5d71bbc2d1439ad12f2">&#9670;&nbsp;</a></span>getTimeMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMatrixT&lt;Long64_t&gt; SiPM::getTimeMatrix </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>det</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00077">77</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{<span class="keywordflow">return</span> <a class="code" href="classSiPM.html#a3695fc10408feba97c3a20b20df8b35d">Sipm_t</a>[det];}</div>
+<div class="ttc" id="aclassSiPM_html_a3695fc10408feba97c3a20b20df8b35d"><div class="ttname"><a href="classSiPM.html#a3695fc10408feba97c3a20b20df8b35d">SiPM::Sipm_t</a></div><div class="ttdeci">std::vector&lt; TMatrixT&lt; long long &gt; &gt; Sipm_t</div><div class="ttdef"><b>Definition:</b> <a href="SiPM_8C_source.html#l00030">SiPM.C:30</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referências <a class="el" href="SiPM_8C_source.html#l00030">Sipm_t</a>.</p>
+
+</div>
+</div>
+<a id="aa0d63240ab536c2e10732a4285738d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d63240ab536c2e10732a4285738d02">&#9670;&nbsp;</a></span>getXposition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Float_t SiPM::getXposition </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This metod is designed to return the position in mm from a given index in the X direction. </p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>refers to the index of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> in a given axis </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>The position in mm from the index "pos" in the X axis; </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00062">62</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{<span class="keywordflow">if</span>((pos &gt;= cols ) &amp;&amp; (pos&lt;0)) <span class="keywordflow">return</span> 666; <span class="keywordflow">else</span> <span class="keywordflow">return</span> positionsX[pos];}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a517675bb906acde68d89bd8bac9f4638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a517675bb906acde68d89bd8bac9f4638">&#9670;&nbsp;</a></span>getYposition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Float_t SiPM::getYposition </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This metod is designed to return the position in mm from a given index in the Y direction. </p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>refers to the index of the <a class="el" href="classSiPM.html" title="This class stores information from the SiPM used while processing acquired data. It have some importa...">SiPM</a> in a given axis </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>The position in mm from the index "pos" in the Y axis; </dd></dl>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00066">66</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{<span class="keywordflow">if</span>((pos &gt;= rows ) &amp;&amp; (pos&lt;0)) <span class="keywordflow">return</span> 666; <span class="keywordflow">else</span> <span class="keywordflow">return</span> positionsY[pos];}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7dcb9edc3ce468c32275b56b5e10f6f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dcb9edc3ce468c32275b56b5e10f6f3">&#9670;&nbsp;</a></span>InitializePixels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::InitializePixels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00081">81</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                               {    </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            std::cout&lt;&lt;Id.<a class="code" href="classIdentificator.html#a293400f9ccf526607b178bfa6bade362">getDetNum</a>()&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a> = 0; <a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a> &lt; Id.<a class="code" href="classIdentificator.html#a293400f9ccf526607b178bfa6bade362">getDetNum</a>(); <a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>++){</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <a class="code" href="classSiPM.html#a85ea416882f95cbfbab0e51aab5e9d7a">Sipm_e</a>.push_back(TMatrixT&lt;double&gt;(rows, cols));</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    cin.get();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="ttc" id="aclassIdentificator_html_a293400f9ccf526607b178bfa6bade362"><div class="ttname"><a href="classIdentificator.html#a293400f9ccf526607b178bfa6bade362">Identificator::getDetNum</a></div><div class="ttdeci">int getDetNum()</div><div class="ttdoc">Metodo getter para obter o valor do numero total de detectores conectados.</div><div class="ttdef"><b>Definition:</b> <a href="GimnLoader_8C_source.html#l00209">GimnLoader.C:209</a></div></div>
+<div class="ttc" id="anamespacecalculateCorrection_html_a46906062635094b26268e2a127f92eab"><div class="ttname"><a href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">calculateCorrection.detector</a></div><div class="ttdeci">detector</div><div class="ttdef"><b>Definition:</b> <a href="calculateCorrection_8py_source.html#l00048">calculateCorrection.py:48</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referências <a class="el" href="calculateCorrection_8py_source.html#l00048">calculateCorrection::detector</a>, <a class="el" href="GimnLoader_8C_source.html#l00209">Identificator::getDetNum()</a> e <a class="el" href="SiPM_8C_source.html#l00029">Sipm_e</a>.</p>
+<div class="dynheader">
+Grafo de chamadas desta função:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3_cgraph.png" border="0" usemap="#aclassSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3_cgraph" alt=""/></div>
+</div>
+<div class="dynheader">
+Este é o diagrama das funções que utilizam esta função:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3_icgraph.png" border="0" usemap="#aclassSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="ae8ba1771799aab899dd65ae4ffe76ccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ba1771799aab899dd65ae4ffe76ccc">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classSiPM.html">SiPM</a> &amp; SiPM::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classSiPM.html">SiPM</a> const &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00146">146</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                   {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        PichX   = s.PichX  ;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        PichY  = s.PichY  ;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        channelNum  = s.channelNum  ;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        microCells  = s.microCells  ;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        rows  = s.rows  ;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        cols  = s.cols  ;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        dimensionXmm  = s.dimensionXmm  ;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        dimensionYmm  = s.dimensionYmm  ;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        positionsX  = s.positionsX  ;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        positionsY  = s.positionsY  ;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        Id = s.Id;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a707877fb3c8fce44afb0a6e9236ca474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a707877fb3c8fce44afb0a6e9236ca474">&#9670;&nbsp;</a></span>setChannelNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setChannelNumber </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>chn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00069">69</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{ channelNum = chn;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a5bf1bcb70ec56dca538f9bfc23a7e08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bf1bcb70ec56dca538f9bfc23a7e08d">&#9670;&nbsp;</a></span>setCols()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setCols </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>col</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00071">71</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{cols = col;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a61be9de7c3ffc5a610414f69b42f12d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61be9de7c3ffc5a610414f69b42f12d6">&#9670;&nbsp;</a></span>setDimensions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setDimensions </td>
+          <td>(</td>
+          <td class="paramtype">Float_t&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Float_t&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00075">75</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{dimensionXmm = x ; dimensionYmm = y;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1cba76fe18117b949101ec0f72923e7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cba76fe18117b949101ec0f72923e7c">&#9670;&nbsp;</a></span>setDimensionX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setDimensionX </td>
+          <td>(</td>
+          <td class="paramtype">Float_t&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00072">72</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{dimensionXmm=x;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a32e1678e39fe3dc7a0e811794efcc55a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32e1678e39fe3dc7a0e811794efcc55a">&#9670;&nbsp;</a></span>setDimensionY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setDimensionY </td>
+          <td>(</td>
+          <td class="paramtype">Float_t&#160;</td>
+          <td class="paramname"><em>y</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00073">73</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{dimensionYmm = y;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0c5b32d0e53a35b60a1ccd9c5a077634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c5b32d0e53a35b60a1ccd9c5a077634">&#9670;&nbsp;</a></span>setMicrocellNum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setMicrocellNum </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>mcn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00074">74</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{microCells = mcn;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4cc5da24163d624506439e3948a31b56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc5da24163d624506439e3948a31b56">&#9670;&nbsp;</a></span>setRows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::setRows </td>
+          <td>(</td>
+          <td class="paramtype">Int_t&#160;</td>
+          <td class="paramname"><em>row</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00070">70</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{rows = row;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a329f4f64f8a203d758216f101c7115b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329f4f64f8a203d758216f101c7115b6">&#9670;&nbsp;</a></span>showPositions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SiPM::showPositions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prints the position of the center of each pixel in X and Y directions. </p>
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00220">220</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+<div class="fragment"><div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                        {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    std::cout&lt;&lt;<span class="stringliteral">&quot;positions for X&quot;</span>&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i =0; i&lt; positionsX.size(); i++){</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        std::cout&lt;&lt;positionsX[i]&lt;&lt;<span class="stringliteral">&quot; &quot;</span>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    } </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    std::cout&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    std::cout&lt;&lt;<span class="stringliteral">&quot;positions for y&quot;</span>&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i =0; i&lt; positionsY.size(); i++){</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        std::cout&lt;&lt;positionsY[i]&lt;&lt;<span class="stringliteral">&quot; &quot;</span>;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    } </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    std::cout&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Documentação dos dados membro</h2>
+<a id="a85ea416882f95cbfbab0e51aab5e9d7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ea416882f95cbfbab0e51aab5e9d7a">&#9670;&nbsp;</a></span>Sipm_e</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;TMatrixT&lt;double&gt; &gt; SiPM::Sipm_e</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00029">29</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+
+</div>
+</div>
+<a id="a3695fc10408feba97c3a20b20df8b35d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3695fc10408feba97c3a20b20df8b35d">&#9670;&nbsp;</a></span>Sipm_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;TMatrixT&lt;long long&gt; &gt; SiPM::Sipm_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definido na linha <a class="el" href="SiPM_8C_source.html#l00030">30</a> do ficheiro <a class="el" href="SiPM_8C_source.html">SiPM.C</a>.</p>
+
+</div>
+</div>
+<hr/>A documentação para esta classe foi gerada a partir do seguinte ficheiro:<ul>
+<li>source/3-positioning/<a class="el" href="SiPM_8C_source.html">SiPM.C</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

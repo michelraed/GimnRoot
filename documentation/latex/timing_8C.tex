@@ -1,0 +1,69 @@
+\hypertarget{timing_8C}{}\doxysection{Referência ao ficheiro source/4-\/timing/timing.C}
+\label{timing_8C}\index{source/4-\/timing/timing.C@{source/4-\/timing/timing.C}}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{timing_8C_a446efdd759747ae1cca6a972ff843bbb}{tsa}} (vector$<$ Long64\+\_\+t $>$ data)
+\item 
+double \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}} (vector$<$ Long64\+\_\+t $>$ time, vector$<$ Float\+\_\+t $>$ energy)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}\label{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}} 
+\index{timing.C@{timing.C}!tea@{tea}}
+\index{tea@{tea}!timing.C@{timing.C}}
+\doxysubsubsection{\texorpdfstring{tea()}{tea()}}
+{\footnotesize\ttfamily double tea (\begin{DoxyParamCaption}\item[{vector$<$ Long64\+\_\+t $>$}]{time,  }\item[{vector$<$ Float\+\_\+t $>$}]{energy }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 24 do ficheiro timing.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                                              \{}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keywordtype}{double} \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}}\{0\};}
+\DoxyCodeLine{27     \textcolor{keywordtype}{float} esum \{0\};}
+\DoxyCodeLine{28     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i =0; i <64 ; i++)\{}
+\DoxyCodeLine{29         \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}} += time[i]*energy[i];}
+\DoxyCodeLine{30         esum += energy[i];}
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32     \textcolor{keywordflow}{return} \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}}/esum;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 0
+\mbox{\Hypertarget{timing_8C_a446efdd759747ae1cca6a972ff843bbb}\label{timing_8C_a446efdd759747ae1cca6a972ff843bbb}} 
+\index{timing.C@{timing.C}!tsa@{tsa}}
+\index{tsa@{tsa}!timing.C@{timing.C}}
+\doxysubsubsection{\texorpdfstring{tsa()}{tsa()}}
+{\footnotesize\ttfamily double tsa (\begin{DoxyParamCaption}\item[{vector$<$ Long64\+\_\+t $>$}]{data }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 10 do ficheiro timing.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10                                      \{}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keywordtype}{int} n = 0;}
+\DoxyCodeLine{13     }
+\DoxyCodeLine{14     Long64\_t \mbox{\hyperlink{timing_8C_a446efdd759747ae1cca6a972ff843bbb}{tsa}} =0;}
+\DoxyCodeLine{15     \textcolor{keywordflow}{for} ( \textcolor{keywordtype}{int} i= 0 ; i < \mbox{\hyperlink{namespacecalculateCorrection_a97d4d180a74a166fa83dc8f73063e566}{data}}.size();i++)\{}
+\DoxyCodeLine{16         \mbox{\hyperlink{timing_8C_a446efdd759747ae1cca6a972ff843bbb}{tsa}}+= \mbox{\hyperlink{namespacecalculateCorrection_a97d4d180a74a166fa83dc8f73063e566}{data}}[i];}
+\DoxyCodeLine{17         n++;}
+\DoxyCodeLine{18     \}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{double}) \mbox{\hyperlink{timing_8C_a446efdd759747ae1cca6a972ff843bbb}{tsa}}/n;}
+\DoxyCodeLine{21 \}}
+
+\end{DoxyCode}
+
+
+Referências calculate\+Correction\+::data.
+

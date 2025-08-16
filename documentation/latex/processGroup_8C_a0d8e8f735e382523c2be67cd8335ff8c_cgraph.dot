@@ -1,0 +1,43 @@
+digraph "ProcessGroup"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ProcessGroup",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="anger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$positionings_8C.html#a3594ccf39b56f4d1fb53fcf99bd8f0fd",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="SiPM::getPositionsX",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSiPM.html#a635ae10d24ec15e014ce2304b6a2cacd",tooltip="Builded to give access to the vector containing the positions of the SiPM centers in X direction;."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="SiPM::getPositionsY",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSiPM.html#af5ddd2833d562976f7a337c702fce42e",tooltip="Builded to give access to the vector containing the positions of the SiPM centers in Y direction;."];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="getRowAndColumnSums",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a58ded12ac7f7c04057c493ccf56a3f9f",tooltip="Irá gerar a soma em linhas e colunas de uma dada matriz fornecida, este irá passar por referência os ..."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="GimnWrite::close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWrite.html#af441b64ae446ea298d77c1047ff0e4b6",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="CorrectChannelToPixelPs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a6f1e23b4e523c7cf4a7d7f7f93a6fa79",tooltip="CorrectChannelToPixelPS irá converter um determinado valor de canal das sipms ketek 3325-WB0808 em su..."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="divideMatrix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a23932ea1202706c57e0283e2e3732286",tooltip="Esta função irá dividir todos os elementos de uma matriz por um determinado valor."];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="Configurations::getChipIDs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classConfigurations.html#ace17727ff1c223937e5d2c348dc4aadd",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="Configurations::getCorrection\lFactors",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classConfigurations.html#ac3ee3266bb03685d6140514d9f4340ac",tooltip=" "];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="Configurations::gethMaxs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classConfigurations.html#a3d4a74954385babbc4d84eec0851f5c5",tooltip=" "];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="Configurations::gethMins",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classConfigurations.html#a383a49ba4ebb632dba52861705548673",tooltip=" "];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="Configurations::getName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classConfigurations.html#a6069927d9a2fe30b1072ccec66211438",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="Configurations::getType",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classConfigurations.html#aa35a1d10ce57058b465ca6134715c50e",tooltip=" "];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="GimnWrite::putData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWrite.html#ac34e33df18488a906e9e2c7e033ea0cb",tooltip="Este método irá carregar os dados processados em cada evento para as arvores que serão escritas no ar..."];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="splitString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a20f5ab9d09a254c776886ca97b67872c",tooltip="splitString é uma função que irá separar em um vetor de strings uma determinada string a partir de um..."];
+  Node1 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="tea",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timing_8C.html#a3236e93cd277b7408821fc3adf3c48e9",tooltip=" "];
+  Node1 -> Node18 [color="midnightblue",fontsize="10",style="solid"];
+  Node18 [label="GimnWrite::writeObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWrite.html#aa3a85d6a4e5119988fe491b22b51df2c",tooltip="Guarda os dados dos diversos histogramas coletados em pastas dentro do arquivo root gerado."];
+}

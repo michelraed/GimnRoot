@@ -1,0 +1,16 @@
+digraph "Identificator::getDetNum"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="Identificator::getDetNum",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Metodo getter para obter o valor do numero total de detectores conectados."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="GimnData::initializeHistograms",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnData.html#a6242b1694a5556eac794f63a687847d2",tooltip=" "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="GimnData::GimnData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnData.html#afbed09e81903bdc2fe01ab6466424574",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="SiPM::InitializePixels",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSiPM.html#a7dcb9edc3ce468c32275b56b5e10f6f3",tooltip=" "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="SiPM::SiPM",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSiPM.html#ad3802e1d20c609eb4e01ae978649c8e0",tooltip=" "];
+}

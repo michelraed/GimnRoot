@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GimnRoot: Código-Fonte de Run.C</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GimnRoot
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Run.C</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Run_8C.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;{</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    <span class="keyword">static</span> std::string outputFolder = <span class="stringliteral">&quot;/home/aquisicao/Documentos/PET_SYS/ROOT/Output/&quot;</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <span class="keyword">static</span> std::string correctionFactorsFolder = <span class="stringliteral">&quot;/home/aquisicao/Documentos/PET_SYS/ROOT/CorFac/&quot;</span>;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keyword">static</span> std::string aqdFolder = <span class="stringliteral">&quot;/home/aquisicao/Documentos/PET_SYS/Caracterizacao_2024/caracterizacao&quot;</span>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="Run_8C.html#afe5810dd6caf321f259c322e36a6f4e5">   11</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="Run_8C.html#afe5810dd6caf321f259c322e36a6f4e5">listarArquivosELoad</a> = [](<span class="keyword">const</span> std::string &amp;pasta)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        TSystemDirectory dir(pasta.c_str(), pasta.c_str());</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        TList *filesList = dir.GetListOfFiles();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">if</span> (filesList)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            TSystemFile *<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            TString filename;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            TIter next(filesList);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordflow">while</span> ((<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a> = (TSystemFile *)next()))</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                filename = <a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>-&gt;GetName();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                <span class="keywordflow">if</span> (!<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>-&gt;IsDirectory() &amp;&amp; TString(filename).EndsWith(<span class="stringliteral">&quot;.C&quot;</span>, TString::kIgnoreCase))</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                    std::cout &lt;&lt; filename.Data() &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                    std::string line = <span class="stringliteral">&quot;.L &quot;</span> + pasta + filename.Data();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                    std::cout &lt;&lt; line &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                    gROOT-&gt;ProcessLine(line.c_str());</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="Run_8C.html#a042d224c3e04ada1aaf502b170793723">   40</a></span>&#160;    <span class="keyword">auto</span> <a class="code" href="Run_8C.html#a042d224c3e04ada1aaf502b170793723">obterSubpastas</a> = [](<span class="keyword">const</span> std::string &amp;<a class="code" href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">pastaBase</a>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::vector&lt;std::string&gt; <a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        TSystemDirectory dir(<a class="code" href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">pastaBase</a>.c_str(), <a class="code" href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">pastaBase</a>.c_str());</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        TList *filesList = dir.GetListOfFiles();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> (filesList)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            TSystemFile *<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            TString filename;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            TIter next(filesList);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">while</span> ((<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a> = (TSystemFile *)next()))</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                filename = <a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>-&gt;GetName();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>-&gt;IsDirectory() &amp;&amp; !filename.BeginsWith(<span class="stringliteral">&quot;.&quot;</span>))</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    <a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a>.push_back(std::string(filename.Data()));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="comment">// Ordenar as subpastas em ordem alfabética</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::sort(<a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a>.begin(), <a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a>.end());</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    };</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// vasculha por arquivos .C dentro das pastas para carregar na memoria</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="Run_8C.html#a70ee7b20cfa928700f0caba132ee8e53">   71</a></span>&#160;    std::string <a class="code" href="Run_8C.html#a70ee7b20cfa928700f0caba132ee8e53">projectFolder</a> = gSystem-&gt;pwd();</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">   72</a></span>&#160;    std::string <a class="code" href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">pastaBase</a> = gSystem-&gt;pwd();</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">   73</a></span>&#160;    std::vector&lt;std::string&gt; <a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a> = <a class="code" href="Run_8C.html#a042d224c3e04ada1aaf502b170793723">obterSubpastas</a>(<a class="code" href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">pastaBase</a>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="Run_8C.html#aa557967605339b36a7a7792e6b9138f8">   75</a></span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;subpasta : <a class="code" href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a>)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        std::string subPasta = <a class="code" href="Run_8C.html#a70ee7b20cfa928700f0caba132ee8e53">projectFolder</a> + <span class="stringliteral">&quot;/&quot;</span> + subpasta;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        std::vector&lt;std::string&gt; subsubpastas = <a class="code" href="Run_8C.html#a042d224c3e04ada1aaf502b170793723">obterSubpastas</a>(subPasta);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::cout&lt;&lt;<span class="stringliteral">&quot;searching in : &quot;</span>&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        std::cout &lt;&lt; subPasta &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;subsubpasta : subsubpastas)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            std::string subsubsubPasta = subPasta + <span class="stringliteral">&quot;/&quot;</span> + subsubpasta+<span class="stringliteral">&quot;/&quot;</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <a class="code" href="Run_8C.html#afe5810dd6caf321f259c322e36a6f4e5">listarArquivosELoad</a>(subsubsubPasta);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            std::cout&lt;&lt;<span class="stringliteral">&quot;Loading in : &quot;</span>&lt;&lt;std::endl;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            std::cout &lt;&lt; subsubsubPasta &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="ttc" id="aRun_8C_html_a042d224c3e04ada1aaf502b170793723"><div class="ttname"><a href="Run_8C.html#a042d224c3e04ada1aaf502b170793723">obterSubpastas</a></div><div class="ttdeci">auto obterSubpastas</div><div class="ttdoc">Esta função será responsavel por mostrar todas as pastas presentes dentro de uma pasta.</div><div class="ttdef"><b>Definition:</b> <a href="Run_8C_source.html#l00040">Run.C:40</a></div></div>
+<div class="ttc" id="aRun_8C_html_a486386ee0c28f0cd585c096c3eb4de85"><div class="ttname"><a href="Run_8C.html#a486386ee0c28f0cd585c096c3eb4de85">subpastas</a></div><div class="ttdeci">std::vector&lt; std::string &gt; subpastas</div><div class="ttdef"><b>Definition:</b> <a href="Run_8C_source.html#l00073">Run.C:73</a></div></div>
+<div class="ttc" id="aRun_8C_html_a5d007779cae0dea9740c083db535b4ae"><div class="ttname"><a href="Run_8C.html#a5d007779cae0dea9740c083db535b4ae">pastaBase</a></div><div class="ttdeci">std::string pastaBase</div><div class="ttdef"><b>Definition:</b> <a href="Run_8C_source.html#l00072">Run.C:72</a></div></div>
+<div class="ttc" id="aRun_8C_html_a70ee7b20cfa928700f0caba132ee8e53"><div class="ttname"><a href="Run_8C.html#a70ee7b20cfa928700f0caba132ee8e53">projectFolder</a></div><div class="ttdeci">std::string projectFolder</div><div class="ttdef"><b>Definition:</b> <a href="Run_8C_source.html#l00071">Run.C:71</a></div></div>
+<div class="ttc" id="aRun_8C_html_afe5810dd6caf321f259c322e36a6f4e5"><div class="ttname"><a href="Run_8C.html#afe5810dd6caf321f259c322e36a6f4e5">listarArquivosELoad</a></div><div class="ttdeci">auto listarArquivosELoad</div><div class="ttdoc">Função utilizada para a leitura dos arquivos peresentes em uma determinada pasta.</div><div class="ttdef"><b>Definition:</b> <a href="Run_8C_source.html#l00011">Run.C:11</a></div></div>
+<div class="ttc" id="anamespacegenerateConf_html_afb71c2f6ae9835080e2abd165b6508f9"><div class="ttname"><a href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">generateConf.file</a></div><div class="ttdeci">file</div><div class="ttdef"><b>Definition:</b> <a href="generateConf_8py_source.html#l00061">generateConf.py:61</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

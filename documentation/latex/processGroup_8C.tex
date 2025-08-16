@@ -1,0 +1,330 @@
+\hypertarget{processGroup_8C}{}\doxysection{Referência ao ficheiro source/5-\/process/process\+Group.C}
+\label{processGroup_8C}\index{source/5-\/process/processGroup.C@{source/5-\/process/processGroup.C}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$TTree.\+h$>$}\newline
+{\ttfamily \#include $<$TH1\+F.\+h$>$}\newline
+{\ttfamily \#include $<$TH2\+F.\+h$>$}\newline
+{\ttfamily \#include $<$TFile.\+h$>$}\newline
+{\ttfamily \#include $<$TCanvas.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$TMatrix\+T.\+h$>$}\newline
+Diagrama de dependências de inclusão para process\+Group.\+C\+:
+% FIG 0
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ TCanvas $\ast$ $>$ \mbox{\hyperlink{processGroup_8C_a0d8e8f735e382523c2be67cd8335ff8c}{Process\+Group}} (std\+::string file\+Name, int Minimum\+Group\+Size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{processGroup_8C_a0d8e8f735e382523c2be67cd8335ff8c}\label{processGroup_8C_a0d8e8f735e382523c2be67cd8335ff8c}} 
+\index{processGroup.C@{processGroup.C}!ProcessGroup@{ProcessGroup}}
+\index{ProcessGroup@{ProcessGroup}!processGroup.C@{processGroup.C}}
+\doxysubsubsection{\texorpdfstring{ProcessGroup()}{ProcessGroup()}}
+{\footnotesize\ttfamily std\+::vector$<$TCanvas $\ast$$>$ Process\+Group (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Name,  }\item[{int}]{Minimum\+Group\+Size }\end{DoxyParamCaption})}
+
+numero de detectores e de canais por arrays
+
+Definido na linha 14 do ficheiro process\+Group.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{comment}{// cria as variaveis nescessárias à leitura do arquivo root}}
+\DoxyCodeLine{18     UShort\_t mh\_n\{0\}, mh\_j\{0\};}
+\DoxyCodeLine{19     UInt\_t channelID\{0\};}
+\DoxyCodeLine{20     Float\_t energy\{0.0\};}
+\DoxyCodeLine{21     Long64\_t time\{0\};}
+\DoxyCodeLine{22     std::vector<TString> ports;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{comment}{// abre o arquivo root}}
+\DoxyCodeLine{25     TFile *\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}} = \textcolor{keyword}{new} TFile(fileName.c\_str(), \textcolor{stringliteral}{"{}read"{}});}
+\DoxyCodeLine{26     TTree *tree = (TTree *)\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>Get(\textcolor{stringliteral}{"{}data"{}});}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{comment}{// cria os vetores que armazenarão as informações de tempo e energia dos eventos no grupo para calculo do timing}}
+\DoxyCodeLine{29     std::vector<Long64\_t> timeChanels(64, 0);}
+\DoxyCodeLine{30     std::vector<Float\_t> energyChanels(64, 0);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{comment}{// set branches}}
+\DoxyCodeLine{33     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}mh\_n"{}}, \&mh\_n);}
+\DoxyCodeLine{34     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}mh\_j"{}}, \&mh\_j);}
+\DoxyCodeLine{35     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}channelID"{}}, \&channelID);}
+\DoxyCodeLine{36     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}energy"{}}, \&energy);}
+\DoxyCodeLine{37     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}time"{}}, \&time);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{comment}{// declaracao dos histogramas;}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     std::vector<TCanvas *> Canvas;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{44     \textcolor{keywordtype}{int} detNum = 2;}
+\DoxyCodeLine{45     \textcolor{keywordtype}{int} channelsPerArray = 64;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{comment}{// inicializa os histogramas de energia por canal;}}
+\DoxyCodeLine{48     vector<vector<TH1F *>> chanellHistogram; \textcolor{comment}{// histograma por canal por detector}}
+\DoxyCodeLine{49     vector<TH1F *> GlobalEnergy;             \textcolor{comment}{// histograma global}}
+\DoxyCodeLine{50     vector<TH1F *> depthOfInteraction;       \textcolor{comment}{// profundidade de interação}}
+\DoxyCodeLine{51     vector<TH2F *> FloodHist;                \textcolor{comment}{// histograma de flood}}
+\DoxyCodeLine{52     \textcolor{keywordtype}{int} bins = 250;                          \textcolor{comment}{// bins dos histogramas}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54     \textcolor{comment}{// aqui se inicializa a parte de configuração do nosso sistema}}
+\DoxyCodeLine{55     \mbox{\hyperlink{classConfigurations}{Configurations}} c;}
+\DoxyCodeLine{56     \textcolor{keyword}{auto} correctionFactor = c.\mbox{\hyperlink{classConfigurations_ac3ee3266bb03685d6140514d9f4340ac}{getCorrectionFactors}}(); \textcolor{comment}{// fatores de correção para linearidade}}
+\DoxyCodeLine{57     \textcolor{keyword}{auto} detectorName = c.\mbox{\hyperlink{classConfigurations_a6069927d9a2fe30b1072ccec66211438}{getName}}();                  \textcolor{comment}{// nomes dos detectores}}
+\DoxyCodeLine{58     \textcolor{keyword}{auto} chpid = c.\mbox{\hyperlink{classConfigurations_ace17727ff1c223937e5d2c348dc4aadd}{getChipIDs}}();                      \textcolor{comment}{// chip ID de cada detector}}
+\DoxyCodeLine{59     \textcolor{keyword}{auto} myType = c.\mbox{\hyperlink{classConfigurations_aa35a1d10ce57058b465ca6134715c50e}{getType}}();                        \textcolor{comment}{// tipo do cristal em cada detector podendo ser mono ou seg}}
+\DoxyCodeLine{60     \textcolor{keyword}{auto} \mbox{\hyperlink{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}{hmin}} = c.\mbox{\hyperlink{classConfigurations_a383a49ba4ebb632dba52861705548673}{gethMins}}();                         \textcolor{comment}{// pega o minimo dos histogramas para cada detector}}
+\DoxyCodeLine{61     \textcolor{keyword}{auto} \mbox{\hyperlink{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}{hmax}} = c.\mbox{\hyperlink{classConfigurations_a3d4a74954385babbc4d84eec0851f5c5}{gethMaxs}}();                         \textcolor{comment}{// pega o maximo dos histogramas para cada detector}}
+\DoxyCodeLine{62     vector<TMatrixT<double>> Sipm; \textcolor{comment}{// matriz que irá representar as posições na SIPM}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{comment}{// vector<TMatrixT<Long64\_t>> Sipm\_t;}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{comment}{// Processa o caminho, para obter somente o nome do arquivo}}
+\DoxyCodeLine{67     \textcolor{keyword}{auto} name = \mbox{\hyperlink{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}{splitString}}(fileName, \textcolor{charliteral}{'/'});}
+\DoxyCodeLine{68     \textcolor{keyword}{auto} name\_pos = name.size();}
+\DoxyCodeLine{69     \textcolor{keywordtype}{string} outName = name[name\_pos -\/ 1];}
+\DoxyCodeLine{70     name = \mbox{\hyperlink{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}{splitString}}(outName, \textcolor{charliteral}{'.'});}
+\DoxyCodeLine{71     name\_pos = name.size();}
+\DoxyCodeLine{72     outName = name[0];}
+\DoxyCodeLine{73     outName = outName + \textcolor{stringliteral}{"{}\_processed.root"{}};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{comment}{// cria a classe que irá salvar os arquivos processados no HDD}}
+\DoxyCodeLine{76     \mbox{\hyperlink{classGimnWrite}{GimnWrite}} Output(outName.c\_str());}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{comment}{// inicializa os histogramas em cada posição do vetor para armazenar os dados da aqusição}}
+\DoxyCodeLine{79     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} = 0; \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} < detNum; \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}++)}
+\DoxyCodeLine{80     \{}
+\DoxyCodeLine{81         \textcolor{comment}{// inicia as sipms}}
+\DoxyCodeLine{82         Sipm.push\_back(TMatrixT<double>(8, 8));}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84         \textcolor{comment}{// inicia os canais}}
+\DoxyCodeLine{85         vector<TH1F *> auxHistChan;}
+\DoxyCodeLine{86         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} chan = 0; chan < channelsPerArray; chan++)}
+\DoxyCodeLine{87         \{}
+\DoxyCodeLine{88             \textcolor{keywordtype}{string} channelName\{\textcolor{stringliteral}{"{}channel-\/"{}}\};}
+\DoxyCodeLine{89             channelName = channelName + std::to\_string(chan) + std::string(detectorName[\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}].c\_str());}
+\DoxyCodeLine{90             TH1F *myHisto = \textcolor{keyword}{new} TH1F(channelName.c\_str(), channelName.c\_str(), bins, \mbox{\hyperlink{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}{hmin}}[\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}], \mbox{\hyperlink{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}{hmax}}[\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}]);}
+\DoxyCodeLine{91             auxHistChan.push\_back(myHisto);}
+\DoxyCodeLine{92             std::cout << \textcolor{stringliteral}{"{}initializing histogram : "{}} << channelName << std::endl;}
+\DoxyCodeLine{93         \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95         \textcolor{comment}{// inicia histograma global doi e flood}}
+\DoxyCodeLine{96         \textcolor{keywordtype}{string} globalName = std::string(detectorName[\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}].c\_str());}
+\DoxyCodeLine{97         TH1F *myglobalHisto = \textcolor{keyword}{new} TH1F(globalName.c\_str(), globalName.c\_str(), bins, \mbox{\hyperlink{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}{hmin}}[\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}], \mbox{\hyperlink{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}{hmax}}[\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}]);}
+\DoxyCodeLine{98         std::string floodName = globalName + \textcolor{stringliteral}{"{}flood"{}};}
+\DoxyCodeLine{99         TH2F *flood = \textcolor{keyword}{new} TH2F(floodName.c\_str(), floodName.c\_str(), 256, -\/13.44, 13.44, 256, -\/13.44, 13.44);}
+\DoxyCodeLine{100         std::string DoiName = globalName + \textcolor{stringliteral}{"{}-\/ Doi"{}};}
+\DoxyCodeLine{101         TH1F *myDoi = \textcolor{keyword}{new} TH1F(DoiName.c\_str(), DoiName.c\_str(), 256, 0, 3);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103         depthOfInteraction.push\_back(myDoi);}
+\DoxyCodeLine{104         GlobalEnergy.push\_back(myglobalHisto);}
+\DoxyCodeLine{105         FloodHist.push\_back(flood);}
+\DoxyCodeLine{106         chanellHistogram.push\_back(auxHistChan);}
+\DoxyCodeLine{107     \}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109     \textcolor{keywordtype}{int} pos = 0;    \textcolor{comment}{// posicao do elemento dentro do vetor de detectores e configurações}}
+\DoxyCodeLine{110     \textcolor{keywordtype}{float} esum = 0; \textcolor{comment}{// soma da energia do grupo}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     \textcolor{comment}{// inicializa a barra de progresso ...}}
+\DoxyCodeLine{113     std::string loading = \textcolor{stringliteral}{"{}[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]"{}};}
+\DoxyCodeLine{114     \textcolor{keywordtype}{int} load\_pos = 1;}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116     \textcolor{keyword}{const} \textcolor{keywordtype}{int} entries = tree-\/>GetEntries();}
+\DoxyCodeLine{117     \textcolor{keywordflow}{for} (Int\_t event = 0; \textcolor{keyword}{event} <= entries; \textcolor{keyword}{event}++)}
+\DoxyCodeLine{118     \{}
+\DoxyCodeLine{119         \textcolor{comment}{// std::cout << "{} *******************************************  "{} << std::endl;}}
+\DoxyCodeLine{120         \textcolor{comment}{// std::cout << "{} Event  "{} << event << std::endl;}}
+\DoxyCodeLine{121         tree-\/>GetEntry(event);}
+\DoxyCodeLine{122         Int\_t chipID = (int)channelID / 64;}
+\DoxyCodeLine{123         Int\_t channel = channelID -\/ 64 * chipID;}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126         \textcolor{keywordflow}{if} (event > ((entries / 50.0) * load\_pos))}
+\DoxyCodeLine{127         \{}
+\DoxyCodeLine{128             \textcolor{keyword}{auto} porcento = ((double)event /(\textcolor{keywordtype}{double}) entries) * 100;}
+\DoxyCodeLine{129             \textcolor{keyword}{auto} clear = system(\textcolor{stringliteral}{"{}clear"{}});}
+\DoxyCodeLine{130             loading[load\_pos] = \textcolor{charliteral}{'='};}
+\DoxyCodeLine{131             std::cout << loading << porcento << \textcolor{stringliteral}{"{}\%"{}} << std::endl;}
+\DoxyCodeLine{132             load\_pos += 1;}
+\DoxyCodeLine{133         \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135         \textcolor{comment}{// std::cout << "{} channelID  "{} << channelID << std::endl;}}
+\DoxyCodeLine{136         \textcolor{comment}{// std::cout << "{} chipID  "{} << chipID << std::endl;}}
+\DoxyCodeLine{137         \textcolor{comment}{// std::cout << "{} channel  "{} << channel << std::endl;}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139         \textcolor{comment}{// aqui o programa busca qual a posição do chipID no vetor chpid de configuração}}
+\DoxyCodeLine{140         \textcolor{keyword}{auto} it = std::find(chpid.begin(), chpid.end(), chipID);}
+\DoxyCodeLine{141         \textcolor{keywordflow}{if} (it != chpid.end())}
+\DoxyCodeLine{142             pos = std::distance(chpid.begin(), it);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144         \textcolor{comment}{// se monolitico}}
+\DoxyCodeLine{145         \textcolor{keywordflow}{if} (myType[pos] == \textcolor{stringliteral}{"{}mono"{}})}
+\DoxyCodeLine{146         \{}
+\DoxyCodeLine{147             \textcolor{comment}{// se numero de eventos no grupo maior do que um numero minimo}}
+\DoxyCodeLine{148             \textcolor{keywordflow}{if} (mh\_n > MinimumGroupSize)}
+\DoxyCodeLine{149             \{}
+\DoxyCodeLine{150                 chanellHistogram[pos][channel]-\/>Fill(energy);}
+\DoxyCodeLine{151                 \textcolor{keyword}{auto} pos\_xy = \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{CorrectChannelToPixelPs}}(channel);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153   }
+\DoxyCodeLine{154                 \textcolor{comment}{// eventos do grupo}}
+\DoxyCodeLine{155                 \textcolor{keywordflow}{if} (mh\_j < (mh\_n -\/ 1))}
+\DoxyCodeLine{156                 \{}
+\DoxyCodeLine{157                     Sipm[pos](pos\_xy[1], pos\_xy[0]) = +energy;}
+\DoxyCodeLine{158                     timeChanels[channel] = time;}
+\DoxyCodeLine{159                     energyChanels[channel] = energy;}
+\DoxyCodeLine{160                     esum += energy;}
+\DoxyCodeLine{161                 \}}
+\DoxyCodeLine{162                 \textcolor{comment}{// ultimo evento}}
+\DoxyCodeLine{163                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mh\_j == mh\_n -\/ 1)}
+\DoxyCodeLine{164                 \{}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166                     Sipm[pos](pos\_xy[1], pos\_xy[0]) = +energy;}
+\DoxyCodeLine{167                     esum += energy;}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169                     timeChanels[channel] = time;}
+\DoxyCodeLine{170                     energyChanels[channel] = energy;}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172                     \textcolor{comment}{// corrige pelo fator de correção encontrado}}
+\DoxyCodeLine{173                     \mbox{\hyperlink{Utils_8C_a23932ea1202706c57e0283e2e3732286}{divideMatrix}}(Sipm[pos], correctionFactor[pos]);}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175                     \{}
+\DoxyCodeLine{176                         \mbox{\hyperlink{structGimnEvent}{GimnEvent}} ev;}
+\DoxyCodeLine{177                         \textcolor{keyword}{auto} Positions3D = \mbox{\hyperlink{positionings_8C_a3594ccf39b56f4d1fb53fcf99bd8f0fd}{anger}}(Sipm[pos]);}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179                         ev.\mbox{\hyperlink{structGimnEvent_ac3f45fc5f73834e532b34fd9a6c2320a}{channel}} = 0;}
+\DoxyCodeLine{180                         ev.\mbox{\hyperlink{structGimnEvent_a6360034c363ffa9d13eea675e183548a}{Energy}} = esum;}
+\DoxyCodeLine{181                         ev.\mbox{\hyperlink{structGimnEvent_a521ae7f19bb4cde9533a579bb0304137}{time}} = \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}}(timeChanels, energyChanels);}
+\DoxyCodeLine{182                         ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}} = Positions3D[0];}
+\DoxyCodeLine{183                         ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}} = Positions3D[1];}
+\DoxyCodeLine{184                         ev.\mbox{\hyperlink{structGimnEvent_a1dcd2ad41d532d230aae8a6f08169a0a}{doi}} = Positions3D[2];}
+\DoxyCodeLine{185                         ev.\mbox{\hyperlink{structGimnEvent_a69c41d7fb454e50509c61cbc5053ab4d}{Port}} = chpid[pos];}
+\DoxyCodeLine{186                         ev.\mbox{\hyperlink{structGimnEvent_a4185387693d9c0b7d286c48e65e3a109}{sipmX}} = 0;}
+\DoxyCodeLine{187                         ev.\mbox{\hyperlink{structGimnEvent_aaeb414157eac4de04ac65acc373b905c}{sipmY}} = 0.;}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189                         GlobalEnergy[pos]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a6360034c363ffa9d13eea675e183548a}{Energy}});}
+\DoxyCodeLine{190                         depthOfInteraction[pos]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a1dcd2ad41d532d230aae8a6f08169a0a}{doi}});}
+\DoxyCodeLine{191                         FloodHist[pos]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}}, ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}});}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193                         \textcolor{keywordtype}{bool} out = \textcolor{keyword}{false};}
+\DoxyCodeLine{194                         \textcolor{keywordflow}{if} ((ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}} > 13.44 || ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}} < -\/13.44) \&\& (ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}} > 13.44 || ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}} < -\/13.44))}
+\DoxyCodeLine{195                             out = \textcolor{keyword}{true};}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197                         \textcolor{keywordflow}{if} (!out)}
+\DoxyCodeLine{198                         \{}
+\DoxyCodeLine{199                             Output.putData(ev);}
+\DoxyCodeLine{200                         \}}
+\DoxyCodeLine{201                     \}}
+\DoxyCodeLine{202                     esum = 0;}
+\DoxyCodeLine{203                     Sipm[pos].Zero();}
+\DoxyCodeLine{204                 \}}
+\DoxyCodeLine{205             \}}
+\DoxyCodeLine{206         \}}
+\DoxyCodeLine{207         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (myType[pos] == \textcolor{stringliteral}{"{}seg"{}})}
+\DoxyCodeLine{208         \{}
+\DoxyCodeLine{209             \textcolor{keywordflow}{if} (mh\_j == 0)}
+\DoxyCodeLine{210             \{}
+\DoxyCodeLine{211                 chanellHistogram[pos][channel]-\/>Fill(energy);}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213                 \textcolor{keyword}{auto} pos\_xy = \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{CorrectChannelToPixelPs}}(channel);}
+\DoxyCodeLine{214                 Sipm[pos](pos\_xy[1], pos\_xy[0]) = +energy;}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{216                 \mbox{\hyperlink{classSiPM}{SiPM}} aux;}
+\DoxyCodeLine{217                 std::vector<Float\_t> xPos = aux.\mbox{\hyperlink{classSiPM_a635ae10d24ec15e014ce2304b6a2cacd}{getPositionsX}}();}
+\DoxyCodeLine{218                 std::vector<Float\_t> yPos = aux.getPositionsY();}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220                 \mbox{\hyperlink{structGimnEvent}{GimnEvent}} ev;}
+\DoxyCodeLine{221                 ev.\mbox{\hyperlink{structGimnEvent_ac3f45fc5f73834e532b34fd9a6c2320a}{channel}} = 0;}
+\DoxyCodeLine{222                 ev.\mbox{\hyperlink{structGimnEvent_a6360034c363ffa9d13eea675e183548a}{Energy}} = energy;}
+\DoxyCodeLine{223                 ev.\mbox{\hyperlink{structGimnEvent_a521ae7f19bb4cde9533a579bb0304137}{time}} = time;}
+\DoxyCodeLine{224                 ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}} = xPos[pos\_xy[0]];}
+\DoxyCodeLine{225                 ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}} = yPos[pos\_xy[1]];}
+\DoxyCodeLine{226                 ev.\mbox{\hyperlink{structGimnEvent_a1dcd2ad41d532d230aae8a6f08169a0a}{doi}} = 0;}
+\DoxyCodeLine{227                 ev.\mbox{\hyperlink{structGimnEvent_a69c41d7fb454e50509c61cbc5053ab4d}{Port}} = chpid[pos];}
+\DoxyCodeLine{228                 ev.\mbox{\hyperlink{structGimnEvent_a4185387693d9c0b7d286c48e65e3a109}{sipmX}} = 0;}
+\DoxyCodeLine{229                 ev.\mbox{\hyperlink{structGimnEvent_aaeb414157eac4de04ac65acc373b905c}{sipmY}} = 0.;}
+\DoxyCodeLine{230                 GlobalEnergy[pos]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a6360034c363ffa9d13eea675e183548a}{Energy}});}
+\DoxyCodeLine{231                 depthOfInteraction[pos]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a1dcd2ad41d532d230aae8a6f08169a0a}{doi}});}
+\DoxyCodeLine{232                 FloodHist[pos]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}}, ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}});}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234                 Output.putData(ev);}
+\DoxyCodeLine{235             \}}
+\DoxyCodeLine{236         \}}
+\DoxyCodeLine{237     \}}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Detector1"{}}, \textcolor{stringliteral}{"{}Detector1"{}}, 4000, 4000));}
+\DoxyCodeLine{240     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Detector2"{}}, \textcolor{stringliteral}{"{}Detector2"{}}, 4000, 4000));}
+\DoxyCodeLine{241     \textcolor{comment}{//Canvas.push\_back(new TCanvas("{}Detector3"{}, "{}Detector3"{}, 4000, 4000));}}
+\DoxyCodeLine{242     \textcolor{comment}{//Canvas.push\_back(new TCanvas("{}Detector4"{}, "{}Detector4"{}, 4000, 4000));}}
+\DoxyCodeLine{243     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Global Energy"{}}, \textcolor{stringliteral}{"{}Global Energy"{}}, 4000, 4000));}
+\DoxyCodeLine{244     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Floods"{}}, \textcolor{stringliteral}{"{}Floods"{}}, 4000, 4000));}
+\DoxyCodeLine{245     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Doi"{}}, \textcolor{stringliteral}{"{}Doi"{}}, 4000, 4000));}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{247     \textcolor{keywordflow}{for} (Int\_t i = 0; i < detNum; i++)}
+\DoxyCodeLine{248     \{}
+\DoxyCodeLine{249         \textcolor{comment}{// std::string canvasName = (std::string)ports[i].Data()+ "{}Channel MAP"{};}}
+\DoxyCodeLine{250         \textcolor{comment}{// Canvas.push\_back(new TCanvas(ports[i].Data(),canvasName.c\_str(),4000,4000));}}
+\DoxyCodeLine{251         Canvas[i]-\/>Divide(8, 8);}
+\DoxyCodeLine{252         \textcolor{keywordflow}{for} (Int\_t channels = 0; channels < channelsPerArray; channels++)}
+\DoxyCodeLine{253         \{}
+\DoxyCodeLine{254             \textcolor{keyword}{auto} pos\_yx = \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{CorrectChannelToPixelPs}}(channels);}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256             Canvas[i]-\/>cd((pos\_yx[0] * 8 + pos\_yx[1]) + 1);}
+\DoxyCodeLine{257             chanellHistogram[i][channels]-\/>Draw(\textcolor{stringliteral}{"{}HIST"{}});}
+\DoxyCodeLine{258         \}}
+\DoxyCodeLine{259         \textcolor{comment}{// std::string saveAs = (std::string)ports[i].Data()+ "{}ChannelMAP.png"{};}}
+\DoxyCodeLine{260         Canvas[i]-\/>Draw(); \textcolor{comment}{// Print(saveAs.c\_str());}}
+\DoxyCodeLine{261     \}}
+\DoxyCodeLine{262 }
+\DoxyCodeLine{263     Canvas[2]-\/>Divide(2, 2);}
+\DoxyCodeLine{264     Canvas[2]-\/>cd(1);}
+\DoxyCodeLine{265     GlobalEnergy[0]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{266     Canvas[2]-\/>cd(2);}
+\DoxyCodeLine{267     GlobalEnergy[1]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{268     Canvas[2]-\/>cd(3);}
+\DoxyCodeLine{269     FloodHist[0]-\/>Draw(\textcolor{stringliteral}{"{}COLZ"{}});}
+\DoxyCodeLine{270     \textcolor{comment}{//GlobalEnergy[2]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{271     Canvas[2]-\/>cd(4);}
+\DoxyCodeLine{272     FloodHist[1]-\/>Draw(\textcolor{stringliteral}{"{}COLZ"{}});}
+\DoxyCodeLine{273     }
+\DoxyCodeLine{274     \textcolor{comment}{//GlobalEnergy[3]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{275     Canvas[2]-\/>Draw();}
+\DoxyCodeLine{276 }
+\DoxyCodeLine{277     \textcolor{comment}{//Canvas[3]-\/>Divide(2, 2);}}
+\DoxyCodeLine{278     \textcolor{comment}{//Canvas[3]-\/>cd(1);}}
+\DoxyCodeLine{279     \textcolor{comment}{//FloodHist[0]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{280     \textcolor{comment}{//Canvas[3]-\/>cd(2);}}
+\DoxyCodeLine{281     \textcolor{comment}{//FloodHist[1]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{282     \textcolor{comment}{//Canvas[3]-\/>cd(3);}}
+\DoxyCodeLine{283     \textcolor{comment}{//FloodHist[2]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{284     \textcolor{comment}{//Canvas[3]-\/>cd(4);}}
+\DoxyCodeLine{285     \textcolor{comment}{//FloodHist[3]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{286     \textcolor{comment}{//Canvas[3]-\/>Draw();}}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288     Canvas[4]-\/>Divide(2, 1);}
+\DoxyCodeLine{289     Canvas[4]-\/>cd(1);}
+\DoxyCodeLine{290     depthOfInteraction[0]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{291     Canvas[4]-\/>cd(2);}
+\DoxyCodeLine{292     depthOfInteraction[1]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{293     \textcolor{comment}{//Canvas[4]-\/>cd(3);}}
+\DoxyCodeLine{294     \textcolor{comment}{//depthOfInteraction[2]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{295     \textcolor{comment}{//Canvas[4]-\/>cd(4);}}
+\DoxyCodeLine{296     \textcolor{comment}{//depthOfInteraction[3]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{297     Canvas[4]-\/>Draw();}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299     Output.writeObject(chanellHistogram, GlobalEnergy, depthOfInteraction, FloodHist, detectorName, chpid, Canvas);}
+\DoxyCodeLine{300     Output.close();}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{302 }
+\DoxyCodeLine{303     \textcolor{keywordflow}{return} Canvas;}
+\DoxyCodeLine{304 \}}
+
+\end{DoxyCode}
+
+
+Referências anger(), Gimn\+Event\+::channel, Gimn\+Write\+::close(), Correct\+Channel\+To\+Pixel\+Ps(), calculate\+Correction\+::detector, divide\+Matrix(), Gimn\+Event\+::doi, Gimn\+Event\+::\+Energy, generate\+Conf\+::file, Configurations\+::get\+Chip\+IDs(), Configurations\+::get\+Correction\+Factors(), Configurations\+::geth\+Maxs(), Configurations\+::geth\+Mins(), Configurations\+::get\+Name(), Si\+PM\+::get\+Positions\+X(), Configurations\+::get\+Type(), generate\+Conf\+::hmax, generate\+Conf\+::hmin, Gimn\+Event\+::\+Port, Gimn\+Write\+::put\+Data(), Gimn\+Event\+::sipmX, Gimn\+Event\+::sipmY, split\+String(), tea(), Gimn\+Event\+::time, Gimn\+Write\+::write\+Object(), Gimn\+Event\+::xmm e Gimn\+Event\+::ymm.
+
+Grafo de chamadas desta função\+:
+% FIG 1

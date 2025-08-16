@@ -1,0 +1,166 @@
+\hypertarget{positionings_8C}{}\doxysection{Referência ao ficheiro source/3-\/positioning/positionings.C}
+\label{positionings_8C}\index{source/3-\/positioning/positionings.C@{source/3-\/positioning/positionings.C}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$TROOT.\+h$>$}\newline
+Diagrama de dependências de inclusão para positionings.\+C\+:
+% FIG 0
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{positionings_8C_a3594ccf39b56f4d1fb53fcf99bd8f0fd}{anger}} (TMatrixT$<$ double $>$ energy)
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{positionings_8C_a840ce43d3f6a734cab40734bc1677322}{anger\+Modified}} (double alpha, TMatrixT$<$ double $>$ energy)
+\item 
+void \mbox{\hyperlink{positionings_8C_ab669dabe449ed39eddb2249fbd85b9da}{apply\+Alpha}} (double alpha, std\+::vector$<$ double $>$ \&vec)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{positionings_8C_a3594ccf39b56f4d1fb53fcf99bd8f0fd}\label{positionings_8C_a3594ccf39b56f4d1fb53fcf99bd8f0fd}} 
+\index{positionings.C@{positionings.C}!anger@{anger}}
+\index{anger@{anger}!positionings.C@{positionings.C}}
+\doxysubsubsection{\texorpdfstring{anger()}{anger()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ anger (\begin{DoxyParamCaption}\item[{TMatrixT$<$ double $>$}]{energy }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 18 do ficheiro positionings.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \mbox{\hyperlink{classSiPM}{SiPM}} aux;}
+\DoxyCodeLine{22     std::vector<Float\_t> xPos = aux.\mbox{\hyperlink{classSiPM_a635ae10d24ec15e014ce2304b6a2cacd}{getPositionsX}}();}
+\DoxyCodeLine{23     std::vector<Float\_t> yPos = aux.\mbox{\hyperlink{classSiPM_af5ddd2833d562976f7a337c702fce42e}{getPositionsY}}();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{auto} sum = energy.Sum();}
+\DoxyCodeLine{26     std::vector<double> rowSums(energy.GetNrows(), 0);}
+\DoxyCodeLine{27     std::vector<double> colSums(energy.GetNcols(), 0);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{const} \textcolor{keyword}{auto} I = energy.Max();}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \mbox{\hyperlink{Utils_8C_a58ded12ac7f7c04057c493ccf56a3f9f}{getRowAndColumnSums}}(energy, rowSums, colSums);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{comment}{// Scrimger and Baker formula}}
+\DoxyCodeLine{35     \textcolor{comment}{// N = 2*PI * I * t²}}
+\DoxyCodeLine{36     \textcolor{comment}{// N is the integral of scintilation light  (esum)}}
+\DoxyCodeLine{37     \textcolor{comment}{// I is the maximum intnsity}}
+\DoxyCodeLine{38     \textcolor{comment}{// t is the distance between photon scintilation and the detection plane "{}(doi)"{}}}
+\DoxyCodeLine{39     \textcolor{comment}{//}}
+\DoxyCodeLine{40     \textcolor{comment}{// t  =  sqrt(N/(2*PI*I))}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42     \textcolor{comment}{//const double DOI = sqrt(sum / (2 * TMath::Pi() * I));}}
+\DoxyCodeLine{43      \textcolor{keyword}{const} \textcolor{keywordtype}{double} DOI = I/sum;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keywordtype}{float} u\{0\}, v\{0\};}
+\DoxyCodeLine{46     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 8; i++)}
+\DoxyCodeLine{47     \{}
+\DoxyCodeLine{48         v += rowSums[i] * yPos[i];}
+\DoxyCodeLine{49         u += colSums[i] * xPos[i];}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51  }
+\DoxyCodeLine{52     u = u / sum;}
+\DoxyCodeLine{53     v = v / sum;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     std::vector<double> output (3,0);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     output[0]=u;}
+\DoxyCodeLine{58     output[1]=v;}
+\DoxyCodeLine{59     output[2]=DOI;}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{62 \}}
+
+\end{DoxyCode}
+
+
+Referências Si\+PM\+::get\+Positions\+X(), Si\+PM\+::get\+Positions\+Y() e get\+Row\+And\+Column\+Sums().
+
+Grafo de chamadas desta função\+:
+% FIG 1
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 2
+\mbox{\Hypertarget{positionings_8C_a840ce43d3f6a734cab40734bc1677322}\label{positionings_8C_a840ce43d3f6a734cab40734bc1677322}} 
+\index{positionings.C@{positionings.C}!angerModified@{angerModified}}
+\index{angerModified@{angerModified}!positionings.C@{positionings.C}}
+\doxysubsubsection{\texorpdfstring{angerModified()}{angerModified()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ anger\+Modified (\begin{DoxyParamCaption}\item[{double}]{alpha,  }\item[{TMatrixT$<$ double $>$}]{energy }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 66 do ficheiro positionings.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                                                       \{}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     std::vector<double> rowSums(energy.GetNrows(), 0);}
+\DoxyCodeLine{69     std::vector<double> colSums(energy.GetNcols(), 0);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keyword}{const} \textcolor{keyword}{auto} I = energy.Max();}
+\DoxyCodeLine{72     \textcolor{keyword}{const} \textcolor{keyword}{auto} sum = energy.Sum();}
+\DoxyCodeLine{73     \mbox{\hyperlink{Utils_8C_a58ded12ac7f7c04057c493ccf56a3f9f}{getRowAndColumnSums}}(energy, rowSums, colSums);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \mbox{\hyperlink{positionings_8C_ab669dabe449ed39eddb2249fbd85b9da}{applyAlpha}}(alpha, rowSums);}
+\DoxyCodeLine{76     \mbox{\hyperlink{positionings_8C_ab669dabe449ed39eddb2249fbd85b9da}{applyAlpha}}(alpha, colSums);}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{comment}{// Scrimger and Baker formula}}
+\DoxyCodeLine{79     \textcolor{comment}{// N = 2*PI * I * t²}}
+\DoxyCodeLine{80     \textcolor{comment}{// N is the integral of scintilation light  (esum)}}
+\DoxyCodeLine{81     \textcolor{comment}{// I is the maximum intnsity}}
+\DoxyCodeLine{82     \textcolor{comment}{// t is the distance between photon scintilation and the detection plane "{}(doi)"{}}}
+\DoxyCodeLine{83     \textcolor{comment}{//}}
+\DoxyCodeLine{84     \textcolor{comment}{// t  =  sqrt(N/(2*PI*I))}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{keyword}{const} \textcolor{keywordtype}{double} DOI = sqrt(sum / (2 * TMath::Pi() * I));}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     \textcolor{keywordtype}{float} u\{0\}, v\{0\};}
+\DoxyCodeLine{89     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 8; i++)}
+\DoxyCodeLine{90     \{}
+\DoxyCodeLine{91         v += rowSums[i] * (double)(i + 1);}
+\DoxyCodeLine{92         u += colSums[i] * (double)(i + 1);}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94  }
+\DoxyCodeLine{95     }
+\DoxyCodeLine{96     u = u / sum;}
+\DoxyCodeLine{97     v = v / sum;}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     std::vector<double> output (3,0);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     output[0]=u;}
+\DoxyCodeLine{102     output[1]=v;}
+\DoxyCodeLine{103     output[2]=DOI;}
+\DoxyCodeLine{104     \textcolor{keywordflow}{return} output;}
+\DoxyCodeLine{105 \}}
+
+\end{DoxyCode}
+
+
+Referências apply\+Alpha() e get\+Row\+And\+Column\+Sums().
+
+Grafo de chamadas desta função\+:
+% FIG 3
+\mbox{\Hypertarget{positionings_8C_ab669dabe449ed39eddb2249fbd85b9da}\label{positionings_8C_ab669dabe449ed39eddb2249fbd85b9da}} 
+\index{positionings.C@{positionings.C}!applyAlpha@{applyAlpha}}
+\index{applyAlpha@{applyAlpha}!positionings.C@{positionings.C}}
+\doxysubsubsection{\texorpdfstring{applyAlpha()}{applyAlpha()}}
+{\footnotesize\ttfamily void apply\+Alpha (\begin{DoxyParamCaption}\item[{double}]{alpha,  }\item[{std\+::vector$<$ double $>$ \&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 10 do ficheiro positionings.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \&v : vec)}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         v = pow(v, alpha);}
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16 \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 4

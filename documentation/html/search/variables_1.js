@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['channel_298',['channel',['../structGimnEvent.html#ac3f45fc5f73834e532b34fd9a6c2320a',1,'GimnEvent']]],
+  ['channel_5f1_299',['channel_1',['../structGimnEvent.html#a7f34bd133a64a9ac443c80d9b4df4174',1,'GimnEvent']]],
+  ['channel_5f2_300',['channel_2',['../structGimnEvent.html#a9a3bf7e784e8240b5ebf9c7e5f5db714',1,'GimnEvent']]],
+  ['channelenergyhistogram_301',['channelEnergyHistogram',['../classGimnData.html#a50d135bdff6016ed99ef4942276ea01c',1,'GimnData']]],
+  ['channelsperarray_302',['channelsPerArray',['../classGimnData.html#ae16174e6d1c8a1fdb9e14831863d917f',1,'GimnData']]],
+  ['channeltimeskew_303',['channelTimeSkew',['../classGimnData.html#a1f89dc24866a0f381b17a0e29ae4b136',1,'GimnData']]],
+  ['channeltimewalk_304',['channelTimeWalk',['../classGimnData.html#a931cf15ed7deefd6953979ed428570e7',1,'GimnData']]],
+  ['channeltimewalk1_305',['channelTimeWalk1',['../classGimnData.html#a92921447391df668b20c46c08253da21',1,'GimnData']]],
+  ['channeltimewalk2_306',['channelTimeWalk2',['../classGimnData.html#abbd6edf5de9f7903e34a6f2c0402fb3a',1,'GimnData']]],
+  ['channeltimewalk3_307',['channelTimeWalk3',['../classGimnData.html#a03913430b6eaba7f58e2f9367d9f9389',1,'GimnData']]],
+  ['chipid_308',['chipID',['../classIdentificator.html#a49a7555dea244ef69b721713c82c5c28',1,'Identificator']]],
+  ['chipids_309',['chipIDs',['../namespacegenerateConf.html#a0c8b4e4264804c9c577189e2a82a67aa',1,'generateConf']]],
+  ['coincidenceid_310',['coincidenceID',['../structGimnEvent.html#ac4021adf3ca3e828e56abb8df5a8184f',1,'GimnEvent']]],
+  ['count_311',['count',['../namespacecalculateCorrection.html#a47a69498b10e729c6db8fa227ff363ec',1,'calculateCorrection']]],
+  ['crystal_312',['crystal',['../namespacegenerateConf.html#a3e6426cb7b8d68521d2ca4be95ae12a2',1,'generateConf']]],
+  ['crystaltype_313',['crystalType',['../classIdentificator.html#a79ebe93018115b3e957df9cfb41d75ee',1,'Identificator']]],
+  ['ctr_314',['CTR',['../structGimnEvent.html#ab36c32bafc322bd6871a7fa6800d4a89',1,'GimnEvent']]]
+];

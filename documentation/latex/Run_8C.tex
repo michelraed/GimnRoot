@@ -1,0 +1,176 @@
+\hypertarget{Run_8C}{}\doxysection{Referência ao ficheiro Run.\+C}
+\label{Run_8C}\index{Run.C@{Run.C}}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Run_8C_aa557967605339b36a7a7792e6b9138f8}{for}} (const auto \&subpasta \+:\mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+auto \mbox{\hyperlink{Run_8C_afe5810dd6caf321f259c322e36a6f4e5}{listar\+Arquivos\+ELoad}}
+\begin{DoxyCompactList}\small\item\em Função utilizada para a leitura dos arquivos peresentes em uma determinada pasta. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{Run_8C_a042d224c3e04ada1aaf502b170793723}{obter\+Subpastas}}
+\begin{DoxyCompactList}\small\item\em Esta função será responsavel por mostrar todas as pastas presentes dentro de uma pasta. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{Run_8C_a70ee7b20cfa928700f0caba132ee8e53}{project\+Folder}} = g\+System-\/$>$pwd()
+\item 
+std\+::string \mbox{\hyperlink{Run_8C_a5d007779cae0dea9740c083db535b4ae}{pasta\+Base}} = g\+System-\/$>$pwd()
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}} = \mbox{\hyperlink{Run_8C_a042d224c3e04ada1aaf502b170793723}{obter\+Subpastas}}(\mbox{\hyperlink{Run_8C_a5d007779cae0dea9740c083db535b4ae}{pasta\+Base}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{Run_8C_aa557967605339b36a7a7792e6b9138f8}\label{Run_8C_aa557967605339b36a7a7792e6b9138f8}} 
+\index{Run.C@{Run.C}!for@{for}}
+\index{for@{for}!Run.C@{Run.C}}
+\doxysubsubsection{\texorpdfstring{for()}{for()}}
+{\footnotesize\ttfamily for (\begin{DoxyParamCaption}\item[{const auto \&subpasta \+:\mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}}}]{ }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 75 do ficheiro Run.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75                               : \mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}})}
+\DoxyCodeLine{76     \{}
+\DoxyCodeLine{77         std::string subPasta = \mbox{\hyperlink{Run_8C_a70ee7b20cfa928700f0caba132ee8e53}{projectFolder}} + \textcolor{stringliteral}{"{}/"{}} + subpasta;}
+\DoxyCodeLine{78         std::vector<std::string> subsubpastas = \mbox{\hyperlink{Run_8C_a042d224c3e04ada1aaf502b170793723}{obterSubpastas}}(subPasta);}
+\DoxyCodeLine{79         std::cout<<\textcolor{stringliteral}{"{}searching in : "{}}<<std::endl;}
+\DoxyCodeLine{80         std::cout << subPasta << std::endl;}
+\DoxyCodeLine{81         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&subsubpasta : subsubpastas)}
+\DoxyCodeLine{82         \{}
+\DoxyCodeLine{83             std::string subsubsubPasta = subPasta + \textcolor{stringliteral}{"{}/"{}} + subsubpasta+\textcolor{stringliteral}{"{}/"{}};}
+\DoxyCodeLine{84             \mbox{\hyperlink{Run_8C_afe5810dd6caf321f259c322e36a6f4e5}{listarArquivosELoad}}(subsubsubPasta);}
+\DoxyCodeLine{85             std::cout<<\textcolor{stringliteral}{"{}Loading in : "{}}<<std::endl;}
+\DoxyCodeLine{86             std::cout << subsubsubPasta << std::endl;}
+\DoxyCodeLine{87         \}}
+\DoxyCodeLine{88     \}}
+
+\end{DoxyCode}
+
+
+Referências listar\+Arquivos\+ELoad, obter\+Subpastas e project\+Folder.
+
+
+
+\doxysubsection{Documentação das variáveis}
+\mbox{\Hypertarget{Run_8C_afe5810dd6caf321f259c322e36a6f4e5}\label{Run_8C_afe5810dd6caf321f259c322e36a6f4e5}} 
+\index{Run.C@{Run.C}!listarArquivosELoad@{listarArquivosELoad}}
+\index{listarArquivosELoad@{listarArquivosELoad}!Run.C@{Run.C}}
+\doxysubsubsection{\texorpdfstring{listarArquivosELoad}{listarArquivosELoad}}
+{\footnotesize\ttfamily auto listar\+Arquivos\+ELoad}
+
+{\bfseries Valor inicial\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= [](\textcolor{keyword}{const} std::string \&pasta)}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        TSystemDirectory dir(pasta.c\_str(), pasta.c\_str());}
+\DoxyCodeLine{        TList *filesList = dir.GetListOfFiles();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (filesList)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            TSystemFile *\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}};}
+\DoxyCodeLine{            TString filename;}
+\DoxyCodeLine{            TIter next(filesList);}
+\DoxyCodeLine{}
+\DoxyCodeLine{            \textcolor{keywordflow}{while} ((\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}} = (TSystemFile *)next()))}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                filename = \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>GetName();}
+\DoxyCodeLine{                \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>IsDirectory() \&\& TString(filename).EndsWith(\textcolor{stringliteral}{"{}.C"{}}, TString::kIgnoreCase))}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    std::cout << filename.Data() << std::endl;}
+\DoxyCodeLine{                    std::string line = \textcolor{stringliteral}{"{}.L "{}} + pasta + filename.Data();}
+\DoxyCodeLine{                    std::cout << line << std::endl;}
+\DoxyCodeLine{                    gROOT-\/>ProcessLine(line.c\_str());}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+
+
+Função utilizada para a leitura dos arquivos peresentes em uma determinada pasta. 
+
+
+
+Definido na linha 11 do ficheiro Run.\+C.
+
+\mbox{\Hypertarget{Run_8C_a042d224c3e04ada1aaf502b170793723}\label{Run_8C_a042d224c3e04ada1aaf502b170793723}} 
+\index{Run.C@{Run.C}!obterSubpastas@{obterSubpastas}}
+\index{obterSubpastas@{obterSubpastas}!Run.C@{Run.C}}
+\doxysubsubsection{\texorpdfstring{obterSubpastas}{obterSubpastas}}
+{\footnotesize\ttfamily auto obter\+Subpastas}
+
+{\bfseries Valor inicial\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= [](\textcolor{keyword}{const} std::string \&\mbox{\hyperlink{Run_8C_a5d007779cae0dea9740c083db535b4ae}{pastaBase}})}
+\DoxyCodeLine{    \{}
+\DoxyCodeLine{        std::vector<std::string> \mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{        TSystemDirectory dir(\mbox{\hyperlink{Run_8C_a5d007779cae0dea9740c083db535b4ae}{pastaBase}}.c\_str(), \mbox{\hyperlink{Run_8C_a5d007779cae0dea9740c083db535b4ae}{pastaBase}}.c\_str());}
+\DoxyCodeLine{        TList *filesList = dir.GetListOfFiles();}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (filesList)}
+\DoxyCodeLine{        \{}
+\DoxyCodeLine{            TSystemFile *\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}};}
+\DoxyCodeLine{            TString filename;}
+\DoxyCodeLine{            TIter next(filesList);}
+\DoxyCodeLine{}
+\DoxyCodeLine{            \textcolor{keywordflow}{while} ((\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}} = (TSystemFile *)next()))}
+\DoxyCodeLine{            \{}
+\DoxyCodeLine{                filename = \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>GetName();}
+\DoxyCodeLine{                \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>IsDirectory() \&\& !filename.BeginsWith(\textcolor{stringliteral}{"{}."{}}))}
+\DoxyCodeLine{                \{}
+\DoxyCodeLine{                    \mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}}.push\_back(std::string(filename.Data()));}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{        }
+\DoxyCodeLine{        std::sort(\mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}}.begin(), \mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}}.end());}
+\DoxyCodeLine{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} \mbox{\hyperlink{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}{subpastas}};}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+
+
+Esta função será responsavel por mostrar todas as pastas presentes dentro de uma pasta. 
+
+
+
+Definido na linha 40 do ficheiro Run.\+C.
+
+\mbox{\Hypertarget{Run_8C_a5d007779cae0dea9740c083db535b4ae}\label{Run_8C_a5d007779cae0dea9740c083db535b4ae}} 
+\index{Run.C@{Run.C}!pastaBase@{pastaBase}}
+\index{pastaBase@{pastaBase}!Run.C@{Run.C}}
+\doxysubsubsection{\texorpdfstring{pastaBase}{pastaBase}}
+{\footnotesize\ttfamily std\+::string pasta\+Base = g\+System-\/$>$pwd()}
+
+
+
+Definido na linha 72 do ficheiro Run.\+C.
+
+\mbox{\Hypertarget{Run_8C_a70ee7b20cfa928700f0caba132ee8e53}\label{Run_8C_a70ee7b20cfa928700f0caba132ee8e53}} 
+\index{Run.C@{Run.C}!projectFolder@{projectFolder}}
+\index{projectFolder@{projectFolder}!Run.C@{Run.C}}
+\doxysubsubsection{\texorpdfstring{projectFolder}{projectFolder}}
+{\footnotesize\ttfamily std\+::string project\+Folder = g\+System-\/$>$pwd()}
+
+
+
+Definido na linha 71 do ficheiro Run.\+C.
+
+\mbox{\Hypertarget{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}\label{Run_8C_a486386ee0c28f0cd585c096c3eb4de85}} 
+\index{Run.C@{Run.C}!subpastas@{subpastas}}
+\index{subpastas@{subpastas}!Run.C@{Run.C}}
+\doxysubsubsection{\texorpdfstring{subpastas}{subpastas}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ subpastas = \mbox{\hyperlink{Run_8C_a042d224c3e04ada1aaf502b170793723}{obter\+Subpastas}}(\mbox{\hyperlink{Run_8C_a5d007779cae0dea9740c083db535b4ae}{pasta\+Base}})}
+
+
+
+Definido na linha 73 do ficheiro Run.\+C.
+

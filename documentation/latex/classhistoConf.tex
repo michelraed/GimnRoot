@@ -1,0 +1,324 @@
+\hypertarget{classhistoConf}{}\doxysection{Referência à classe histo\+Conf}
+\label{classhistoConf}\index{histoConf@{histoConf}}
+
+
+Diagrama de heranças da classe histo\+Conf
+% FIG 0
+
+
+Diagrama de colaboração para histo\+Conf\+:
+% FIG 1
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classLoader_a962103244bb81b6b179481c0bf6a1a5d}{set\+File\+Name}} (std\+::string file\+Path)
+\begin{DoxyCompactList}\small\item\em Irá fazer com que a variavel file\+Name, interna da propria classe, seja ajustada ao valor passado. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLoader_aa292bb9041d98c761575b25d498944f0}{print\+File\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Irá imprimir na tela o nome do arquivo que consta como file\+Name. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLoader_a9f91f7434ff11ffbf74ff56f07ccf8f4}{load\+File}} (std\+::string file\+Path)
+\begin{DoxyCompactList}\small\item\em Ira Abrir diretamente o arquivo fornecido;. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLoader_a911eb633a2242f58c5b213a696e35bc3}{Load}} ()
+\begin{DoxyCompactList}\small\item\em Irá abrir o arquivo carregado. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLoader_a2788be822b4651688d305b2c926f2550}{close\+File}} ()
+\begin{DoxyCompactList}\small\item\em Irá checat se o arquivo está aberto e caso esteja irá fechar o arquivo;. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classLoader_a564771226357fc5e93081a245ee14597}{get\+File\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Metodo que retorna a string guardada como file\+Name. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classLoader_ac4d4a6770bee430614087ed973eff1eb}{print}} ()
+\begin{DoxyCompactList}\small\item\em Imprime na tela o conteudo do arquivo sendo lido. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLoader_a995ad8d468f871afeed1b04bb437cce1}{set\+Pont\+Leitura}} (int pos)
+\begin{DoxyCompactList}\small\item\em Ajusta o valor do ponteiro de leitura para o valor dado em relação ao inicio do corpo do texto. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLoader_a8983c908d870ee282e6263620ba97074}{get\+Pont\+Leitura}} ()
+\begin{DoxyCompactList}\small\item\em retorna a posição atual do ponteiro de leitura do arquivo \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Atributos Protegidos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::fstream \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}
+\item 
+std\+::string \mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{file\+Name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+
+
+Definido na linha 387 do ficheiro Gimn\+Loader.\+C.
+
+
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classLoader_a2788be822b4651688d305b2c926f2550}\label{classLoader_a2788be822b4651688d305b2c926f2550}} 
+\index{histoConf@{histoConf}!closeFile@{closeFile}}
+\index{closeFile@{closeFile}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{closeFile()}{closeFile()}}
+{\footnotesize\ttfamily void Loader\+::close\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Irá checat se o arquivo está aberto e caso esteja irá fechar o arquivo;. 
+
+
+
+Definido na linha 69 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69 \{ \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.is\_open() ? \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.close() : (std::cout << \textcolor{stringliteral}{"{}Arquivo nao está aberto"{}} << std::endl, void()); \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::reader.
+
+\mbox{\Hypertarget{classLoader_a564771226357fc5e93081a245ee14597}\label{classLoader_a564771226357fc5e93081a245ee14597}} 
+\index{histoConf@{histoConf}!getFileName@{getFileName}}
+\index{getFileName@{getFileName}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{getFileName()}{getFileName()}}
+{\footnotesize\ttfamily std\+::string Loader\+::get\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Metodo que retorna a string guardada como file\+Name. 
+
+\begin{DoxyReturn}{Retorna}
+string file\+Name que representa o endereço para o arquivo que está sendo tratado 
+\end{DoxyReturn}
+
+
+Definido na linha 73 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73 \{ \textcolor{keywordflow}{return} this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}}; \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::file\+Name.
+
+\mbox{\Hypertarget{classLoader_a8983c908d870ee282e6263620ba97074}\label{classLoader_a8983c908d870ee282e6263620ba97074}} 
+\index{histoConf@{histoConf}!getPontLeitura@{getPontLeitura}}
+\index{getPontLeitura@{getPontLeitura}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{getPontLeitura()}{getPontLeitura()}}
+{\footnotesize\ttfamily void Loader\+::get\+Pont\+Leitura (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+retorna a posição atual do ponteiro de leitura do arquivo 
+
+
+
+Definido na linha 106 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106 \{ std::cout << \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.tellg() << std::endl; \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::reader.
+
+\mbox{\Hypertarget{classLoader_a911eb633a2242f58c5b213a696e35bc3}\label{classLoader_a911eb633a2242f58c5b213a696e35bc3}} 
+\index{histoConf@{histoConf}!Load@{Load}}
+\index{Load@{Load}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Loader\+::\+Load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Irá abrir o arquivo carregado. 
+
+
+
+Definido na linha 66 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{ \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.open(this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}}.c\_str(), std::ios::in); \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::reader.
+
+\mbox{\Hypertarget{classLoader_a9f91f7434ff11ffbf74ff56f07ccf8f4}\label{classLoader_a9f91f7434ff11ffbf74ff56f07ccf8f4}} 
+\index{histoConf@{histoConf}!loadFile@{loadFile}}
+\index{loadFile@{loadFile}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{loadFile()}{loadFile()}}
+{\footnotesize\ttfamily void Loader\+::load\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Ira Abrir diretamente o arquivo fornecido;. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em file\+Path} & indica o caminho para o arquivo que se deseja abrir \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 59 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60     \{}
+\DoxyCodeLine{61         this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}} = filePath;}
+\DoxyCodeLine{62         \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.open(this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}}.c\_str(), std::ios::in);}
+\DoxyCodeLine{63     \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::reader.
+
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 2
+\mbox{\Hypertarget{classLoader_ac4d4a6770bee430614087ed973eff1eb}\label{classLoader_ac4d4a6770bee430614087ed973eff1eb}} 
+\index{histoConf@{histoConf}!print@{print}}
+\index{print@{print}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily virtual void Loader\+::print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Imprime na tela o conteudo do arquivo sendo lido. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em file\+To\+Open} & \\
+\hline
+\end{DoxyParams}
+Este metodo irá imprimir na tela todas as linhas do arquivo Fornecido;
+
+Reimplementado em \mbox{\hyperlink{classIdentificator_a3702b8083a447f9e801d0240f9c8c253}{Identificator}}.
+
+
+
+Definido na linha 77 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78     \{}
+\DoxyCodeLine{83         \textcolor{keywordflow}{if} (this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}}.empty())}
+\DoxyCodeLine{84             std::cout << \textcolor{stringliteral}{"{}nenhum arquivo carregado"{}} << std::endl;}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{87         \{}
+\DoxyCodeLine{88             \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.open(\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}}.c\_str(), std::ios::in);}
+\DoxyCodeLine{89             std::string linha;}
+\DoxyCodeLine{90             \textcolor{keywordtype}{int} counter = 0;}
+\DoxyCodeLine{91             \textcolor{comment}{// itera sobre as linhas}}
+\DoxyCodeLine{92             \textcolor{keywordflow}{while} (std::getline(\mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}, linha))}
+\DoxyCodeLine{93             \{}
+\DoxyCodeLine{94                 std::istringstream iss(linha);}
+\DoxyCodeLine{95                 std::cout << linha << std::endl;}
+\DoxyCodeLine{96             \}}
+\DoxyCodeLine{97             \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.close();}
+\DoxyCodeLine{98         \}}
+\DoxyCodeLine{99     \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::file\+Name e Loader\+::reader.
+
+\mbox{\Hypertarget{classLoader_aa292bb9041d98c761575b25d498944f0}\label{classLoader_aa292bb9041d98c761575b25d498944f0}} 
+\index{histoConf@{histoConf}!printFileName@{printFileName}}
+\index{printFileName@{printFileName}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{printFileName()}{printFileName()}}
+{\footnotesize\ttfamily void Loader\+::print\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Irá imprimir na tela o nome do arquivo que consta como file\+Name. 
+
+
+
+Definido na linha 55 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55 \{ std::cout << this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}} << std::endl; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classLoader_a962103244bb81b6b179481c0bf6a1a5d}\label{classLoader_a962103244bb81b6b179481c0bf6a1a5d}} 
+\index{histoConf@{histoConf}!setFileName@{setFileName}}
+\index{setFileName@{setFileName}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{setFileName()}{setFileName()}}
+{\footnotesize\ttfamily void Loader\+::set\+File\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Irá fazer com que a variavel file\+Name, interna da propria classe, seja ajustada ao valor passado. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em file\+Path} & string contendo o o caminho para o arquivo que se deseja abrir \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 52 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52 \{ this-\/>\mbox{\hyperlink{classLoader_a80d81e14d068de28381470579dca08a7}{fileName}} = filePath; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classLoader_a995ad8d468f871afeed1b04bb437cce1}\label{classLoader_a995ad8d468f871afeed1b04bb437cce1}} 
+\index{histoConf@{histoConf}!setPontLeitura@{setPontLeitura}}
+\index{setPontLeitura@{setPontLeitura}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{setPontLeitura()}{setPontLeitura()}}
+{\footnotesize\ttfamily void Loader\+::set\+Pont\+Leitura (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Ajusta o valor do ponteiro de leitura para o valor dado em relação ao inicio do corpo do texto. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em pos} & posição relativa ao inicio \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 103 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{103 \{ \mbox{\hyperlink{classLoader_a652b2cfc43af164854c8877dc0aa534c}{reader}}.seekg(pos, std::ios::beg); \}}
+
+\end{DoxyCode}
+
+
+Referências Loader\+::reader.
+
+
+
+\doxysubsection{Documentação dos dados membro}
+\mbox{\Hypertarget{classLoader_a80d81e14d068de28381470579dca08a7}\label{classLoader_a80d81e14d068de28381470579dca08a7}} 
+\index{histoConf@{histoConf}!fileName@{fileName}}
+\index{fileName@{fileName}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{fileName}{fileName}}
+{\footnotesize\ttfamily std\+::string Loader\+::file\+Name\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definido na linha 20 do ficheiro Gimn\+Loader.\+C.
+
+\mbox{\Hypertarget{classLoader_a652b2cfc43af164854c8877dc0aa534c}\label{classLoader_a652b2cfc43af164854c8877dc0aa534c}} 
+\index{histoConf@{histoConf}!reader@{reader}}
+\index{reader@{reader}!histoConf@{histoConf}}
+\doxysubsubsection{\texorpdfstring{reader}{reader}}
+{\footnotesize\ttfamily std\+::fstream Loader\+::reader\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definido na linha 19 do ficheiro Gimn\+Loader.\+C.
+
+
+
+A documentação para esta classe foi gerada a partir do seguinte ficheiro\+:\begin{DoxyCompactItemize}
+\item 
+source/1-\/base/\mbox{\hyperlink{GimnLoader_8C}{Gimn\+Loader.\+C}}\end{DoxyCompactItemize}

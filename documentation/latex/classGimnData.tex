@@ -1,0 +1,582 @@
+\hypertarget{classGimnData}{}\doxysection{Referência à classe Gimn\+Data}
+\label{classGimnData}\index{GimnData@{GimnData}}
+
+
+Diagrama de colaboração para Gimn\+Data\+:
+% FIG 0
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGimnData_ab426661c20bd1d151246d4f4468e2d62}{Gimn\+Data}} ()
+\item 
+\mbox{\hyperlink{classGimnData_afbed09e81903bdc2fe01ab6466424574}{Gimn\+Data}} (\mbox{\hyperlink{classIdentificator}{Identificator}} const \&\mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}})
+\item 
+void \mbox{\hyperlink{classGimnData_a6242b1694a5556eac794f63a687847d2}{initialize\+Histograms}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos Públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::vector$<$ TH1F $\ast$ $>$ $>$ \mbox{\hyperlink{classGimnData_a1f89dc24866a0f381b17a0e29ae4b136}{channel\+Time\+Skew}}
+\item 
+std\+::vector$<$ std\+::vector$<$ TH2F $\ast$ $>$ $>$ \mbox{\hyperlink{classGimnData_a931cf15ed7deefd6953979ed428570e7}{channel\+Time\+Walk}}
+\item 
+std\+::vector$<$ std\+::vector$<$ TH2F $\ast$ $>$ $>$ \mbox{\hyperlink{classGimnData_a92921447391df668b20c46c08253da21}{channel\+Time\+Walk1}}
+\item 
+std\+::vector$<$ std\+::vector$<$ TH2F $\ast$ $>$ $>$ \mbox{\hyperlink{classGimnData_abbd6edf5de9f7903e34a6f2c0402fb3a}{channel\+Time\+Walk2}}
+\item 
+std\+::vector$<$ std\+::vector$<$ TH2F $\ast$ $>$ $>$ \mbox{\hyperlink{classGimnData_a03913430b6eaba7f58e2f9367d9f9389}{channel\+Time\+Walk3}}
+\item 
+std\+::vector$<$ std\+::vector$<$ TH1F $\ast$ $>$ $>$ \mbox{\hyperlink{classGimnData_a50d135bdff6016ed99ef4942276ea01c}{channel\+Energy\+Histogram}}
+\item 
+std\+::vector$<$ TH1F $\ast$ $>$ \mbox{\hyperlink{classGimnData_a4d118dd4433c632432b36eca55fd1220}{Global\+Energy}}
+\item 
+std\+::vector$<$ TH1F $\ast$ $>$ \mbox{\hyperlink{classGimnData_aa2df01db9ccbd307f66e064413d6a112}{Global\+Time}}
+\item 
+std\+::vector$<$ TH1F $\ast$ $>$ \mbox{\hyperlink{classGimnData_a9a204aa8477003712bc8a77bf3bf204e}{depth\+Of\+Interaction}}
+\item 
+std\+::vector$<$ TH2F $\ast$ $>$ \mbox{\hyperlink{classGimnData_aa8979a126e27a9ef87013eabfcd12bf5}{Flood\+Hist}}
+\item 
+vector$<$ TMatrixT$<$ double $>$ $>$ \mbox{\hyperlink{classGimnData_a72821534c72a455f5b07923d5492e54d}{Sipm}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos Protegidos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classIdentificator}{Identificator}} \mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}}
+\item 
+int \mbox{\hyperlink{classGimnData_ae16174e6d1c8a1fdb9e14831863d917f}{channels\+Per\+Array}} \{64\}
+\item 
+int \mbox{\hyperlink{classGimnData_a524adec56791c1e6c74ae393348959c5}{H1\+ECBins}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a9da5efdb1bb3de6886cee587c9b72791}{H1\+ECMin}} \{0\}
+\item 
+int \mbox{\hyperlink{classGimnData_acf5d3e9ecdccdba732e91a8dfb14a1a3}{H1\+ECMax}} \{25\}
+\item 
+int \mbox{\hyperlink{classGimnData_a655faefa8b6fda30a9e54bf3f471233e}{H1\+EGBins}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a2d6017fbae004bddbc5db10f132b059b}{H1\+EGMin}} \{0\}
+\item 
+int \mbox{\hyperlink{classGimnData_a812409c26f5cc16472d4da8b891698ea}{H1\+EGMax}} \{25\}
+\item 
+int \mbox{\hyperlink{classGimnData_ab3068936e0cf4d63a14306bef350f794}{H1\+TCBins}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a14089af7e8ca9faf30b1781f5b69c39f}{H1\+TCMax}} \{1000\}
+\item 
+int \mbox{\hyperlink{classGimnData_a232c25e059699749a537351b48de875b}{H1\+TCMin}} \{-\/1000\}
+\item 
+int \mbox{\hyperlink{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}{H2\+TBinsX}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}{H2\+TMinX}} \{-\/100\}
+\item 
+int \mbox{\hyperlink{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}{H2\+TMaxX}} \{1000\}
+\item 
+int \mbox{\hyperlink{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}{H2\+TBinsY}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a50c7b4eb0895bde073746ab64412af0d}{H2\+TMinY}} \{-\/1000\}
+\item 
+int \mbox{\hyperlink{classGimnData_a6054fa040db61834ba9bd28803a8234a}{H2\+TMaxY}} \{1000\}
+\item 
+int \mbox{\hyperlink{classGimnData_a0f4dfc72fb8740c0cf9f95cc61976d5b}{H2\+FBinsX}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a45bf40b475effb406dffd23afc0ff47d}{H2\+FMaxX}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a366e649f2ad68b8d59be53a456552988}{H2\+FMinX}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_ad80093fcad635142e7e7a393dadf11f8}{H2\+FBinsY}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a424c52c2107828ddd34ec87cdf2bc8f4}{H2\+FMaxY}} \{500\}
+\item 
+int \mbox{\hyperlink{classGimnData_a45898172cf1f1ce6e8be842f855b1cbf}{H2\+FMinY}} \{500\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+
+
+Definido na linha 2 do ficheiro Gimn\+Data.\+C.
+
+
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classGimnData_ab426661c20bd1d151246d4f4468e2d62}\label{classGimnData_ab426661c20bd1d151246d4f4468e2d62}} 
+\index{GimnData@{GimnData}!GimnData@{GimnData}}
+\index{GimnData@{GimnData}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{GimnData()}{GimnData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Gimn\+Data\+::\+Gimn\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 59 do ficheiro Gimn\+Data.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59 \{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classGimnData_afbed09e81903bdc2fe01ab6466424574}\label{classGimnData_afbed09e81903bdc2fe01ab6466424574}} 
+\index{GimnData@{GimnData}!GimnData@{GimnData}}
+\index{GimnData@{GimnData}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{GimnData()}{GimnData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Gimn\+Data\+::\+Gimn\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classIdentificator}{Identificator}} const \&}]{Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 60 do ficheiro Gimn\+Data.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60                                       \{}
+\DoxyCodeLine{61         this-\/>\mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}} = \mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}};}
+\DoxyCodeLine{62         std::cout<<\textcolor{stringliteral}{"{}in Gimn Data"{}}<<\mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}}.\mbox{\hyperlink{classIdentificator_aaca32a16352e3f322294738226a762da}{detNum}}<<std::endl;}
+\DoxyCodeLine{63         this-\/>\mbox{\hyperlink{classGimnData_a6242b1694a5556eac794f63a687847d2}{initializeHistograms}}();}
+\DoxyCodeLine{64     \}}
+
+\end{DoxyCode}
+
+
+Referências Identificator\+::det\+Num, Id e initialize\+Histograms().
+
+Grafo de chamadas desta função\+:
+% FIG 1
+
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classGimnData_a6242b1694a5556eac794f63a687847d2}\label{classGimnData_a6242b1694a5556eac794f63a687847d2}} 
+\index{GimnData@{GimnData}!initializeHistograms@{initializeHistograms}}
+\index{initializeHistograms@{initializeHistograms}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{initializeHistograms()}{initializeHistograms()}}
+{\footnotesize\ttfamily void Gimn\+Data\+::initialize\+Histograms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 66 do ficheiro Gimn\+Data.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{67     \{}
+\DoxyCodeLine{68         std::cout<<\textcolor{stringliteral}{"{}initializing histograms"{}}<<std::endl;}
+\DoxyCodeLine{69         std::cout<<\mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}}.\mbox{\hyperlink{classIdentificator_a293400f9ccf526607b178bfa6bade362}{getDetNum}}()<<std::endl;}
+\DoxyCodeLine{70         }
+\DoxyCodeLine{71         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} = 0; \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} < \mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}}.\mbox{\hyperlink{classIdentificator_a293400f9ccf526607b178bfa6bade362}{getDetNum}}(); \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}++)}
+\DoxyCodeLine{72         \{}
+\DoxyCodeLine{73             \mbox{\hyperlink{classGimnData_a72821534c72a455f5b07923d5492e54d}{Sipm}}.push\_back(TMatrixT<double>(8, 8));}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75             std::vector<TH1F *> auxHistChan;}
+\DoxyCodeLine{76             std::vector<TH1F *> auxHistChanTimeSkew;}
+\DoxyCodeLine{77             std::vector<TH2F *> auxHistChanTimeWalk;}
+\DoxyCodeLine{78             std::vector<TH2F *> auxHistChanTimeWalk1;}
+\DoxyCodeLine{79             std::vector<TH2F *> auxHistChanTimeWalk2;}
+\DoxyCodeLine{80             std::vector<TH2F *> auxHistChanTimeWalk3;}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} chan = 0; chan < \mbox{\hyperlink{classGimnData_ae16174e6d1c8a1fdb9e14831863d917f}{channelsPerArray}}; chan++)}
+\DoxyCodeLine{83             \{}
+\DoxyCodeLine{84                 \textcolor{keywordtype}{string} channelName\{\textcolor{stringliteral}{"{}channel-\/"{}}\};}
+\DoxyCodeLine{85                 channelName = channelName + std::to\_string(chan) + std::string(\mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}}.\mbox{\hyperlink{classIdentificator_aa4ca9f9de600bda6bb02fea9d8c4ddcd}{getDetectorName}}(\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}).c\_str());}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87                 std::cout << \textcolor{stringliteral}{"{}initializing Energy histogram : "{}} << channelName << std::endl;}
+\DoxyCodeLine{88                 std::string energyHistoName = channelName + \textcolor{stringliteral}{"{}-\/EnergyHisto"{}};}
+\DoxyCodeLine{89                 TH1F *myHisto = \textcolor{keyword}{new} TH1F(channelName.c\_str(), channelName.c\_str(), \mbox{\hyperlink{classGimnData_a524adec56791c1e6c74ae393348959c5}{H1ECBins}} , \mbox{\hyperlink{classGimnData_a9da5efdb1bb3de6886cee587c9b72791}{H1ECMin}}, \mbox{\hyperlink{classGimnData_acf5d3e9ecdccdba732e91a8dfb14a1a3}{H1ECMax}});}
+\DoxyCodeLine{90                 auxHistChan.push\_back(myHisto);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92                 std::cout << \textcolor{stringliteral}{"{}initializing Time Skew histogram : "{}} << channelName << std::endl;}
+\DoxyCodeLine{93                 std::string timeSkewHistoName = channelName + \textcolor{stringliteral}{"{}-\/TimeSkew"{}};}
+\DoxyCodeLine{94                 TH1F *myHisto2 = \textcolor{keyword}{new} TH1F(timeSkewHistoName.c\_str(), timeSkewHistoName.c\_str(), \mbox{\hyperlink{classGimnData_ab3068936e0cf4d63a14306bef350f794}{H1TCBins}}, \mbox{\hyperlink{classGimnData_a232c25e059699749a537351b48de875b}{H1TCMin}}, \mbox{\hyperlink{classGimnData_a14089af7e8ca9faf30b1781f5b69c39f}{H1TCMax}});}
+\DoxyCodeLine{95                 auxHistChanTimeSkew.push\_back(myHisto2);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97                 std::cout << \textcolor{stringliteral}{"{}initializing Time Walk histogram : "{}} << channelName << std::endl;}
+\DoxyCodeLine{98                 std::string timeWalkHistoName = channelName + \textcolor{stringliteral}{"{}-\/TimeWalk"{}};}
+\DoxyCodeLine{99                 TH2F *myHisto3 = \textcolor{keyword}{new} TH2F(timeWalkHistoName.c\_str(), timeWalkHistoName.c\_str(), \mbox{\hyperlink{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}{H2TBinsX}},\mbox{\hyperlink{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}{H2TMinX}},\mbox{\hyperlink{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}{H2TMaxX}},\mbox{\hyperlink{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}{H2TBinsY}},\mbox{\hyperlink{classGimnData_a50c7b4eb0895bde073746ab64412af0d}{H2TMinY}},\mbox{\hyperlink{classGimnData_a6054fa040db61834ba9bd28803a8234a}{H2TMaxY}});}
+\DoxyCodeLine{100                 auxHistChanTimeWalk.push\_back(myHisto3);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102                 std::cout << \textcolor{stringliteral}{"{}initializing Time Walk histogram1 : "{}} << channelName << std::endl;}
+\DoxyCodeLine{103                 std::string timeWalkHistoName1 = channelName + \textcolor{stringliteral}{"{}-\/TimeWalk1"{}};}
+\DoxyCodeLine{104                 TH2F *myHisto4 = \textcolor{keyword}{new} TH2F(timeWalkHistoName1.c\_str(), timeWalkHistoName1.c\_str(), \mbox{\hyperlink{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}{H2TBinsX}},\mbox{\hyperlink{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}{H2TMinX}},\mbox{\hyperlink{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}{H2TMaxX}},\mbox{\hyperlink{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}{H2TBinsY}},\mbox{\hyperlink{classGimnData_a50c7b4eb0895bde073746ab64412af0d}{H2TMinY}},\mbox{\hyperlink{classGimnData_a6054fa040db61834ba9bd28803a8234a}{H2TMaxY}});}
+\DoxyCodeLine{105                 auxHistChanTimeWalk1.push\_back(myHisto4);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107                 std::cout << \textcolor{stringliteral}{"{}initializing Time Walk histogram2 : "{}} << channelName << std::endl;}
+\DoxyCodeLine{108                 std::string timeWalkHistoName2 = channelName + \textcolor{stringliteral}{"{}-\/TimeWalk2"{}};}
+\DoxyCodeLine{109                 TH2F *myHisto5 = \textcolor{keyword}{new} TH2F(timeWalkHistoName2.c\_str(), timeWalkHistoName2.c\_str(), \mbox{\hyperlink{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}{H2TBinsX}},\mbox{\hyperlink{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}{H2TMinX}},\mbox{\hyperlink{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}{H2TMaxX}},\mbox{\hyperlink{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}{H2TBinsY}},\mbox{\hyperlink{classGimnData_a50c7b4eb0895bde073746ab64412af0d}{H2TMinY}},\mbox{\hyperlink{classGimnData_a6054fa040db61834ba9bd28803a8234a}{H2TMaxY}});}
+\DoxyCodeLine{110                 auxHistChanTimeWalk2.push\_back(myHisto5);}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112                 std::cout << \textcolor{stringliteral}{"{}initializing Time Walk histogram1 : "{}} << channelName << std::endl;}
+\DoxyCodeLine{113                 std::string timeWalkHistoName3 = channelName + \textcolor{stringliteral}{"{}-\/TimeWalk3"{}};}
+\DoxyCodeLine{114                 TH2F *myHisto6 = \textcolor{keyword}{new} TH2F(timeWalkHistoName3.c\_str(), timeWalkHistoName3.c\_str(), \mbox{\hyperlink{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}{H2TBinsX}},\mbox{\hyperlink{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}{H2TMinX}},\mbox{\hyperlink{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}{H2TMaxX}},\mbox{\hyperlink{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}{H2TBinsY}},\mbox{\hyperlink{classGimnData_a50c7b4eb0895bde073746ab64412af0d}{H2TMinY}},\mbox{\hyperlink{classGimnData_a6054fa040db61834ba9bd28803a8234a}{H2TMaxY}});}
+\DoxyCodeLine{115                 auxHistChanTimeWalk3.push\_back(myHisto6);}
+\DoxyCodeLine{116             \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118             \textcolor{keywordtype}{string} globalName = std::string(\mbox{\hyperlink{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}{Id}}.\mbox{\hyperlink{classIdentificator_aa4ca9f9de600bda6bb02fea9d8c4ddcd}{getDetectorName}}(\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}).c\_str());}
+\DoxyCodeLine{119             TH1F *myglobalHisto = \textcolor{keyword}{new} TH1F(globalName.c\_str(), globalName.c\_str(), \mbox{\hyperlink{classGimnData_a655faefa8b6fda30a9e54bf3f471233e}{H1EGBins}},\mbox{\hyperlink{classGimnData_a2d6017fbae004bddbc5db10f132b059b}{H1EGMin}} ,\mbox{\hyperlink{classGimnData_a812409c26f5cc16472d4da8b891698ea}{H1EGMax}});}
+\DoxyCodeLine{120             std::string floodName = globalName + \textcolor{stringliteral}{"{}flood"{}};}
+\DoxyCodeLine{121             TH2F *flood = \textcolor{keyword}{new} TH2F(floodName.c\_str(), floodName.c\_str(), 256, -\/13.44, 13.44, 256, -\/13.44, 13.44);}
+\DoxyCodeLine{122             std::string DoiName = globalName + \textcolor{stringliteral}{"{}-\/ Doi"{}};}
+\DoxyCodeLine{123             TH1F *myDoi = \textcolor{keyword}{new} TH1F(DoiName.c\_str(), DoiName.c\_str(), 256, 0, 3);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125             \mbox{\hyperlink{classGimnData_a9a204aa8477003712bc8a77bf3bf204e}{depthOfInteraction}}.push\_back(myDoi);}
+\DoxyCodeLine{126             \mbox{\hyperlink{classGimnData_a4d118dd4433c632432b36eca55fd1220}{GlobalEnergy}}.push\_back(myglobalHisto);}
+\DoxyCodeLine{127             \mbox{\hyperlink{classGimnData_aa8979a126e27a9ef87013eabfcd12bf5}{FloodHist}}.push\_back(flood);}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129             \mbox{\hyperlink{classGimnData_a50d135bdff6016ed99ef4942276ea01c}{channelEnergyHistogram}}.push\_back(auxHistChan);}
+\DoxyCodeLine{130             \mbox{\hyperlink{classGimnData_a1f89dc24866a0f381b17a0e29ae4b136}{channelTimeSkew}}.push\_back(auxHistChanTimeSkew);}
+\DoxyCodeLine{131             \mbox{\hyperlink{classGimnData_a931cf15ed7deefd6953979ed428570e7}{channelTimeWalk}}.push\_back(auxHistChanTimeWalk);}
+\DoxyCodeLine{132             \mbox{\hyperlink{classGimnData_a92921447391df668b20c46c08253da21}{channelTimeWalk1}}.push\_back(auxHistChanTimeWalk1);}
+\DoxyCodeLine{133             \mbox{\hyperlink{classGimnData_abbd6edf5de9f7903e34a6f2c0402fb3a}{channelTimeWalk2}}.push\_back(auxHistChanTimeWalk2);}
+\DoxyCodeLine{134             \mbox{\hyperlink{classGimnData_a03913430b6eaba7f58e2f9367d9f9389}{channelTimeWalk3}}.push\_back(auxHistChanTimeWalk3);}
+\DoxyCodeLine{135         \}}
+\DoxyCodeLine{136     \}}
+
+\end{DoxyCode}
+
+
+Referências channel\+Energy\+Histogram, channels\+Per\+Array, channel\+Time\+Skew, channel\+Time\+Walk, channel\+Time\+Walk1, channel\+Time\+Walk2, channel\+Time\+Walk3, depth\+Of\+Interaction, calculate\+Correction\+::detector, Flood\+Hist, Identificator\+::get\+Detector\+Name(), Identificator\+::get\+Det\+Num(), Global\+Energy, H1\+ECBins, H1\+ECMax, H1\+ECMin, H1\+EGBins, H1\+EGMax, H1\+EGMin, H1\+TCBins, H1\+TCMax, H1\+TCMin, H2\+TBinsX, H2\+TBinsY, H2\+TMaxX, H2\+TMaxY, H2\+TMinX, H2\+TMinY, Id e Sipm.
+
+Grafo de chamadas desta função\+:
+% FIG 2
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 3
+
+
+\doxysubsection{Documentação dos dados membro}
+\mbox{\Hypertarget{classGimnData_a50d135bdff6016ed99ef4942276ea01c}\label{classGimnData_a50d135bdff6016ed99ef4942276ea01c}} 
+\index{GimnData@{GimnData}!channelEnergyHistogram@{channelEnergyHistogram}}
+\index{channelEnergyHistogram@{channelEnergyHistogram}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelEnergyHistogram}{channelEnergyHistogram}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$TH1F $\ast$$>$ $>$ Gimn\+Data\+::channel\+Energy\+Histogram}
+
+
+
+Definido na linha 12 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_ae16174e6d1c8a1fdb9e14831863d917f}\label{classGimnData_ae16174e6d1c8a1fdb9e14831863d917f}} 
+\index{GimnData@{GimnData}!channelsPerArray@{channelsPerArray}}
+\index{channelsPerArray@{channelsPerArray}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelsPerArray}{channelsPerArray}}
+{\footnotesize\ttfamily int Gimn\+Data\+::channels\+Per\+Array \{64\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 25 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a1f89dc24866a0f381b17a0e29ae4b136}\label{classGimnData_a1f89dc24866a0f381b17a0e29ae4b136}} 
+\index{GimnData@{GimnData}!channelTimeSkew@{channelTimeSkew}}
+\index{channelTimeSkew@{channelTimeSkew}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelTimeSkew}{channelTimeSkew}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$TH1F $\ast$$>$ $>$ Gimn\+Data\+::channel\+Time\+Skew}
+
+
+
+Definido na linha 6 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a931cf15ed7deefd6953979ed428570e7}\label{classGimnData_a931cf15ed7deefd6953979ed428570e7}} 
+\index{GimnData@{GimnData}!channelTimeWalk@{channelTimeWalk}}
+\index{channelTimeWalk@{channelTimeWalk}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelTimeWalk}{channelTimeWalk}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$TH2F $\ast$$>$ $>$ Gimn\+Data\+::channel\+Time\+Walk}
+
+
+
+Definido na linha 7 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a92921447391df668b20c46c08253da21}\label{classGimnData_a92921447391df668b20c46c08253da21}} 
+\index{GimnData@{GimnData}!channelTimeWalk1@{channelTimeWalk1}}
+\index{channelTimeWalk1@{channelTimeWalk1}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelTimeWalk1}{channelTimeWalk1}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$TH2F $\ast$$>$ $>$ Gimn\+Data\+::channel\+Time\+Walk1}
+
+
+
+Definido na linha 8 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_abbd6edf5de9f7903e34a6f2c0402fb3a}\label{classGimnData_abbd6edf5de9f7903e34a6f2c0402fb3a}} 
+\index{GimnData@{GimnData}!channelTimeWalk2@{channelTimeWalk2}}
+\index{channelTimeWalk2@{channelTimeWalk2}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelTimeWalk2}{channelTimeWalk2}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$TH2F $\ast$$>$ $>$ Gimn\+Data\+::channel\+Time\+Walk2}
+
+
+
+Definido na linha 9 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a03913430b6eaba7f58e2f9367d9f9389}\label{classGimnData_a03913430b6eaba7f58e2f9367d9f9389}} 
+\index{GimnData@{GimnData}!channelTimeWalk3@{channelTimeWalk3}}
+\index{channelTimeWalk3@{channelTimeWalk3}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{channelTimeWalk3}{channelTimeWalk3}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$TH2F $\ast$$>$ $>$ Gimn\+Data\+::channel\+Time\+Walk3}
+
+
+
+Definido na linha 10 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a9a204aa8477003712bc8a77bf3bf204e}\label{classGimnData_a9a204aa8477003712bc8a77bf3bf204e}} 
+\index{GimnData@{GimnData}!depthOfInteraction@{depthOfInteraction}}
+\index{depthOfInteraction@{depthOfInteraction}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{depthOfInteraction}{depthOfInteraction}}
+{\footnotesize\ttfamily std\+::vector$<$TH1F $\ast$$>$ Gimn\+Data\+::depth\+Of\+Interaction}
+
+
+
+Definido na linha 15 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_aa8979a126e27a9ef87013eabfcd12bf5}\label{classGimnData_aa8979a126e27a9ef87013eabfcd12bf5}} 
+\index{GimnData@{GimnData}!FloodHist@{FloodHist}}
+\index{FloodHist@{FloodHist}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{FloodHist}{FloodHist}}
+{\footnotesize\ttfamily std\+::vector$<$TH2F $\ast$$>$ Gimn\+Data\+::\+Flood\+Hist}
+
+
+
+Definido na linha 16 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a4d118dd4433c632432b36eca55fd1220}\label{classGimnData_a4d118dd4433c632432b36eca55fd1220}} 
+\index{GimnData@{GimnData}!GlobalEnergy@{GlobalEnergy}}
+\index{GlobalEnergy@{GlobalEnergy}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{GlobalEnergy}{GlobalEnergy}}
+{\footnotesize\ttfamily std\+::vector$<$TH1F $\ast$$>$ Gimn\+Data\+::\+Global\+Energy}
+
+
+
+Definido na linha 13 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_aa2df01db9ccbd307f66e064413d6a112}\label{classGimnData_aa2df01db9ccbd307f66e064413d6a112}} 
+\index{GimnData@{GimnData}!GlobalTime@{GlobalTime}}
+\index{GlobalTime@{GlobalTime}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{GlobalTime}{GlobalTime}}
+{\footnotesize\ttfamily std\+::vector$<$TH1F $\ast$$>$ Gimn\+Data\+::\+Global\+Time}
+
+
+
+Definido na linha 14 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a524adec56791c1e6c74ae393348959c5}\label{classGimnData_a524adec56791c1e6c74ae393348959c5}} 
+\index{GimnData@{GimnData}!H1ECBins@{H1ECBins}}
+\index{H1ECBins@{H1ECBins}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1ECBins}{H1ECBins}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+ECBins \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 27 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_acf5d3e9ecdccdba732e91a8dfb14a1a3}\label{classGimnData_acf5d3e9ecdccdba732e91a8dfb14a1a3}} 
+\index{GimnData@{GimnData}!H1ECMax@{H1ECMax}}
+\index{H1ECMax@{H1ECMax}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1ECMax}{H1ECMax}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+ECMax \{25\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 29 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a9da5efdb1bb3de6886cee587c9b72791}\label{classGimnData_a9da5efdb1bb3de6886cee587c9b72791}} 
+\index{GimnData@{GimnData}!H1ECMin@{H1ECMin}}
+\index{H1ECMin@{H1ECMin}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1ECMin}{H1ECMin}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+ECMin \{0\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 28 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a655faefa8b6fda30a9e54bf3f471233e}\label{classGimnData_a655faefa8b6fda30a9e54bf3f471233e}} 
+\index{GimnData@{GimnData}!H1EGBins@{H1EGBins}}
+\index{H1EGBins@{H1EGBins}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1EGBins}{H1EGBins}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+EGBins \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 31 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a812409c26f5cc16472d4da8b891698ea}\label{classGimnData_a812409c26f5cc16472d4da8b891698ea}} 
+\index{GimnData@{GimnData}!H1EGMax@{H1EGMax}}
+\index{H1EGMax@{H1EGMax}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1EGMax}{H1EGMax}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+EGMax \{25\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 33 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a2d6017fbae004bddbc5db10f132b059b}\label{classGimnData_a2d6017fbae004bddbc5db10f132b059b}} 
+\index{GimnData@{GimnData}!H1EGMin@{H1EGMin}}
+\index{H1EGMin@{H1EGMin}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1EGMin}{H1EGMin}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+EGMin \{0\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 32 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_ab3068936e0cf4d63a14306bef350f794}\label{classGimnData_ab3068936e0cf4d63a14306bef350f794}} 
+\index{GimnData@{GimnData}!H1TCBins@{H1TCBins}}
+\index{H1TCBins@{H1TCBins}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1TCBins}{H1TCBins}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+TCBins \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 36 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a14089af7e8ca9faf30b1781f5b69c39f}\label{classGimnData_a14089af7e8ca9faf30b1781f5b69c39f}} 
+\index{GimnData@{GimnData}!H1TCMax@{H1TCMax}}
+\index{H1TCMax@{H1TCMax}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1TCMax}{H1TCMax}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+TCMax \{1000\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 37 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a232c25e059699749a537351b48de875b}\label{classGimnData_a232c25e059699749a537351b48de875b}} 
+\index{GimnData@{GimnData}!H1TCMin@{H1TCMin}}
+\index{H1TCMin@{H1TCMin}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H1TCMin}{H1TCMin}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H1\+TCMin \{-\/1000\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 38 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a0f4dfc72fb8740c0cf9f95cc61976d5b}\label{classGimnData_a0f4dfc72fb8740c0cf9f95cc61976d5b}} 
+\index{GimnData@{GimnData}!H2FBinsX@{H2FBinsX}}
+\index{H2FBinsX@{H2FBinsX}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2FBinsX}{H2FBinsX}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+FBinsX \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 49 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_ad80093fcad635142e7e7a393dadf11f8}\label{classGimnData_ad80093fcad635142e7e7a393dadf11f8}} 
+\index{GimnData@{GimnData}!H2FBinsY@{H2FBinsY}}
+\index{H2FBinsY@{H2FBinsY}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2FBinsY}{H2FBinsY}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+FBinsY \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 53 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a45bf40b475effb406dffd23afc0ff47d}\label{classGimnData_a45bf40b475effb406dffd23afc0ff47d}} 
+\index{GimnData@{GimnData}!H2FMaxX@{H2FMaxX}}
+\index{H2FMaxX@{H2FMaxX}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2FMaxX}{H2FMaxX}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+FMaxX \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 50 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a424c52c2107828ddd34ec87cdf2bc8f4}\label{classGimnData_a424c52c2107828ddd34ec87cdf2bc8f4}} 
+\index{GimnData@{GimnData}!H2FMaxY@{H2FMaxY}}
+\index{H2FMaxY@{H2FMaxY}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2FMaxY}{H2FMaxY}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+FMaxY \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 54 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a366e649f2ad68b8d59be53a456552988}\label{classGimnData_a366e649f2ad68b8d59be53a456552988}} 
+\index{GimnData@{GimnData}!H2FMinX@{H2FMinX}}
+\index{H2FMinX@{H2FMinX}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2FMinX}{H2FMinX}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+FMinX \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 51 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a45898172cf1f1ce6e8be842f855b1cbf}\label{classGimnData_a45898172cf1f1ce6e8be842f855b1cbf}} 
+\index{GimnData@{GimnData}!H2FMinY@{H2FMinY}}
+\index{H2FMinY@{H2FMinY}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2FMinY}{H2FMinY}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+FMinY \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 55 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}\label{classGimnData_a0d81092ff9aaa419ac29c02fd1e11c48}} 
+\index{GimnData@{GimnData}!H2TBinsX@{H2TBinsX}}
+\index{H2TBinsX@{H2TBinsX}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2TBinsX}{H2TBinsX}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+TBinsX \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 41 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}\label{classGimnData_a1b92351c0d783b8981b2f4a5fc15e614}} 
+\index{GimnData@{GimnData}!H2TBinsY@{H2TBinsY}}
+\index{H2TBinsY@{H2TBinsY}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2TBinsY}{H2TBinsY}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+TBinsY \{500\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 44 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}\label{classGimnData_aa444c4ef1e9f7e300acb230d3557fe0c}} 
+\index{GimnData@{GimnData}!H2TMaxX@{H2TMaxX}}
+\index{H2TMaxX@{H2TMaxX}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2TMaxX}{H2TMaxX}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+TMaxX \{1000\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 43 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a6054fa040db61834ba9bd28803a8234a}\label{classGimnData_a6054fa040db61834ba9bd28803a8234a}} 
+\index{GimnData@{GimnData}!H2TMaxY@{H2TMaxY}}
+\index{H2TMaxY@{H2TMaxY}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2TMaxY}{H2TMaxY}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+TMaxY \{1000\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 46 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}\label{classGimnData_a8372fb1318bb109cb3c65fccd76825ad}} 
+\index{GimnData@{GimnData}!H2TMinX@{H2TMinX}}
+\index{H2TMinX@{H2TMinX}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2TMinX}{H2TMinX}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+TMinX \{-\/100\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 42 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a50c7b4eb0895bde073746ab64412af0d}\label{classGimnData_a50c7b4eb0895bde073746ab64412af0d}} 
+\index{GimnData@{GimnData}!H2TMinY@{H2TMinY}}
+\index{H2TMinY@{H2TMinY}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{H2TMinY}{H2TMinY}}
+{\footnotesize\ttfamily int Gimn\+Data\+::\+H2\+TMinY \{-\/1000\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 45 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}\label{classGimnData_ab7338fa5b91fe80b146d6d6a33876c93}} 
+\index{GimnData@{GimnData}!Id@{Id}}
+\index{Id@{Id}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{Id}{Id}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIdentificator}{Identificator}} Gimn\+Data\+::\+Id\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definido na linha 22 do ficheiro Gimn\+Data.\+C.
+
+\mbox{\Hypertarget{classGimnData_a72821534c72a455f5b07923d5492e54d}\label{classGimnData_a72821534c72a455f5b07923d5492e54d}} 
+\index{GimnData@{GimnData}!Sipm@{Sipm}}
+\index{Sipm@{Sipm}!GimnData@{GimnData}}
+\doxysubsubsection{\texorpdfstring{Sipm}{Sipm}}
+{\footnotesize\ttfamily vector$<$TMatrixT$<$double$>$ $>$ Gimn\+Data\+::\+Sipm}
+
+
+
+Definido na linha 18 do ficheiro Gimn\+Data.\+C.
+
+
+
+A documentação para esta classe foi gerada a partir do seguinte ficheiro\+:\begin{DoxyCompactItemize}
+\item 
+source/2-\/histograms/\mbox{\hyperlink{GimnData_8C}{Gimn\+Data.\+C}}\end{DoxyCompactItemize}

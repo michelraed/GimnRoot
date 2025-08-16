@@ -1,0 +1,12 @@
+digraph "GimnWrite::GimnWrite"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="GimnWrite::GimnWrite",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="GimnWrite::SetBranchesCoincidences",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWrite.html#aa9b2313a6561059021961b01277a8bd2",tooltip="Ajusta as referencias internas para cada folha da arvore de coincidencias."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="GimnWrite::SetBranchesSingles",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWrite.html#a80c272887bcc55908b9ebaf7fc55cc2b",tooltip="Ajusta as folhas da arvore de singles."];
+}

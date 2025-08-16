@@ -1,0 +1,51 @@
+\hypertarget{generateConf_8py}{}\doxysection{Referência ao ficheiro python/generate\+Conf.py}
+\label{generateConf_8py}\index{python/generateConf.py@{python/generateConf.py}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacegenerateConf}{generate\+Conf}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{namespacegenerateConf_ab5c8bd586fbe58c47e14840173d8d658}{generate\+Conf.\+generate\+\_\+conf}} (list chip\+IDs, list porta, int hmin, int hmax, str positioning, str cristal, float ftrim)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_abbeb83ec573db799978acfe70a27d28b}{generate\+Conf.\+parser}} = argparse.\+Argument\+Parser(description=)
+\item 
+\mbox{\hyperlink{namespacegenerateConf_af68232d46a5b0bc0b6c111379584f7bd}{generate\+Conf.\+type}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{generate\+Conf.\+str}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a11e9f0cc893d89466823850ec5e7dbac}{generate\+Conf.\+help}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_abd7876686a5ff13dd48fd754f8f3b57c}{generate\+Conf.\+float}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_afcd9d724a45e225d2649f9c620122543}{generate\+Conf.\+default}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a537a4cc2ee6e258792d1fb15a84461d8}{generate\+Conf.\+args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a5d97a7370c0c754ba6fd0ceb689047cc}{generate\+Conf.\+file\+\_\+name}} = args.\+file
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}{generate\+Conf.\+hmin}} = args.\+hmin
+\item 
+\mbox{\hyperlink{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}{generate\+Conf.\+hmax}} = args.\+hmax
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a1c4a9b606caac9ec1b490cda312d2035}{generate\+Conf.\+positioning}} = args.\+positioning
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a3e6426cb7b8d68521d2ca4be95ae12a2}{generate\+Conf.\+crystal}} = args.\+crystal
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a1412768f347d6dd29e00f9381799e067}{generate\+Conf.\+ftrim}} = args.\+ftrim
+\item 
+\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{generate\+Conf.\+file}} = up.\+open(file\+\_\+name)
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a31da83ab37124536ca336056c5493cce}{generate\+Conf.\+data}} = file\mbox{[}\textquotesingle{}data\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}{generate\+Conf.\+dados}} = data.\+arrays(\mbox{[}\textquotesingle{}mh\+\_\+n\textquotesingle{},\textquotesingle{}mh\+\_\+j\textquotesingle{},\textquotesingle{}energy\textquotesingle{},\textquotesingle{}time\textquotesingle{},\textquotesingle{}channel\+ID\textquotesingle{}\mbox{]},library=\textquotesingle{}pd\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerateConf_ae1b78f9aabd125d52923e9b0f5bb3255}{generate\+Conf.\+portas}} = dados\mbox{[}\textquotesingle{}port\+ID\textquotesingle{}\mbox{]}.unique()
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a0c8b4e4264804c9c577189e2a82a67aa}{generate\+Conf.\+chip\+IDs}} = dados\mbox{[}\textquotesingle{}chip\+ID\textquotesingle{}\mbox{]}.unique()
+\end{DoxyCompactItemize}

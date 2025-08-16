@@ -1,0 +1,307 @@
+{
+    using ROOT::VecOps::RVec;
+    int i{0}, ch{0};
+
+    // std::string file_name = "/home/gimn6/Documentos/Michel/produtos_moles/gimnpet/GimnROOT/Beg_27112024_600_group_pre.root";
+
+    std::string file_name{"/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/Test/time_30_t1_15_t2_20_te_15_ov_4_0_HW_OFF_qdcCharacterization_06122024_group_pre.root"};
+    std::string calibration{"/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/Test/time_30_t1_15_t2_20_te_15_ov_4_0_HW_OFF_qdcCharacterization_06122024_group_pre_CalFactorsChannels.root"};
+    //TString file_name{"/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/Test/time_30_t1_15_t2_20_te_15_ov_4_0_HW_OFF_qdcCharacterization_06122024_group_pre.root"};
+
+    // RDataFrame Definition
+    ROOT::EnableImplicitMT();                                         // Tell ROOT you want to go parallel
+    //ROOT::RDataFrame pulses("Pulses", file_name.c_str());             // Interface to TTree and TChain
+    ROOT::RDataFrame conf("Configurations", file_name.c_str());       // Interface to TTree and TChain
+    ROOT::RDataFrame cal("CalibrationFactors", calibration.c_str()); // Interface to TTree and TChain
+
+    // Utils
+
+    SiPM aux;
+    std::vector<int> chipIDs;
+    std::vector<Float_t> xPos = aux.getPositionsX();
+    std::vector<Float_t> yPos = aux.getPositionsY();
+    std::vector<TH2D> Floods;
+    std::vector<TH1D> channelEnergiesNadig;
+    std::vector<TH1D> channelEnergiesWang;
+
+    int nchans = 64;
+
+    auto readConf = [&chipIDs](int chipID)
+    {
+        chipIDs.push_back(chipID);
+    };
+
+    conf.Foreach(readConf, {"chipID"});
+
+    std::map<int, std::vector<std::map<std::string, double>>> fatoresDeCalibracaoNadig;
+    std::map<int, std::vector<std::map<std::string, double>>> fatoresDeCalibracaoWang;
+
+    std::vector<int> canalEquivalent(64, 0);
+
+    for (i = 0; i < chipIDs.size(); i++)
+    {
+        for (ch = 0; ch < nchans; ch++)
+        {
+            std::map<std::string, Double_t> parametrosNadig;
+
+            parametrosNadig["c"] = -1.0;
+            parametrosNadig["s"] = -1.0;
+            std::map<std::string, Double_t> parametrosWang;
+
+            parametrosWang["k1"] = -1.0;
+            parametrosWang["k2"] = -1.0;
+            parametrosWang["b"] = -1.0;
+
+            fatoresDeCalibracaoNadig[chipIDs[i]].push_back(parametrosNadig);
+            fatoresDeCalibracaoWang[chipIDs[i]].push_back(parametrosWang);
+
+            auto pos_xy = aux.CorrectChannelToPixelPs(ch);
+            int equivalent = 8 * pos_xy[0] + pos_xy[1];
+            canalEquivalent[equivalent] = ch;
+        }
+    }
+
+    auto getCalibrationFactorNadig = [&fatoresDeCalibracaoNadig, canalEquivalent](Double_t c, Double_t s, int chipID, int channel)
+    {
+        fatoresDeCalibracaoNadig[chipID][channel]["c"] = c;
+        fatoresDeCalibracaoNadig[chipID][channel]["s"] = s;
+    };
+
+
+    auto getCalibrationFactorWang = [&fatoresDeCalibracaoWang, canalEquivalent](Double_t k1, Double_t k2, Double_t b, int chipID, int channel)
+    {
+        fatoresDeCalibracaoWang[chipID][channel]["k1"] = k1;
+        fatoresDeCalibracaoWang[chipID][channel]["k2"] = k2;
+        fatoresDeCalibracaoWang[chipID][channel]["b"]  = b;
+
+    };
+
+    cal.Foreach(getCalibrationFactorNadig, {"c", "s", "chipID", "channel"});
+    cal.Foreach(getCalibrationFactorWang, {"k1", "k2", "b","chipID", "channel"});
+
+
+    auto AngerX = [&xPos, &yPos](RVec<Float_t> EnergyVec)
+    {
+        TMatrixT<Float_t> energy(8, 8);
+
+        // Fill The Matrix
+        int counter = 0;
+        for (int col = 0; col < energy.GetNcols(); col++)
+        {
+            for (int row = 0; row < energy.GetNrows(); row++)
+            {
+                if (counter < 64)
+                    energy(row, col) = EnergyVec[counter];
+                counter++;
+            }
+        }
+
+        auto sum = energy.Sum();
+
+        const auto I = energy.Max();
+
+        int n_rows = 8;
+        int n_cols = 8;
+
+        std::vector<Float_t> rowSums(n_rows, 0);
+        std::vector<Float_t> colSums(n_cols, 0);
+
+        getRowAndColumnSums(energy, rowSums, colSums);
+
+        // Scrimger and Baker formula
+        // N = 2*PI * I * t²
+        // N is the integral of scintilation light  (esum)
+        // I is the maximum intnsity
+        // t is the distance between photon scintilation and the detection plane "(doi)"
+        //
+        // t  =  sqrt(N/(2*PI*I))
+
+        // const double DOI = sqrt(sum / (2 * TMath::Pi() * I));
+        Float_t doi = I / sum;
+
+        Float_t u{0};
+
+        for (int i = 0; i < 8; i++)
+        {
+            u += colSums[i] * xPos[i];
+        }
+        u = u / sum;
+
+        return u;
+    };
+    auto AngerY = [&xPos, &yPos](RVec<Float_t> EnergyVec)
+    {
+        TMatrixT<Float_t> energy(8, 8);
+
+        int n_rows = 8;
+        int n_cols = 8;
+
+        std::vector<Float_t> rowSums(n_rows, 0);
+        std::vector<Float_t> colSums(n_cols, 0);
+
+        // Fill The Matrix
+        int counter = 0;
+        for (int col = 0; col < energy.GetNcols(); col++)
+        {
+            for (int row = 0; row < energy.GetNrows(); row++)
+            {
+                if (counter < 64)
+                    energy(row, col) = EnergyVec[counter];
+                counter++;
+            }
+        }
+
+        auto sum = energy.Sum();
+
+        const auto I = energy.Max();
+
+        getRowAndColumnSums(energy, rowSums, colSums);
+
+        // Scrimger and Baker formula
+        // N = 2*PI * I * t²
+        // N is the integral of scintilation light  (esum)
+        // I is the maximum intnsity
+        // t is the distance between photon scintilation and the detection plane "(doi)"
+        //
+        // t  =  sqrt(N/(2*PI*I))
+
+        // const double DOI = sqrt(sum / (2 * TMath::Pi() * I));
+        Float_t doi = I / sum;
+
+        Float_t v{0};
+
+        for (int i = 0; i < 8; i++)
+        {
+            v += rowSums[i] * yPos[i];
+        }
+        v = v / sum;
+
+        return v;
+    };
+
+    // auto calibrateEnergy = [&canalEquivalent, &correctionFactors](RVec<Float_t> EnergyVec)
+    // {
+    //     RVec<Float_t> CalibratedVec;
+    //
+    //     for (int ch = 0; ch < EnergyVec.size(); ch++)
+    //     {
+    //
+    //         CalibratedVec.push_back()
+    //     }
+    // }
+
+    // Processing
+    //    d.Foreach(energyFill, energyLabel);
+
+
+    auto calibrateNadig = [&fatoresDeCalibracaoNadig,&canalEquivalent]( int chipID, int hc , Float_t he){
+        Float_t c = fatoresDeCalibracaoNadig[chipID][hc]["c"];
+        Float_t s = fatoresDeCalibracaoNadig[chipID][hc]["s"];
+        return c*s*log(1/(1-he/s));
+    };
+
+    auto calibrateWang = [&fatoresDeCalibracaoWang,&canalEquivalent]( int chipID, int hc , Float_t he){
+        Float_t k1 = fatoresDeCalibracaoWang[chipID][hc]["k1"];
+        Float_t k2 = fatoresDeCalibracaoWang[chipID][hc]["k2"];
+        Float_t b =fatoresDeCalibracaoWang[chipID][hc]["b"];
+        return k1*(1-exp(-k2*he)+b);
+    };
+
+
+
+    std::unique_ptr<TFile> myFile(new TFile(file_name.c_str(),"read"));
+
+    std::unique_ptr<TTree> pulses((TTree *)myFile->Get("Pulses"));
+
+    Int_t channel, chipID, entries;
+    Float_t h_e;
+
+    pulses->SetBranchAddress("channel",&channel);
+    pulses->SetBranchAddress("chipID",&chipID);
+    pulses->SetBranchAddress("h_e",&h_e);
+
+    entries = pulses->GetEntries();
+
+    TH1F * globalHistoNadig = new TH1F("global Corrigido Nadig","global Corrigido Nadig",400,0,0);
+    TH1F * globalHistoWang = new TH1F("global Corrigido Wang","global Corrigido Wang",400,0,0);
+    TH1F * globalHistoCru = new TH1F("global Cru ","global Cru",400,0,0);
+
+    std::map<int,std::vector<TH1F*>> canaisCru;
+    std::map<int,std::vector<TH1F*>> canaisCorNadig;
+    std::map<int,std::vector<TH1F*>> canaisCorWang;
+
+    for (auto &val : chipIDs)
+     {
+        std::vector<TH1F*> canCru;
+        std::vector<TH1F*> canCorNadig;
+        std::vector<TH1F*> canCorWang;
+
+        for (int c = 0; c<64;c++){
+            std::string cname = Form("canal-%d",c);
+            std::string gname1 = cname+"-"+std::to_string(val)+"cru";
+            std::string gname2 = cname+"-"+std::to_string(val)+"corWang";
+            std::string gname3 = cname+"-"+std::to_string(val)+"corNadig";
+            canCru.push_back(new TH1F(gname1.c_str(),gname1.c_str(),400,0,0));
+            canCorWang.push_back(new TH1F(gname2.c_str(),gname2.c_str(),400,0,0));
+            canCorNadig.push_back(new TH1F(gname3.c_str(),gname3.c_str(),400,0,0));
+        }
+        canaisCru[val]=canCru;
+        canaisCorNadig[val]=canCorNadig;
+        canaisCorWang[val]=canCorWang;
+
+     }
+
+    std::cout<<"processando ... "<<entries<<" dados "<<std::endl;
+    for (int entry=0 ; entry<entries; entry++){
+        pulses->GetEntry(entry);
+
+
+        Float_t k1 = fatoresDeCalibracaoWang[chipID][channel]["k1"];
+        Float_t k2 = fatoresDeCalibracaoWang[chipID][channel]["k2"];
+        Float_t b =fatoresDeCalibracaoWang[chipID][channel]["b"];
+
+        Float_t s =fatoresDeCalibracaoNadig[chipID][channel]["s"];
+        Float_t c =fatoresDeCalibracaoNadig[chipID][channel]["c"];
+
+
+        Float_t energia = h_e;
+        float corrigidaWang= k1*(1-exp(-k2*energia)+b);
+        float corrigidaNadig= c*s*log(1/(1-energia/s));
+        
+        //std::cout<<"energia nao corrigida "<<energia<<" Energia corrigida "<<corrigida<<std::endl;
+        canaisCru[chipID][channel]->Fill(h_e);
+        canaisCorNadig[chipID][channel]->Fill(corrigidaNadig);
+        canaisCorWang[chipID][channel]->Fill(corrigidaWang);
+
+        
+        if (chipID==1){
+            globalHistoNadig->Fill(corrigidaNadig);
+            globalHistoWang->Fill(corrigidaWang);
+
+            globalHistoCru->Fill(h_e);
+        }
+
+
+
+    }
+        TCanvas * c1= new TCanvas ("Comparação correcoes","Comparacao correcoes",1080,790);
+        c1->Divide(2,2);
+        c1->cd(1);
+        globalHistoNadig->Draw();
+        c1->cd(2);
+        globalHistoWang->Draw();
+        c1->cd(3);
+        canaisCorNadig[1][45]->Draw();
+        c1->cd(4);
+        canaisCorWang[1][45]->Draw();
+        c1->Draw();
+    //TH1D * globalEnergy = dynamic_cast<TH1F*>(proc.Histo1D({"GlobalEnergy","GE",200,0,0},"EnergyCalibrated"));
+    //1738983
+    // for (auto &flood : Floods)
+    // {
+    // flood.Draw("AXIG");
+    // cin.get();
+    // }
+
+    std::cout << "finished!" << std::endl;
+}

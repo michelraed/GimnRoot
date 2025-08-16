@@ -1,0 +1,567 @@
+#include <iostream>
+#include <TH1F.h>
+#include <TCanvas.h>
+#include <TRandom.h>
+#include <TF1.h>
+#include <TMarker.h>
+
+// std::string file1 = "/home/enzo/projects/gimnpet/Testando_pre_caract_group_pre.root";
+// std::string file1 = "/home/michelraed/dev/gimnpet/time_30_t1_15_t2_20_te_15_ov_4_0_HW_OFF_qdcCharacterization_06122024_group_pre.root";
+//std::string file1 = "/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/Test/time_30_t1_15_t2_20_te_15_ov_4_0_HW_OFF_qdcCharacterization_06122024_group_pre.root";
+
+
+std::map<TString, Float_t> SaturationCorrectionNadig(std::map<int, double> peaks)
+{
+
+    Double_t E[3]{0, 511, 1274};
+    Double_t Q[3]{0, peaks[511], peaks[1274]};
+
+    TGraph graph(3, Q, E);
+    std::map<TString, Float_t> out;
+    TF1 fitFunc("nadigShug", "[0]*[1]*log(1/(1-x/[1]))");
+
+    bool outBool = false;
+    float parameter_a  = 1;
+    float parameter_b  = 1;
+    int contador{0};
+    while (!outBool)
+    {   
+        std::map<TString, Float_t> partial;    
+        //std::cout<<"contador "<<contador <<std::endl;
+        
+        fitFunc.SetParameter(0, parameter_a); // Valor inicial para c
+        fitFunc.SetParameter(1, parameter_b); // Valor inicial para s
+        // fitFunc.SetParameter(2, 100); // Valor inicial para s
+
+        graph.Fit(&fitFunc, "Q");
+
+        float C = fitFunc.GetParameter(0);
+        float S = fitFunc.GetParameter(1);
+        // float T = fitFunc.GetParameter(2);
+
+        partial.insert(std::make_pair("c", C));
+        partial.insert(std::make_pair("s", S));
+        // out.insert(std::make_pair("t", T));
+
+        parameter_a +=0.1;
+        parameter_b +=0.1;
+        float calculation511 = partial["c"] * partial["s"] * log(1 / (1 - peaks[511] / partial["s"]));
+        float calculation1274 = partial["c"] * partial["s"] * log(1 / (1 - peaks[1274] / partial["s"]));
+        
+        //std::cout<<calulation<<std::endl;
+        //std::cout<<"peak 511 ->"<<peaks[511]<<std::endl;
+        //std::cout<<"peak 1274 ->"<<peaks[1274]<<std::endl;
+        //std::cout<<"PARAMETRO a->"<<parameter_a<<std::endl;
+        //std::cout<<"PARAMETRO b->"<<parameter_b<<std::endl;
+        //std::cout<<"PARAMETRO C->"<<C<<std::endl;
+        //std::cout<<"PARAMETRO S->"<<S<<std::endl;
+
+ 
+
+        if ( (calculation511>510.0 && calculation511<511.999999999999999999999) && ((calculation1274>1273 && calculation1274<1274.999999)) ){
+            //std::cout<<" the value is "<<calulation511<<std::endl;
+            outBool = true;
+            return partial;
+        }
+        contador++;
+    }
+    return out;
+}
+
+std::map<TString, Float_t> correctionWang(std::map<int, double> peaks)
+{
+
+    Double_t E[3]{0, 511, 1274};
+    Double_t Q[3]{0, peaks[511], peaks[1274]};
+
+    TGraph graph(3, Q, E);
+    std::map<TString, Float_t> out;
+    TF1 fitFunc("wang", "[0]*(1-exp(-[1]*x)+[2])");
+
+    bool outBool = false;
+    float parameter_a  = -1;
+    float parameter_b  = -1;
+    float parameter_c  = -1;
+
+    float step_parameter_a  = 0.01;
+    float step_parameter_b  = 0.01;
+    float step_parameter_c =  0.01;
+
+
+
+    int contador{0};
+    while (!outBool)
+    {   
+        std::map<TString, Float_t> partial;    
+        //std::cout<<"contador "<<contador <<std::endl;
+
+        fitFunc.SetParameter(0, parameter_a); // Valor inicial para c
+        fitFunc.SetParameter(1, parameter_b); // Valor inicial para s
+        fitFunc.SetParameter(1, parameter_c); // Valor inicial para s
+       
+        // fitFunc.SetParameter(2, 100); // Valor inicial para s
+
+        graph.Fit(&fitFunc, "Q");
+
+        float k1 = fitFunc.GetParameter(0);
+        float k2 = fitFunc.GetParameter(1);
+        float b = fitFunc.GetParameter(2);
+
+        // float T = fitFunc.GetParameter(2);
+
+        partial.insert(std::make_pair("k1", k1));
+        partial.insert(std::make_pair("k2", k2));
+        partial.insert(std::make_pair("b", b));
+        // out.insert(std::make_pair("t", T));
+
+
+
+        parameter_a +=step_parameter_a;
+        parameter_b +=step_parameter_b;
+        parameter_c +=step_parameter_c;
+
+        float calculation511 = k1*(1-exp(-k2*peaks[511]))+b;
+        float calculation1274 = k1*(1-exp(-k2*peaks[1274]))+b;
+        
+        //if (contador>1000){
+        //std::cout<<"peak 511 ->"<<peaks[511]<<std::endl;
+        //std::cout<<"peak 1274 ->"<<peaks[1274]<<std::endl;
+        //std::cout<<"PARAMETRO a->"<<parameter_a<<std::endl;
+        //std::cout<<"PARAMETRO b->"<<parameter_b<<std::endl;
+        //std::cout<<"PARAMETRO c->"<<parameter_c<<std::endl;
+//
+        //std::cout<<"PARAMETRO k1->"<<k1<<std::endl;
+        //std::cout<<"PARAMETRO k2->"<<k2<<std::endl;
+        //std::cout<<"PARAMETRO b->"<<b<<std::endl;
+        //}
+        if ( (calculation511>510.9 && calculation511<511.01) && ((calculation1274>1273.9 && calculation1274<1274.01)) ){
+            std::cout<<" the value is "<<calculation511<< "  and "<< calculation1274 <<std::endl;
+            outBool = true;
+            contador =0;
+            return partial;
+        }
+        contador++;
+    }
+    return out;
+}
+
+Float_t getEnergyPETSYS(Float_t energy){
+    return 8.00000*pow(1.04676,pow(energy, 1.02734))+0.31909*energy-8.00000;
+}
+
+
+// Funcao petsys;
+std::map<TString, Float_t> FindLinearizationPETSYS(std::map<int, double> peaks)
+{
+
+    std::map<TString, Float_t> out;
+
+    Double_t E[3]{0, 511, 1274}; // 1274};
+    Double_t Q[3]{0, peaks[511], peaks[1274]};
+
+    TGraph graph(3, Q, E);
+
+    TF1 fitFunc("fitFunc", " [0] * pow([1], pow(x, [2])) + [3] * x - [0]");
+
+    fitFunc.SetParameters(8.00000, 1.04676, 1.02734, 0.31909);
+
+    graph.Fit(&fitFunc, "Q");
+    float P0 = fitFunc.GetParameter(0);
+    float P1 = fitFunc.GetParameter(1);
+    float P2 = fitFunc.GetParameter(2);
+    float P3 = fitFunc.GetParameter(3);
+
+    out.insert(std::make_pair("P0", fitFunc.GetParameter(0)));
+    out.insert(std::make_pair("P1", fitFunc.GetParameter(1)));
+    out.insert(std::make_pair("P2", fitFunc.GetParameter(2)));
+    out.insert(std::make_pair("P3", fitFunc.GetParameter(3)));
+
+    return out;
+}
+
+std::map<int, double> FindAndMarkPeaks(TH1F *histo, Float_t sigma, Float_t Threshold)
+{
+    // Float_t sigma {5} , Threshold {0.001};
+    std::vector<Float_t> pks;
+    TSpectrum *s = new TSpectrum;
+    int npeaks = s->Search(histo, sigma, "", Threshold);
+    double *peaks = s->GetPositionX();
+
+    std::map<int, double> sodiumPeaks;
+    sodiumPeaks[511] = 0.0;
+    sodiumPeaks[1274] = 0.0;
+
+    bool first = true;
+    if (VERBOSE)
+        std::cout << "nPeaks " << npeaks << std::endl;
+    
+    double maior = 0;
+    for (int i = 0; i < npeaks; i++)
+    {
+        if (i == 0)
+        {
+            sodiumPeaks[511] = peaks[i];
+        }
+        if (peaks[i]>maior)
+            maior = peaks[i];
+        if (VERBOSE)
+            std::cout << "pico encontrado em " << peaks[i] << std::endl;
+    }
+            sodiumPeaks[1274] = maior;
+
+    return sodiumPeaks;
+}
+
+std::vector<std::string> getKeysFromResult(std::map<std::string, std::vector<std::shared_ptr<TH1F>>> result)
+{
+    std::vector<std::string> output;
+
+    for (auto &p : result)
+    {
+        output.push_back(p.first);
+    }
+    return output;
+}
+
+std::vector<std::vector<std::shared_ptr<TH1F>>> getValuesFromResult(std::map<std::string, std::vector<std::shared_ptr<TH1F>>> result)
+{
+    std::vector<std::vector<std::shared_ptr<TH1F>>> output;
+    for (auto &p : result)
+    {
+        output.push_back(p.second);
+    }
+    return output;
+}
+
+std::map<std::string, std::vector<TH1F *>> GetMapHistosRoot(std::string file_name)
+{
+    //  FILE
+    //   |--Detectors
+    //   |  |--ChipID
+    //   |  |   |--Channel_energy
+    //   |  |
+    //   |
+    // std::string file_name = "/home/michelraed/dev/gimnpet/GimnROOT/Beg_27112024_600_group_pre.root";
+
+    // reads file
+    TFile *file = new TFile(file_name.c_str(), "Open");
+
+    // Vetor dos canais
+    // std::vector<std::vector<std::shared_ptr<TH1F>>> histograms;
+
+    // Map dos canais
+    std::map<std::string, std::vector<TH1F *>> histograms;
+
+    // Nomes dos ChipIDs
+    std::vector<TString> chipIDNames;
+
+    // std::map<std::pair<TString, std::vector<std::shared_ptr<TH1F>>> histoData;
+
+    // Gets the name of the files inside the
+    TList *keysFile = file->GetListOfKeys();
+
+    // Iterate over each key in the directory
+    for (int i = 0; i < keysFile->GetSize(); ++i)
+    {
+        // Get keys
+        TKey *key = (TKey *)keysFile->At(i);
+
+        std::string name = key->GetName();
+
+        // Print the name of the key with prefix for hierarchy
+        if (VERBOSE)
+            std::cout << name << std::endl;
+
+        // Get detector Folder
+        if (name.find("Detectors") != -1 && key->IsFolder())
+        {
+            if (VERBOSE)
+                std::cout << "detecores encontrado e 'e uma pasta " << std::endl;
+            TDirectory *detector = (TDirectory *)file->Get(name.c_str());
+            auto *keysDetectors = detector->GetListOfKeys();
+            for (int j = 0; j < keysDetectors->GetSize(); j++)
+            {
+                TKey *key2 = (TKey *)keysDetectors->At(j);
+                std::string name2 = key2->GetName();
+                if (VERBOSE)
+                    std::cout << name2 << std::endl;
+
+                if (name2.find("ChipID") != -1 && key->IsFolder())
+                {
+
+                    chipIDNames.push_back(name2);
+                    //  int num = extractNumber(name2);
+                    //  int p  = (int)num/2+1;
+                    //  std::string portName =  "PORT-"+std::to_str(p);
+                    //  this->portNames.push_back(portName);
+                    if (VERBOSE)
+                        std::cout << "chipID encontrado e 'e uma pasta " << std::endl;
+
+                    TDirectory *chipID = (TDirectory *)detector->Get(name2.c_str());
+                    auto *keysChipID = chipID->GetListOfKeys();
+                    // std::cout<<(int)keysChipID->GetSize()<<" fimim"<<std::endl;
+                    std::vector<TH1F *> detAux;
+                    for (int k = 0; k < keysChipID->GetSize(); k++)
+                    {
+
+                        TKey *key3 = (TKey *)keysChipID->At(k);
+                        std::string name3 = key3->GetName();
+                        if (name3.find("Channel_energy") != -1 && key3->IsFolder())
+                        {
+                            if (VERBOSE)
+                                std::cout << "Pasta de canais  encontrada" << std::endl;
+                            TDirectory *channelEnergy = (TDirectory *)chipID->Get(name3.c_str());
+                            auto *keysChannelsE = channelEnergy->GetListOfKeys();
+
+                            for (int m = 0; m < keysChannelsE->GetSize(); m++)
+                            {
+                                TKey *key4 = (TKey *)keysChannelsE->At(m);
+                                std::string name4 = key4->GetName();
+
+                                TH1F *aux_chan = (TH1F *)(channelEnergy->Get(name4.c_str()));
+                                detAux.push_back(aux_chan);
+                                // std::shared_ptr<TH1F> canal (aux_chan);
+                                // canal = std::make_shared<TH1F>(h);
+                                // std::cout << name4 << std::endl;
+                                // canal = std::make_shared<TH1F>();
+                                // TCanvas * c2  = new TCanvas;
+                                // c2->cd();
+                                // canal.get()->Draw();
+                                // c2->Draw();
+                                // detAux.push_back(canal);
+                            }
+                            histograms[name2] = detAux;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return histograms;
+}
+
+double ajustParable(std::shared_ptr<TH1F> hist)
+{
+    // TCanvas *canvas = new TCanvas(hist->GetName(), hist->GetTitle(), 800, 600);
+
+    // hist->Draw();
+
+    TSpectrum spectrum;
+    int nPeaks = spectrum.Search(hist.get(), 2, "", 0.1); // 2 é o número mínimo de bins entre picos e 0.1 é o threshold
+    double *xPeaks = spectrum.GetPositionX();
+
+    int maxPeakIndex = 0;
+    double maxPeakHeight = 0;
+    for (int i = 0; i < nPeaks; i++)
+    {
+        double height = hist->GetBinContent(hist->FindBin(xPeaks[i]));
+        if (height > maxPeakHeight)
+        {
+            maxPeakHeight = height;
+            maxPeakIndex = i;
+        }
+    }
+
+    double peakBinIndex = hist->FindBin(xPeaks[maxPeakIndex]);
+    double yVal = hist->GetBinContent(peakBinIndex);
+    double x1 = hist->GetBinCenter(peakBinIndex - 1);
+    double x2 = hist->GetBinCenter(peakBinIndex + 1);
+
+    // Criando função de ajuste
+    TF1 *fitParable = new TF1("fitParable", "pol2", x1, x2);
+
+    // Ajustando ao histograma
+    hist->Fit(fitParable, "R");
+    // fitParable->Draw("same");
+
+    // Recuperando os coeficientes: y = ax^2 + bx + c
+    double p0 = fitParable->GetParameter(0);
+    double p1 = fitParable->GetParameter(1);
+    double p2 = fitParable->GetParameter(2);
+
+    // Encontrando o vértice
+    double xVert = ((-1) * p1) / (2 * p2);
+    double yVert = p2 * (xVert * xVert) + p1 * xVert + p0;
+
+    int leftIndex = peakBinIndex;
+    int rightIndex = leftIndex;
+
+    while (leftIndex > 1 && hist->GetBinContent(leftIndex) > (yVert / 2))
+    {
+        --leftIndex;
+    }
+
+    while (rightIndex < hist->GetNbinsX() && hist->GetBinContent(rightIndex) > (yVert / 2))
+    {
+        ++rightIndex;
+    }
+
+    std::vector<double> xValues;
+
+    // Encontrando os valores de x por interpolação
+    if (leftIndex > 1)
+    {
+        double left_x_value = ((yVert / 2) - hist->GetBinContent(leftIndex)) *
+                                  (hist->GetBinCenter(leftIndex + 1) - hist->GetBinCenter(leftIndex)) /
+                                  (hist->GetBinContent(leftIndex + 1) - hist->GetBinContent(leftIndex)) +
+                              hist->GetBinCenter(leftIndex);
+        xValues.push_back(left_x_value);
+    }
+
+    if (rightIndex < hist->GetNbinsX())
+    {
+        double right_x_value = ((yVert / 2) - hist->GetBinContent(rightIndex - 1)) *
+                                   (hist->GetBinCenter(rightIndex) - hist->GetBinCenter(rightIndex - 1)) /
+                                   (hist->GetBinContent(rightIndex) - hist->GetBinContent(rightIndex - 1)) +
+                               hist->GetBinCenter(rightIndex - 1);
+        xValues.push_back(right_x_value);
+    }
+
+    double xPeak = hist->GetBinCenter(peakBinIndex);
+
+    double FWHM = fabs(xValues[1] - xValues[0]) / xPeak;
+
+    std::cout << "FWHM: " << FWHM << std::endl;
+
+    return FWHM;
+
+    // Esperar pela interação do usuário antes de fechar o canvas
+    // canvas->Update();
+    // canvas->WaitPrimitive();
+}
+
+   //std::map<std::string, std::vector<TH1F *>>  
+   void calibrate(std::string fileName, std::string outPath, Float_t sigma = 5, Float_t Threshold = 0.01, int det = 30)
+{
+    static int cnt = 0;
+    cnt++;
+    std::cout << " Processing File " << "[" << cnt << "] :" << fileName << std::endl;
+
+    auto name = splitString(fileName, '/');
+    auto name_pos = name.size();
+    std::string outName = name[name_pos - 1];
+    name = splitString(outName, '.');
+    name_pos = name.size();
+    outName = name[0];
+    outName = outName + "_CalFactorsChannels.root";
+
+    outName = outPath + "/" + outName;
+
+    std::shared_ptr<TFile> calOut;
+    calOut = std::make_shared<TFile>(outName.c_str(), "RECREATE");
+
+    std::shared_ptr<TTree> calFactors;
+    calFactors = std::make_shared<TTree>("calFactorChannel", "calFactorChannel");
+
+    Int_t chan{-1};
+    Double_t C, S, Pos511, Pos1274;
+    Int_t cpN;
+    Double_t k1,k2,b;
+    calFactors->Branch("channel", &chan);
+    calFactors->Branch("c", &C);
+    calFactors->Branch("s", &S);
+    calFactors->Branch("511Pos", &Pos511);
+    calFactors->Branch("1274Pos", &Pos1274);
+    calFactors->Branch("chipID", &cpN);
+    calFactors->Branch("k1", &k1);
+    calFactors->Branch("k2", &k2);
+    calFactors->Branch("b", &b);
+
+    // Aqui voce tinha colocado auto, mas eu alterei a funç~ao para retornar um map
+    // esse map vai conter <std::String ChipID, std::vector<std::shared_ptr<TH1F>>>
+    std::map<std::string, std::vector<TH1F *>> result = GetMapHistosRoot(fileName);
+
+    std::string chipName = "name";
+
+    /*
+    ==========================================================================
+                Mitchel, como podemos recuperar o chipID?  /\ This Way
+
+                Fiz ele virar um Map, porem na hora de passar os histogramas ta dando pau
+    ==========================================================================
+    */
+
+    int counter = 0;
+    pair<std::string, std::vector<TH1F *>> de;
+ 
+    for (auto &detector : result)
+    {
+        chipName = detector.first;
+        // std::cout<<"XX CHIP ID IS "<< chipName <<std::endl;
+        auto histograms = detector.second;
+        int ch = 0;
+        for (auto &histogram : histograms)
+        {
+
+            auto sodiumPeaks = FindAndMarkPeaks(histogram, sigma, Threshold);
+            // std::cout<<"+++++++++++++++++++++++++"<<std::endl;
+            //std::cout<<"Pico de 511  em "<<sodiumPeaks[511]<<std::endl;
+            //std::cout<<"Pico de 1274 em "<<sodiumPeaks[1274]<<std::endl;
+
+            //sodiumPeaks[511] = getEnergyPETSYS(sodiumPeaks[511]);
+            //sodiumPeaks[1274] = getEnergyPETSYS(sodiumPeaks[1274]);
+
+
+            std::map<TString, Float_t> corNadig = SaturationCorrectionNadig(sodiumPeaks);
+            std::map<TString, Float_t> corWang = correctionWang(sodiumPeaks);
+
+            // std::cout<<"++++++++Ajuste Nadig++++++++++++++"<<std::endl;
+            // std::cout<<"valor  de c "<<corNadig["c"]<<std::endl;
+            // std::cout<<"valor  de s "<<corNadig["s"]<<std::endl;
+            // std::cout<<"energia calculada para o pico de 511 "<< <<std::endl;
+            // std::cout<<counter<<std::endl;
+            //if (corNadig["c"] * corNadig["s"] * log(1 / (1 - sodiumPeaks[511] / corNadig["s"])) != 511)
+            //{
+            //    std::cout << "deu pau " << corNadig["c"] * corNadig["s"] * log(1 / (1 - sodiumPeaks[511] / corNadig["s"])) << std::endl;
+            //    std::cout << " pico de 511 em " << sodiumPeaks[511] << " calculado " << corNadig["c"] * corNadig["s"] * log(1 / (1 - sodiumPeaks[511] / corNadig["s"])) << std::endl;
+            //    std::cout << " pico de 1274 em " << " calculado " << corNadig["c"] * corNadig["s"] * log(1 / (1 - sodiumPeaks[1274] / corNadig["s"])) << std::endl;
+            //}
+            auto id = std::stoi(removePart(chipName, "ChipID-").c_str());
+            std::cout<<ch<<std::endl;
+            std::cout<<chipName<<std::endl;
+            cpN = id;
+            chan = ch;
+            C = corNadig["c"];
+            S = corNadig["s"];
+            k1 = corWang["k1"];
+            k2 = corWang["k2"];
+            b = corWang["b"];
+
+            Pos511 = sodiumPeaks[511];
+            Pos1274 = sodiumPeaks[1274];
+            ch++;
+            calFactors->Fill();
+        }
+        de = detector;
+    }
+    calOut->WriteObject(calFactors.get(), "CalibrationFactors");
+    chipName = de.first;
+    // result[chipName][det]->Draw();
+    // detectorsData[chipName] = auxChip;
+    calOut->Close();
+    //return result;
+}
+
+/*
+void createMap(){
+    std::unordered_map<std::string, std::vector<std::vector<double>>> dict;
+
+    std::string peak = "511keV";
+
+    dict["FWHM"] = {{0.10823, 0.11893}, {0.09381, 0.127834}};
+    dict[peak] = {{7.65}};
+
+    // Displaying all elements in the unordered_map
+    for (const auto& [key, value] : dict) {
+        std::cout << key << ": ";
+        for (const auto& vec : value) {
+            std::cout << "{ ";
+            for (double val : vec) {
+                std::cout << val << " ";
+            }
+            std::cout << "} ";
+        }
+        std::cout << std::endl;
+    }
+} */

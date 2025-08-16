@@ -1,0 +1,34 @@
+\hypertarget{GimnLoader_8C}{}\doxysection{Referência ao ficheiro source/1-\/base/\+Gimn\+Loader.C}
+\label{GimnLoader_8C}\index{source/1-\/base/GimnLoader.C@{source/1-\/base/GimnLoader.C}}
+\doxysubsection*{Componentes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classLoader}{Loader}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classLoader}{Loader}} será a classe base para ler os arquivos de configuração do projeto Uma vez que varios dos processamentos necessitam de informação extra, os arquivos de configuração servirão para fornecer ao script de processamento os dados necessários para que este seja efetuado; Por exemplo, antes de ler o arquivo root durante o processamento não há como saber quantos detectores havia conectados sem antes ler todos os eventos no interior do arquivo root. Além disso, informações como tipo de algoritmo a ser utilizado para o posicionamento, bem como qual o tipo de cristal utilizado, são lidos nestes arquivos de configuração. De modo a facilitar a leitura dos arquivos será criada uma classe base responsável pelo tratamento do arquivo e desta serão derivadas classes para a leitura dos identificadores, e parametros de calibração para cada uma das etapas necessárias. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classIdentificator}{Identificator}}
+\begin{DoxyCompactList}\small\item\em Esta classe irá gerar o carregador para o identificador do sistema. O identificador irá fornecer aos arquivos de processamento informações sobre o sistema petsys tais como o tipo de cristal utilizado, quantos cristais foram utilizados para o processamento, tipos de algoritmos de posicionamento e timing a serem utilizados, nome do detector e detector de referencia. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classhistoConf}{histo\+Conf}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{GimnLoader_8C_a6b4e29cc427f26e102f7b6acbe66df9c}{Gimn\+Loader}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{GimnLoader_8C_a6b4e29cc427f26e102f7b6acbe66df9c}\label{GimnLoader_8C_a6b4e29cc427f26e102f7b6acbe66df9c}} 
+\index{GimnLoader.C@{GimnLoader.C}!GimnLoader@{GimnLoader}}
+\index{GimnLoader@{GimnLoader}!GimnLoader.C@{GimnLoader.C}}
+\doxysubsubsection{\texorpdfstring{GimnLoader()}{GimnLoader()}}
+{\footnotesize\ttfamily void Gimn\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 1 do ficheiro Gimn\+Loader.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \{\}}
+
+\end{DoxyCode}

@@ -1,0 +1,434 @@
+
+struct HistosMaps{
+    std::vector<int> chipIDs;
+    std::map<int, std::vector<std::shared_ptr<TH1F>>> channelRaw;
+    std::map<int, std::vector<std::shared_ptr<TH1F>>> canaisCorNadig;
+    std::map<int, std::vector<std::shared_ptr<TH1F>>> canaisCorWang;
+    std::map<int, std::shared_ptr<TH2F>> FloodsWang;
+    std::map<int, std::shared_ptr<TH2F>> FloodsNadig;
+    std::map<int, std::shared_ptr<TH1F>> GlobalHistsWang;
+    std::map<int, std::shared_ptr<TH1F>> GlobalHistsNadig;
+    std::map<int, std::shared_ptr<TH1F>> GlobalHistsRaw;
+};
+
+struct correctionParameters
+{
+    std::vector<int> chanEquivalent;
+    std::map<int, std::vector<std::map<std::string, double>>> fatoresDeCalibracaoNadig;
+    std::map<int, std::vector<std::map<std::string, double>>> fatoresDeCalibracaoWang;
+};
+
+HistosMaps generateHistos(std::string file_name)
+{
+    ROOT::RDataFrame configurations("Configurations", file_name.c_str());
+    HistosMaps Histograms;
+
+    // Lamda declaration
+    auto readConfigurations = [&Histograms](int chipID)
+    {
+        // Creates the Histograms
+        std::shared_ptr<TH2F> floodNadig(new TH2F(Form("Flood Hist - Nadig ChipID-%d", chipID), Form("Flood Hist- %d", chipID), 256, -13.44, 13.44, 256, -13.44, 13.44));
+        std::shared_ptr<TH2F> floodWang(new TH2F(Form("Flood Hist - Wang  ChipID-%d", chipID), Form("Flood Hist- %d", chipID), 256, -13.44, 13.44, 256, -13.44, 13.44));
+        std::shared_ptr<TH1F> globalHistoNadig(new TH1F(Form("global corrected Nadig ChipID-%d", chipID), Form("global corrected Nadig ChipID-%d", chipID), 400, 0, 0));
+        std::shared_ptr<TH1F> globalHistoWang(new TH1F(Form("global corrected Wang ChipID-%d", chipID), Form("global corrected Wang ChipID-%d", chipID), 400, 0, 0));
+        std::shared_ptr<TH1F> globalHistoRaw(new TH1F(Form("global raw  ChipID-%d", chipID), Form("global Cru  ChipID-%d", chipID), 400, 0, 0));
+
+        // Fill The Maps
+        Histograms.chipIDs.push_back(chipID);
+        Histograms.GlobalHistsNadig[chipID] = globalHistoNadig;
+        Histograms.GlobalHistsWang[chipID] = globalHistoWang;
+        Histograms.GlobalHistsRaw[chipID] = globalHistoRaw;
+        Histograms.FloodsWang[chipID] = floodWang;
+        Histograms.FloodsNadig[chipID] = floodNadig;
+    };
+
+    configurations.Foreach(readConfigurations, {"chipID"});
+    return Histograms;
+}
+
+correctionParameters LoadCalibrationFactors(std::string calibrationParameters, HistosMaps &Histograms, SiPM &sipm)
+{
+
+    // declares root Dataframe for retrieving calibration parameters
+    ROOT::RDataFrame CalibrationFactors("CalibrationFactors", calibrationParameters.c_str());
+
+    // Utils
+    std::vector<Float_t> xPos = sipm.getPositionsX();
+    std::vector<Float_t> yPos = sipm.getPositionsY();
+
+    int nchans = 64;
+    std::vector<int> chanEquivalent(nchans, 0);
+
+    std::map<int, std::vector<std::map<std::string, double>>> fatoresDeCalibracaoNadig;
+    std::map<int, std::vector<std::map<std::string, double>>> fatoresDeCalibracaoWang;
+    std::map<int, std::vector<std::shared_ptr<TH1F>>> channelRaw;
+    std::map<int, std::vector<std::shared_ptr<TH1F>>> canaisCorNadig;
+    std::map<int, std::vector<std::shared_ptr<TH1F>>> canaisCorWang;
+
+    for (auto &val : Histograms.chipIDs)
+    {
+        std::vector<std::shared_ptr<TH1F>> chanRaw;
+        std::vector<std::shared_ptr<TH1F>> canCorNadig;
+        std::vector<std::shared_ptr<TH1F>> canCorWang;
+
+        for (int ch = 0; ch < nchans; ch++)
+        {
+
+            std::string cname = Form("canal-%d", ch);
+            std::string gname1 = cname + "-" + std::to_string(val) + "cru";
+            std::string gname2 = cname + "-" + std::to_string(val) + "corWang";
+            std::string gname3 = cname + "-" + std::to_string(val) + "corNadig";
+
+            std::shared_ptr<TH1F> aux1(new TH1F(gname1.c_str(), gname1.c_str(), 400, 0, 0));
+            std::shared_ptr<TH1F> aux2(new TH1F(gname2.c_str(), gname2.c_str(), 400, 0, 0));
+            std::shared_ptr<TH1F> aux3(new TH1F(gname3.c_str(), gname3.c_str(), 400, 0, 0));
+
+            chanRaw.push_back(aux1);
+            canCorWang.push_back(aux2);
+            canCorNadig.push_back(aux3);
+
+            std::map<std::string, Double_t> parametrosNadig;
+            parametrosNadig["c"] = -1.0;
+            parametrosNadig["s"] = -1.0;
+            fatoresDeCalibracaoNadig[val].push_back(parametrosNadig);
+
+            std::map<std::string, Double_t> parametrosWang;
+            parametrosWang["k1"] = -1.0;
+            parametrosWang["k2"] = -1.0;
+            parametrosWang["b"] = -1.0;
+            fatoresDeCalibracaoWang[val].push_back(parametrosWang);
+
+            auto pos_xy = sipm.CorrectChannelToPixelPs(ch);
+            int equivalent = 8 * pos_xy[0] + pos_xy[1];
+            chanEquivalent[equivalent] = ch;
+        }
+
+        Histograms.channelRaw[val] = chanRaw; //
+        Histograms.canaisCorNadig[val] = canCorNadig;
+        Histograms.canaisCorWang[val] = canCorWang;
+    }
+
+    auto ParameterReader = [&fatoresDeCalibracaoNadig, &fatoresDeCalibracaoWang](int chipID, int channel, double c, double s, double k1, double k2, double b)
+    {
+        fatoresDeCalibracaoNadig[chipID][channel]["c"] = c;
+        fatoresDeCalibracaoNadig[chipID][channel]["s"] = s;
+        fatoresDeCalibracaoWang[chipID][channel]["k1"] = k1;
+        fatoresDeCalibracaoWang[chipID][channel]["k2"] = k2;
+        fatoresDeCalibracaoWang[chipID][channel]["b"] = b;
+    };
+
+    CalibrationFactors.Foreach(ParameterReader, {"chipID", "channel", "c", "s", "k1", "k2", "b"});
+
+    correctionParameters cParam;
+    cParam.fatoresDeCalibracaoNadig = fatoresDeCalibracaoNadig;
+    cParam.fatoresDeCalibracaoWang = fatoresDeCalibracaoWang;
+    cParam.chanEquivalent = chanEquivalent;
+
+    return cParam;
+}
+
+
+void ProcessPulsesfn(std::string fileName= "/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC/time_120_t1_20_t2_20_te_15_ov_2_0_HW_OFF_qdcAquisicao_OV_04_02_2025_group_pre.root",
+                    std::string calibrationParameters="/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC_CAL/time_120_t1_20_t2_20_te_15_ov_2_0_HW_OFF_qdcAquisicao_OV_04_02_2025_group_pre_CalFactorsChannels.root",
+                    std::string OutputFolder="/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC_FINAL"){
+
+// TString fileName= "/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC/time_120_t1_20_t2_20_te_15_ov_2_0_HW_OFF_qdcAquisicao_OV_04_02_2025_group_pre.root";
+//calibrationParameters="/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC_CAL/time_120_t1_20_t2_20_te_15_ov_2_0_HW_OFF_qdcAquisicao_OV_04_02_2025_group_pre_CalFactorsChannels.root";
+//OutputFolder="/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC_FINAL";
+
+    HistosMaps Histogramas = generateHistos(fileName);
+    SiPM aux;
+    std::vector<Float_t> xPos = aux.getPositionsX();
+    std::vector<Float_t> yPos = aux.getPositionsY();
+
+
+
+    std::cout << "Loading calibration parameters" << std::endl;
+    correctionParameters cPar = LoadCalibrationFactors(calibrationParameters, Histogramas, aux);
+
+
+
+    //=========================================creates output ================================
+    std::cout << "Processing Name" << std::endl;
+
+    std::string coreName = removePart(fileName, "group_pre.root");
+    coreName = coreName + "calibrated.root";
+    coreName = removePart(coreName, "/home/gimn6/Documentos/Michel/DOUTORADO_CARACTERIZACAO/RootOutputs/PreProcessed/Caracterization/OV_QDC/");
+    coreName = OutputFolder + "/" + coreName;
+
+    std::cout<<coreName<<std::endl;
+    cin.get();
+
+    std::shared_ptr<TFile> outFile(new TFile(coreName.c_str(), "recreate"));
+    std::shared_ptr<TTree> calibrated;
+    calibrated = std::make_shared<TTree>("calibrated", Form("calibrated-%d", DIFERENTIATOR));
+
+    Float_t UN, UW, VN, VW, EnN, EnW, T;
+    Int_t chID;
+
+    calibrated->Branch("xPosNadig", &UN);
+    calibrated->Branch("xPosWang", &UW);
+    calibrated->Branch("yPosNadig", &VN);
+    calibrated->Branch("yPosWang", &VW);
+    calibrated->Branch("energyNadig", &EnN);
+    calibrated->Branch("energyWang", &EnW);
+    calibrated->Branch("time", &T);
+    calibrated->Branch("chipID", &chID);
+
+    // ==========================================================================================================================
+    
+    
+    //                                         LAMBDAS
+    
+    
+    
+    // ==========================================================================================================================
+
+    auto correctEnergyRVec = [&cPar](RVec<Float_t> *EnergyVec, int chipID)
+    {
+        RVec<Float_t> correctedNadig;
+        RVec<Float_t> correctedWang;
+        std::map<std::string, RVec<Float_t>> output;
+
+        correctedNadig.assign(64, 0);
+        correctedWang.assign(64, 0);
+
+        int auxChan{-1};
+        Float_t k1{-1}, k2{-1}, b{-1}, s{-1}, c{-1};
+
+        for (int chan = 0; chan < 64; chan++)
+        {
+            auxChan = cPar.chanEquivalent[chan];
+            k1 = cPar.fatoresDeCalibracaoWang[chipID][auxChan]["k1"];
+            k2 = cPar.fatoresDeCalibracaoWang[chipID][auxChan]["k2"];
+            b = cPar.fatoresDeCalibracaoWang[chipID][auxChan]["b"];
+            s = cPar.fatoresDeCalibracaoNadig[chipID][auxChan]["s"];
+            c = cPar.fatoresDeCalibracaoNadig[chipID][auxChan]["c"];
+
+            Float_t energy = (*EnergyVec)[chan];
+
+            correctedWang[chan] = k1 * (1 - exp(-k2 * energy) + b);
+            correctedNadig[chan] = c * s * log(1 / (1 - energy / s));
+        }
+
+        output["wang"] = correctedWang;
+        output["nadig"] = correctedNadig;
+
+        return output;
+    };
+
+    auto AngerSimple = [&xPos, &yPos](RVec<Float_t> EnergyVec)
+    {
+        TMatrixT<Float_t> energy(8, 8);
+
+        // Fill The Matrix
+        int counter = 0;
+        for (int col = 0; col < energy.GetNcols(); col++)
+        {
+            for (int row = 0; row < energy.GetNrows(); row++)
+            {
+                if (counter < 64)
+                    energy(row, col) = EnergyVec[counter];
+                counter++;
+            }
+        }
+
+        auto sum = energy.Sum();
+
+        const auto I = energy.Max();
+
+        int n_rows = 8;
+        int n_cols = 8;
+
+        std::vector<Float_t> rowSums(n_rows, 0);
+        std::vector<Float_t> colSums(n_cols, 0);
+
+        getRowAndColumnSums(energy, rowSums, colSums);
+
+        // Scrimger and Baker formula
+        // N = 2*PI * I * t²
+        // N is the integral of scintilation light  (esum)
+        // I is the maximum intnsity
+        // t is the distance between photon scintilation and the detection plane "(doi)"
+        //
+        // t  =  sqrt(N/(2*PI*I))
+
+        // const double DOI = sqrt(sum / (2 * TMath::Pi() * I));
+        Float_t doi = I / sum;
+
+        Float_t u{0}, v{0};
+
+        for (int i = 0; i < 8; i++)
+        {
+            u += colSums[i] * xPos[i];
+            v += rowSums[i] * yPos[i];
+        }
+        u = u / sum;
+        v = v / sum;
+
+        std::map<std::string, Float_t> output;
+        output["u"] = u;
+        output["v"] = v;
+        return output;
+    };
+
+
+
+
+    //===========================READS FILE====================================
+    std::cout<<"filename "<<fileName<<std::endl;
+    std::unique_ptr<TFile> myFile(new TFile(fileName.c_str(), "read"));
+    std::unique_ptr<TTree> pulses((TTree *)myFile->Get("Pulses"));
+
+    Int_t channel, chipIDp, entries;
+    Float_t h_e, h_t;
+
+    ROOT::VecOps::RVec<float> *EnergyVec = nullptr;
+    ROOT::VecOps::RVec<float> *TimeVec = nullptr;
+
+    pulses->SetBranchAddress("EnergyVec", &EnergyVec);
+    pulses->SetBranchAddress("TimeVec", &TimeVec);
+    pulses->SetBranchAddress("channel", &channel);
+    pulses->SetBranchAddress("chipID", &chipIDp);
+    pulses->SetBranchAddress("h_e", &h_e);
+    pulses->SetBranchAddress("h_t", &h_t);
+    entries = pulses->GetEntries();
+
+
+    Float_t k1{-1}, k2{-1}, b{-1}, s{-1}, c{-1};
+    Float_t energia{-1}, corrigidaWang{-1}, corrigidaNadig{-1};
+
+    //==========================================================================================================================
+    //
+    //
+    //                                         Main LOOP
+    //
+    //
+    //
+    //==========================================================================================================================
+
+
+  for (int entry = 0; entry < entries; entry++)
+    {
+        pulses->GetEntry(entry);
+
+        // std::cout<<"Processing entry "<<entry<<std::endl;
+        // std::cout<<"chipID :"<<chipIDp<<std::endl;
+        // std::cout<<"channel :"<<channel<<std::endl;
+
+        /*
+         *  Retrieves calibration factors for both methods for each channel
+         *
+         */
+        //=====================================================================================
+        k1 = cPar.fatoresDeCalibracaoWang[chipIDp][channel]["k1"];
+        k2 = cPar.fatoresDeCalibracaoWang[chipIDp][channel]["k2"];
+        b = cPar.fatoresDeCalibracaoWang[chipIDp][channel]["b"];
+
+        s = cPar.fatoresDeCalibracaoNadig[chipIDp][channel]["s"];
+        c = cPar.fatoresDeCalibracaoNadig[chipIDp][channel]["c"];
+
+        // // std::cout<<"k1: "<<k1<<std::endl;
+        // // std::cout<<"k2: "<<k2<<std::endl;
+        // // std::cout<<"b: "<<b<<std::endl;
+        // // std::cout<<"s: "<<s<<std::endl;
+        // // std::cout<<"c: "<<c<<std::endl;
+
+        // //=====================================================================================
+        // /*
+        //  *  Corrects the energy that is in DAC units to energy
+        //  */
+        // //=====================================================================================
+        energia = h_e;
+        corrigidaWang = k1 * (1 - exp(-k2 * energia) + b);
+        corrigidaNadig = c * s * log(1 / (1 - energia / s));
+
+        // // std::cout<<"energy : "<<energia<<std::endl;
+        // // std::cout<<"wang : "<<corrigidaWang<<std::endl;
+        // // std::cout<<"nadig : "<<corrigidaNadig<<std::endl;
+
+        auto RvecCor = correctEnergyRVec(EnergyVec, chipIDp);
+        auto positionsNadig = AngerSimple(RvecCor["nadig"]);
+        auto positionsWang = AngerSimple(RvecCor["wang"]);
+
+        UW = positionsWang["u"];
+        UN = positionsNadig["u"];
+        VW = positionsWang["v"];
+        VN = positionsNadig["v"];
+        EnW = corrigidaWang;
+        EnN = corrigidaNadig;
+        T = h_t;
+        chID = chipIDp;
+        calibrated->Fill();
+
+        // // std::cout<<"energia nao corrigida "<<energia<<" Energia corrigida "<<corrigida<<std::endl;
+        // //=====================================================================================
+
+        // //=====================================================================================
+        // /*
+        //  *      Fill Histograms
+        //  */
+        // //=====================================================================================
+        Histogramas.channelRaw[chipIDp][channel]->Fill(h_e);
+        Histogramas.canaisCorNadig[chipIDp][channel]->Fill(corrigidaNadig);
+        Histogramas.canaisCorWang[chipIDp][channel]->Fill(corrigidaWang);
+
+        Histogramas.FloodsWang[chipIDp]->Fill(positionsNadig["u"], positionsNadig["v"]);
+        Histogramas.FloodsNadig[chipIDp]->Fill(positionsWang["u"], positionsWang["v"]);
+        Histogramas.GlobalHistsWang[chipIDp]->Fill(corrigidaNadig);
+        Histogramas.GlobalHistsNadig[chipIDp]->Fill(corrigidaWang);
+        Histogramas.GlobalHistsRaw[chipIDp]->Fill(h_e);
+    }
+
+        //=====================================================================================
+        /*
+         *      Saves all Data
+         */
+        //=====================================================================================
+        outFile->cd();
+        calibrated->Write();
+        TDirectory *Detectors = outFile->mkdir("Detectors");
+
+        for (auto &cID : Histogramas.chipIDs)
+        {
+            std::string dirName = "chipID-" + std::to_string(cID);
+            TDirectory *dir1 = (Detectors->mkdir(dirName.c_str()));
+            dir1->cd();
+            dir1->WriteObject(Histogramas.FloodsWang[cID].get(), "Floods Wang correction");
+            dir1->WriteObject(Histogramas.FloodsNadig[cID].get(), "Floods Nadig correction");
+            dir1->WriteObject(Histogramas.GlobalHistsWang[cID].get(), "Global Hist Wang correction");
+            dir1->WriteObject(Histogramas.GlobalHistsNadig[cID].get(), "Global Hist Nadig correction");
+            dir1->WriteObject(Histogramas.GlobalHistsRaw[cID].get(), "Global Hist Raw");
+
+            TDirectory *subdir = dir1->mkdir("Channel_energy");
+            subdir->cd();
+            for (int ch = 0; ch < 64; ch++)
+            {
+                std::string channelNameNadig = "channel-" + std::to_string(ch) + "-ChipID-" + std::to_string(cID) + "-Nadig Correction";
+                std::string channelNameWang = "channel-" + std::to_string(ch) + "-ChipID-" + std::to_string(cID) + "-Wang Correction";
+                std::string channelNameRaw = "channel-" + std::to_string(ch) + "-ChipID-" + std::to_string(cID) + "-Raw";
+
+                subdir->WriteObject(Histogramas.canaisCorNadig[cID][ch].get(), channelNameNadig.c_str());
+                subdir->WriteObject(Histogramas.canaisCorWang[cID][ch].get(), channelNameWang.c_str());
+                subdir->WriteObject(Histogramas.channelRaw[cID][ch].get(), channelNameRaw.c_str());
+            }
+        }
+        // TCanvas * c1= new TCanvas ("Comparação correcoes","Comparacao correcoes",1080,790);
+        // c1->Divide(2,3);
+        // c1->cd(1);
+        // GlobalHistsNadig[1]->Draw();
+        // c1->cd(2);
+        // GlobalHistsWang[1]->Draw();
+        // c1->cd(3);
+        // canaisCorNadig[1][45]->Draw();
+        // c1->cd(4);
+        // canaisCorWang[1][45]->Draw();
+        // c1->cd(5);
+        // FloodsNadig[1]->Draw("COLZ");
+        // c1->cd(6);
+        // FloodsWang[1]->Draw("COLZ");
+        // c1->Draw();
+        //
+
+    std::cout << "finished!" << std::endl;
+}

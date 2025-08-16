@@ -1,0 +1,698 @@
+\hypertarget{classSiPM}{}\doxysection{Referência à classe Si\+PM}
+\label{classSiPM}\index{SiPM@{SiPM}}
+
+
+This class stores information from the \mbox{\hyperlink{classSiPM}{Si\+PM}} used while processing acquired data. It have some important features such as convert channel\+ID into an index for rows and columns, or into the position of the event in mm, in this case the zero is located in the center of the crystal array. ~\newline
+ In the case of segmented crystals the position represents the center of the crystal element. ~\newline
+ Other options such as micro\+Cells have been added for future works. ~\newline
+ This class have hard coded the positions of the channels in a matrix using as reference the Ketek Pa 3325 wb 0808 channels disposition ~\newline
+ It also have implemented a method for converting the crystal\+ID from a gate acquisition into a i,j index that represents the position in a mxn matrix.  
+
+
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSiPM_aab25789ea9e314015bbfaf5b6f0faabc}{Si\+PM}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor of the \mbox{\hyperlink{classSiPM}{Si\+PM}}. In this case the \mbox{\hyperlink{classSiPM}{Si\+PM}} will be builded using the parameters for a Ketek 3325WB0808. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSiPM_a33c543b56956a33df6728ee5d380ca97}{Si\+PM}} (\mbox{\hyperlink{classSiPM}{Si\+PM}} const \&s)
+\begin{DoxyCompactList}\small\item\em Construct a new Si P M\+:\+: Si P M object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSiPM_ad3802e1d20c609eb4e01ae978649c8e0}{Si\+PM}} (Int\+\_\+t Chan\+Num, Int\+\_\+t Rows, Int\+\_\+t Columns, Float\+\_\+t Pitch, \mbox{\hyperlink{classIdentificator}{Identificator}} Id)
+\item 
+std\+::vector$<$ Float\+\_\+t $>$ \mbox{\hyperlink{classSiPM_a635ae10d24ec15e014ce2304b6a2cacd}{get\+PositionsX}} ()
+\begin{DoxyCompactList}\small\item\em Builded to give access to the vector containing the positions of the \mbox{\hyperlink{classSiPM}{Si\+PM}} centers in X direction;. \end{DoxyCompactList}\item 
+std\+::vector$<$ Float\+\_\+t $>$ \mbox{\hyperlink{classSiPM_af5ddd2833d562976f7a337c702fce42e}{get\+PositionsY}} ()
+\begin{DoxyCompactList}\small\item\em Builded to give access to the vector containing the positions of the \mbox{\hyperlink{classSiPM}{Si\+PM}} centers in Y direction;. \end{DoxyCompactList}\item 
+Int\+\_\+t \mbox{\hyperlink{classSiPM_aa5b61b22a6c990112b0c80d0043c5382}{get\+Channel\+Number}} ()
+\begin{DoxyCompactList}\small\item\em Give acces to protected data containing number of channels;. \end{DoxyCompactList}\item 
+Int\+\_\+t \mbox{\hyperlink{classSiPM_ac345801d5bcdea4981ffdc2e7f0aff68}{get\+Microcell\+Num}} ()
+\begin{DoxyCompactList}\small\item\em Give acces to protected data containing the number of channels;. \end{DoxyCompactList}\item 
+Int\+\_\+t \mbox{\hyperlink{classSiPM_ad1178435dc33fe7f0bdd1998c48f77fc}{get\+Rows}} ()
+\begin{DoxyCompactList}\small\item\em Give acces to protected data containing the number of rows. \end{DoxyCompactList}\item 
+Int\+\_\+t \mbox{\hyperlink{classSiPM_adfe3857e236bcafc3c033d15e5605667}{get\+Cols}} ()
+\begin{DoxyCompactList}\small\item\em Give acces to protected data containing the number of columns. \end{DoxyCompactList}\item 
+std\+::vector$<$ Float\+\_\+t $>$ \mbox{\hyperlink{classSiPM_a25c3406597f606d9cf7771074d4e227b}{get\+Dimensions}} ()
+\begin{DoxyCompactList}\small\item\em this method is designed for returning the dimensions of the \mbox{\hyperlink{classSiPM}{Si\+PM}} used; \end{DoxyCompactList}\item 
+Float\+\_\+t \mbox{\hyperlink{classSiPM_aa0d63240ab536c2e10732a4285738d02}{get\+Xposition}} (Int\+\_\+t pos)
+\begin{DoxyCompactList}\small\item\em This metod is designed to return the position in mm from a given index in the X direction. \end{DoxyCompactList}\item 
+Float\+\_\+t \mbox{\hyperlink{classSiPM_a517675bb906acde68d89bd8bac9f4638}{get\+Yposition}} (Int\+\_\+t pos)
+\begin{DoxyCompactList}\small\item\em This metod is designed to return the position in mm from a given index in the Y direction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSiPM_a707877fb3c8fce44afb0a6e9236ca474}{set\+Channel\+Number}} (Int\+\_\+t chn)
+\item 
+void \mbox{\hyperlink{classSiPM_a4cc5da24163d624506439e3948a31b56}{set\+Rows}} (Int\+\_\+t row)
+\item 
+void \mbox{\hyperlink{classSiPM_a5bf1bcb70ec56dca538f9bfc23a7e08d}{set\+Cols}} (Int\+\_\+t col)
+\item 
+void \mbox{\hyperlink{classSiPM_a1cba76fe18117b949101ec0f72923e7c}{set\+DimensionX}} (Float\+\_\+t x)
+\item 
+void \mbox{\hyperlink{classSiPM_a32e1678e39fe3dc7a0e811794efcc55a}{set\+DimensionY}} (Float\+\_\+t y)
+\item 
+void \mbox{\hyperlink{classSiPM_a0c5b32d0e53a35b60a1ccd9c5a077634}{set\+Microcell\+Num}} (Int\+\_\+t mcn)
+\item 
+void \mbox{\hyperlink{classSiPM_a61be9de7c3ffc5a610414f69b42f12d6}{set\+Dimensions}} (Float\+\_\+t x, Float\+\_\+t y)
+\item 
+TMatrixT$<$ Long64\+\_\+t $>$ \mbox{\hyperlink{classSiPM_a8df9ebc8e2d8f5d71bbc2d1439ad12f2}{get\+Time\+Matrix}} (int det)
+\item 
+TMatrixT$<$ double $>$ \mbox{\hyperlink{classSiPM_ae983128182d6124568a231854ebd62d8}{get\+Energy\+Matrix}} (int det)
+\item 
+void \mbox{\hyperlink{classSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3}{Initialize\+Pixels}} ()
+\item 
+std\+::vector$<$ Int\+\_\+t $>$ \mbox{\hyperlink{classSiPM_aa2fe429923a080c0e2617fae73af5db3}{Correct\+Channel\+To\+Pixel\+Ps}} (Int\+\_\+t Channel)
+\begin{DoxyCompactList}\small\item\em This method is designed for returning the index j,i relative to the position of the \mbox{\hyperlink{classSiPM}{Si\+PM}} inside the array. Is designed for a Ketek 3325 Wb0808 PA. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSiPM_a329f4f64f8a203d758216f101c7115b6}{show\+Positions}} ()
+\begin{DoxyCompactList}\small\item\em Prints the position of the center of each pixel in X and Y directions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSiPM}{Si\+PM}} \& \mbox{\hyperlink{classSiPM_ae8ba1771799aab899dd65ae4ffe76ccc}{operator=}} (\mbox{\hyperlink{classSiPM}{Si\+PM}} const \&)
+\end{DoxyCompactItemize}
+\doxysubsection*{Atributos Públicos}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ TMatrixT$<$ double $>$ $>$ \mbox{\hyperlink{classSiPM_a85ea416882f95cbfbab0e51aab5e9d7a}{Sipm\+\_\+e}}
+\item 
+std\+::vector$<$ TMatrixT$<$ long long $>$ $>$ \mbox{\hyperlink{classSiPM_a3695fc10408feba97c3a20b20df8b35d}{Sipm\+\_\+t}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+This class stores information from the \mbox{\hyperlink{classSiPM}{Si\+PM}} used while processing acquired data. It have some important features such as convert channel\+ID into an index for rows and columns, or into the position of the event in mm, in this case the zero is located in the center of the crystal array. ~\newline
+ In the case of segmented crystals the position represents the center of the crystal element. ~\newline
+ Other options such as micro\+Cells have been added for future works. ~\newline
+ This class have hard coded the positions of the channels in a matrix using as reference the Ketek Pa 3325 wb 0808 channels disposition ~\newline
+ It also have implemented a method for converting the crystal\+ID from a gate acquisition into a i,j index that represents the position in a mxn matrix. 
+
+Definido na linha 12 do ficheiro Si\+PM.\+C.
+
+
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classSiPM_aab25789ea9e314015bbfaf5b6f0faabc}\label{classSiPM_aab25789ea9e314015bbfaf5b6f0faabc}} 
+\index{SiPM@{SiPM}!SiPM@{SiPM}}
+\index{SiPM@{SiPM}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{SiPM()}{SiPM()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Si\+PM\+::\+Si\+PM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor of the \mbox{\hyperlink{classSiPM}{Si\+PM}}. In this case the \mbox{\hyperlink{classSiPM}{Si\+PM}} will be builded using the parameters for a Ketek 3325WB0808. 
+
+
+
+Definido na linha 109 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{109           \{}
+\DoxyCodeLine{110     \textcolor{comment}{// default start;}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     rows = 8;}
+\DoxyCodeLine{113     cols = 8;}
+\DoxyCodeLine{114     channelNum = 64;}
+\DoxyCodeLine{115     PichX = 3.36;}
+\DoxyCodeLine{116     PichY = 3.36;}
+\DoxyCodeLine{117     Initialize();}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a33c543b56956a33df6728ee5d380ca97}\label{classSiPM_a33c543b56956a33df6728ee5d380ca97}} 
+\index{SiPM@{SiPM}!SiPM@{SiPM}}
+\index{SiPM@{SiPM}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{SiPM()}{SiPM()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Si\+PM\+::\+Si\+PM (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classSiPM}{Si\+PM}} const \&}]{s }\end{DoxyParamCaption})}
+
+
+
+Construct a new Si P M\+:\+: Si P M object. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em s} & \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 125 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{125                        :}
+\DoxyCodeLine{126                             PichX \{ s.PichX\}, PichY \{s.PichY\},}
+\DoxyCodeLine{127                             positionsX\{s.positionsX\},positionsY\{s.positionsY\},}
+\DoxyCodeLine{128                             channelNum \{s.channelNum\}, microCells\{s.microCells\},}
+\DoxyCodeLine{129                             rows\{s.rows\},cols\{s.cols\},}
+\DoxyCodeLine{130                             dimensionXmm\{s.dimensionXmm\},dimensionYmm\{s.dimensionYmm\}}
+\DoxyCodeLine{131 \{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_ad3802e1d20c609eb4e01ae978649c8e0}\label{classSiPM_ad3802e1d20c609eb4e01ae978649c8e0}} 
+\index{SiPM@{SiPM}!SiPM@{SiPM}}
+\index{SiPM@{SiPM}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{SiPM()}{SiPM()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Si\+PM\+::\+Si\+PM (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{Chan\+Num,  }\item[{Int\+\_\+t}]{Rows,  }\item[{Int\+\_\+t}]{Columns,  }\item[{Float\+\_\+t}]{Pitch,  }\item[{\mbox{\hyperlink{classIdentificator}{Identificator}}}]{Id }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 133 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133                                                                                     \{}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135     this-\/>channelNum = ChanNum;}
+\DoxyCodeLine{136     this-\/>rows = Rows;}
+\DoxyCodeLine{137     this-\/>cols = Columns;}
+\DoxyCodeLine{138     this-\/>PichX = this-\/>PichY = Pitch;}
+\DoxyCodeLine{139     this-\/>Id = Id;}
+\DoxyCodeLine{140     std::cout<<\textcolor{stringliteral}{"{}sendo Chamado"{}}<<std::endl;}
+\DoxyCodeLine{141     Initialize();}
+\DoxyCodeLine{142     \mbox{\hyperlink{classSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3}{InitializePixels}}();}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144 \}}
+
+\end{DoxyCode}
+
+
+Referências Initialize\+Pixels().
+
+Grafo de chamadas desta função\+:
+% FIG 0
+
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classSiPM_aa2fe429923a080c0e2617fae73af5db3}\label{classSiPM_aa2fe429923a080c0e2617fae73af5db3}} 
+\index{SiPM@{SiPM}!CorrectChannelToPixelPs@{CorrectChannelToPixelPs}}
+\index{CorrectChannelToPixelPs@{CorrectChannelToPixelPs}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{CorrectChannelToPixelPs()}{CorrectChannelToPixelPs()}}
+{\footnotesize\ttfamily std\+::vector$<$ Int\+\_\+t $>$ Si\+PM\+::\+Correct\+Channel\+To\+Pixel\+Ps (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{Channel }\end{DoxyParamCaption})}
+
+
+
+This method is designed for returning the index j,i relative to the position of the \mbox{\hyperlink{classSiPM}{Si\+PM}} inside the array. Is designed for a Ketek 3325 Wb0808 PA. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em Channel} & Representes the \mbox{\hyperlink{classSiPM}{Si\+PM}} channel to be converted into a pair $<$y,x$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the indexes of the position of the \mbox{\hyperlink{classSiPM}{Si\+PM}} inside the array as a pair $<$y,x$>$ 
+\end{DoxyReturn}
+
+
+Definido na linha 165 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165                                                            \{}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167     \textcolor{keywordtype}{int} CORRECTION\_MAP[64][3]\{ \textcolor{comment}{// \{Channel,X,Y\}}}
+\DoxyCodeLine{168                                                 \{0,1,7\},\{1,1,6\},\{2,2,4\},\{3,0,6\},\{4,0,5\},\{5,3,7\},\{6,0,4\},\{7,2,6\},}
+\DoxyCodeLine{169                                                 \{8,1,5\},\{9,3,3\},\{10,0,7\},\{11,3,4\},\{12,3,6\},\{13,2,5\},\{14,2,7\},\{15,1,4\},}
+\DoxyCodeLine{170                                                 \{16,6,6\},\{17,7,7\},\{18,6,7\},\{19,7,6\},\{20,4,7\},\{21,4,6\},\{22,5,6\},\{23,5,7\},}
+\DoxyCodeLine{171                                                 \{24,7,4\},\{25,7,5\},\{26,6,4\},\{27,3,5\},\{28,6,5\},\{29,5,5\},\{30,5,4\},\{31,4,4\},}
+\DoxyCodeLine{172                                                 \{32,4,5\},\{33,4,3\},\{34,4,2\},\{35,5,2\},\{36,5,3\},\{37,6,2\},\{38,3,2\},\{39,6,3\},}
+\DoxyCodeLine{173                                                 \{40,7,2\},\{41,7,3\},\{42,4,0\},\{43,4,1\},\{44,5,0\},\{45,6,1\},\{46,5,1\},\{47,6,0\},}
+\DoxyCodeLine{174                                                 \{48,7,0\},\{49,7,1\},\{50,0,3\},\{51,3,0\},\{52,3,1\},\{53,2,1\},\{54,2,0\},\{55,1,0\},}
+\DoxyCodeLine{175                                                 \{56,1,1\},\{57,0,2\},\{58,2,2\},\{59,1,3\},\{60,0,0\},\{61,1,2\},\{62,2,3\},\{63,0,1\},\};}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177     }
+\DoxyCodeLine{178     \textcolor{comment}{//RETORNA X,Y}}
+\DoxyCodeLine{179     std::vector<Int\_t> aux \{CORRECTION\_MAP[channel][1],CORRECTION\_MAP[channel][2]\};}
+\DoxyCodeLine{180     \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{181 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_aa5b61b22a6c990112b0c80d0043c5382}\label{classSiPM_aa5b61b22a6c990112b0c80d0043c5382}} 
+\index{SiPM@{SiPM}!getChannelNumber@{getChannelNumber}}
+\index{getChannelNumber@{getChannelNumber}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getChannelNumber()}{getChannelNumber()}}
+{\footnotesize\ttfamily Int\+\_\+t Si\+PM\+::get\+Channel\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Give acces to protected data containing number of channels;. 
+
+\begin{DoxyReturn}{Retorna}
+The number of channels in the \mbox{\hyperlink{classSiPM}{Si\+PM}} 
+\end{DoxyReturn}
+
+
+Definido na linha 46 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46 \{\textcolor{keywordflow}{return} channelNum;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_adfe3857e236bcafc3c033d15e5605667}\label{classSiPM_adfe3857e236bcafc3c033d15e5605667}} 
+\index{SiPM@{SiPM}!getCols@{getCols}}
+\index{getCols@{getCols}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getCols()}{getCols()}}
+{\footnotesize\ttfamily Int\+\_\+t Si\+PM\+::get\+Cols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Give acces to protected data containing the number of columns. 
+
+\begin{DoxyReturn}{Retorna}
+The number of columns 
+\end{DoxyReturn}
+
+
+Definido na linha 55 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55 \{\textcolor{keywordflow}{return} cols;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a25c3406597f606d9cf7771074d4e227b}\label{classSiPM_a25c3406597f606d9cf7771074d4e227b}} 
+\index{SiPM@{SiPM}!getDimensions@{getDimensions}}
+\index{getDimensions@{getDimensions}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getDimensions()}{getDimensions()}}
+{\footnotesize\ttfamily std\+::vector$<$Float\+\_\+t$>$ Si\+PM\+::get\+Dimensions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+this method is designed for returning the dimensions of the \mbox{\hyperlink{classSiPM}{Si\+PM}} used; 
+
+\begin{DoxyReturn}{Retorna}
+a vector containing in the index 0 the dimensions in mm of the X axis and in the index 1 the dimensions in mm of Y axis 
+\end{DoxyReturn}
+
+
+Definido na linha 58 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58 \{ std::vector<Float\_t> a \{dimensionXmm, dimensionYmm\}; \textcolor{keywordflow}{return} a;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_ae983128182d6124568a231854ebd62d8}\label{classSiPM_ae983128182d6124568a231854ebd62d8}} 
+\index{SiPM@{SiPM}!getEnergyMatrix@{getEnergyMatrix}}
+\index{getEnergyMatrix@{getEnergyMatrix}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getEnergyMatrix()}{getEnergyMatrix()}}
+{\footnotesize\ttfamily TMatrixT$<$double$>$ Si\+PM\+::get\+Energy\+Matrix (\begin{DoxyParamCaption}\item[{int}]{det }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 78 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{78 \{\textcolor{keywordflow}{return} \mbox{\hyperlink{classSiPM_a85ea416882f95cbfbab0e51aab5e9d7a}{Sipm\_e}}[det];\}}
+
+\end{DoxyCode}
+
+
+Referências Sipm\+\_\+e.
+
+\mbox{\Hypertarget{classSiPM_ac345801d5bcdea4981ffdc2e7f0aff68}\label{classSiPM_ac345801d5bcdea4981ffdc2e7f0aff68}} 
+\index{SiPM@{SiPM}!getMicrocellNum@{getMicrocellNum}}
+\index{getMicrocellNum@{getMicrocellNum}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getMicrocellNum()}{getMicrocellNum()}}
+{\footnotesize\ttfamily Int\+\_\+t Si\+PM\+::get\+Microcell\+Num (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Give acces to protected data containing the number of channels;. 
+
+\begin{DoxyReturn}{Retorna}
+The number of channels that the \mbox{\hyperlink{classSiPM}{Si\+PM}} have; 
+\end{DoxyReturn}
+
+
+Definido na linha 49 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49 \{\textcolor{keywordflow}{return} microCells;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a635ae10d24ec15e014ce2304b6a2cacd}\label{classSiPM_a635ae10d24ec15e014ce2304b6a2cacd}} 
+\index{SiPM@{SiPM}!getPositionsX@{getPositionsX}}
+\index{getPositionsX@{getPositionsX}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getPositionsX()}{getPositionsX()}}
+{\footnotesize\ttfamily std\+::vector$<$Float\+\_\+t$>$ Si\+PM\+::get\+PositionsX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Builded to give access to the vector containing the positions of the \mbox{\hyperlink{classSiPM}{Si\+PM}} centers in X direction;. 
+
+\begin{DoxyReturn}{Retorna}
+returns the vector containing the centers of the \mbox{\hyperlink{classSiPM}{Si\+PM}}\textquotesingle{}s in mm in X direction 
+\end{DoxyReturn}
+
+
+Definido na linha 40 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{\textcolor{keywordflow}{return} positionsX;\}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 1
+\mbox{\Hypertarget{classSiPM_af5ddd2833d562976f7a337c702fce42e}\label{classSiPM_af5ddd2833d562976f7a337c702fce42e}} 
+\index{SiPM@{SiPM}!getPositionsY@{getPositionsY}}
+\index{getPositionsY@{getPositionsY}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getPositionsY()}{getPositionsY()}}
+{\footnotesize\ttfamily std\+::vector$<$Float\+\_\+t$>$ Si\+PM\+::get\+PositionsY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Builded to give access to the vector containing the positions of the \mbox{\hyperlink{classSiPM}{Si\+PM}} centers in Y direction;. 
+
+\begin{DoxyReturn}{Retorna}
+returns the vector containing the centers of the \mbox{\hyperlink{classSiPM}{Si\+PM}}\textquotesingle{}s in mm in Y direction 
+\end{DoxyReturn}
+
+
+Definido na linha 43 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43 \{\textcolor{keywordflow}{return} positionsY;\}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 2
+\mbox{\Hypertarget{classSiPM_ad1178435dc33fe7f0bdd1998c48f77fc}\label{classSiPM_ad1178435dc33fe7f0bdd1998c48f77fc}} 
+\index{SiPM@{SiPM}!getRows@{getRows}}
+\index{getRows@{getRows}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getRows()}{getRows()}}
+{\footnotesize\ttfamily Int\+\_\+t Si\+PM\+::get\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Give acces to protected data containing the number of rows. 
+
+\begin{DoxyReturn}{Retorna}
+The number of rows 
+\end{DoxyReturn}
+
+
+Definido na linha 52 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52 \{\textcolor{keywordflow}{return} rows;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a8df9ebc8e2d8f5d71bbc2d1439ad12f2}\label{classSiPM_a8df9ebc8e2d8f5d71bbc2d1439ad12f2}} 
+\index{SiPM@{SiPM}!getTimeMatrix@{getTimeMatrix}}
+\index{getTimeMatrix@{getTimeMatrix}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getTimeMatrix()}{getTimeMatrix()}}
+{\footnotesize\ttfamily TMatrixT$<$Long64\+\_\+t$>$ Si\+PM\+::get\+Time\+Matrix (\begin{DoxyParamCaption}\item[{int}]{det }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 77 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77 \{\textcolor{keywordflow}{return} \mbox{\hyperlink{classSiPM_a3695fc10408feba97c3a20b20df8b35d}{Sipm\_t}}[det];\}}
+
+\end{DoxyCode}
+
+
+Referências Sipm\+\_\+t.
+
+\mbox{\Hypertarget{classSiPM_aa0d63240ab536c2e10732a4285738d02}\label{classSiPM_aa0d63240ab536c2e10732a4285738d02}} 
+\index{SiPM@{SiPM}!getXposition@{getXposition}}
+\index{getXposition@{getXposition}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getXposition()}{getXposition()}}
+{\footnotesize\ttfamily Float\+\_\+t Si\+PM\+::get\+Xposition (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This metod is designed to return the position in mm from a given index in the X direction. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em pos} & refers to the index of the \mbox{\hyperlink{classSiPM}{Si\+PM}} in a given axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+The position in mm from the index \char`\"{}pos\char`\"{} in the X axis; 
+\end{DoxyReturn}
+
+
+Definido na linha 62 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62 \{\textcolor{keywordflow}{if}((pos >= cols ) \&\& (pos<0)) \textcolor{keywordflow}{return} 666; \textcolor{keywordflow}{else} \textcolor{keywordflow}{return} positionsX[pos];\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a517675bb906acde68d89bd8bac9f4638}\label{classSiPM_a517675bb906acde68d89bd8bac9f4638}} 
+\index{SiPM@{SiPM}!getYposition@{getYposition}}
+\index{getYposition@{getYposition}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{getYposition()}{getYposition()}}
+{\footnotesize\ttfamily Float\+\_\+t Si\+PM\+::get\+Yposition (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This metod is designed to return the position in mm from a given index in the Y direction. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em pos} & refers to the index of the \mbox{\hyperlink{classSiPM}{Si\+PM}} in a given axis \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+The position in mm from the index \char`\"{}pos\char`\"{} in the Y axis; 
+\end{DoxyReturn}
+
+
+Definido na linha 66 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{\textcolor{keywordflow}{if}((pos >= rows ) \&\& (pos<0)) \textcolor{keywordflow}{return} 666; \textcolor{keywordflow}{else} \textcolor{keywordflow}{return} positionsY[pos];\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3}\label{classSiPM_a7dcb9edc3ce468c32275b56b5e10f6f3}} 
+\index{SiPM@{SiPM}!InitializePixels@{InitializePixels}}
+\index{InitializePixels@{InitializePixels}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{InitializePixels()}{InitializePixels()}}
+{\footnotesize\ttfamily void Si\+PM\+::\+Initialize\+Pixels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 81 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{81                                \{    }
+\DoxyCodeLine{82             }
+\DoxyCodeLine{83             std::cout<<Id.\mbox{\hyperlink{classIdentificator_a293400f9ccf526607b178bfa6bade362}{getDetNum}}()<<std::endl;}
+\DoxyCodeLine{84     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} = 0; \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} < Id.\mbox{\hyperlink{classIdentificator_a293400f9ccf526607b178bfa6bade362}{getDetNum}}(); \mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}}++)\{}
+\DoxyCodeLine{85             \mbox{\hyperlink{classSiPM_a85ea416882f95cbfbab0e51aab5e9d7a}{Sipm\_e}}.push\_back(TMatrixT<double>(rows, cols));}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87     cin.get();}
+\DoxyCodeLine{88 \}}
+
+\end{DoxyCode}
+
+
+Referências calculate\+Correction\+::detector, Identificator\+::get\+Det\+Num() e Sipm\+\_\+e.
+
+Grafo de chamadas desta função\+:
+% FIG 3
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 4
+\mbox{\Hypertarget{classSiPM_ae8ba1771799aab899dd65ae4ffe76ccc}\label{classSiPM_ae8ba1771799aab899dd65ae4ffe76ccc}} 
+\index{SiPM@{SiPM}!operator=@{operator=}}
+\index{operator=@{operator=}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSiPM}{Si\+PM}} \& Si\+PM\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classSiPM}{Si\+PM}} const \&}]{s }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 146 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{146                                    \{}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148     }
+\DoxyCodeLine{149         PichX   = s.PichX  ;}
+\DoxyCodeLine{150         PichY  = s.PichY  ;}
+\DoxyCodeLine{151         channelNum  = s.channelNum  ;}
+\DoxyCodeLine{152         microCells  = s.microCells  ;}
+\DoxyCodeLine{153         rows  = s.rows  ;}
+\DoxyCodeLine{154         cols  = s.cols  ;}
+\DoxyCodeLine{155         dimensionXmm  = s.dimensionXmm  ;}
+\DoxyCodeLine{156         dimensionYmm  = s.dimensionYmm  ;}
+\DoxyCodeLine{157         positionsX  = s.positionsX  ;}
+\DoxyCodeLine{158         positionsY  = s.positionsY  ;}
+\DoxyCodeLine{159         Id = s.Id;}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{162 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a707877fb3c8fce44afb0a6e9236ca474}\label{classSiPM_a707877fb3c8fce44afb0a6e9236ca474}} 
+\index{SiPM@{SiPM}!setChannelNumber@{setChannelNumber}}
+\index{setChannelNumber@{setChannelNumber}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setChannelNumber()}{setChannelNumber()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+Channel\+Number (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{chn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 69 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69 \{ channelNum = chn;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a5bf1bcb70ec56dca538f9bfc23a7e08d}\label{classSiPM_a5bf1bcb70ec56dca538f9bfc23a7e08d}} 
+\index{SiPM@{SiPM}!setCols@{setCols}}
+\index{setCols@{setCols}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setCols()}{setCols()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+Cols (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 71 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71 \{cols = col;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a61be9de7c3ffc5a610414f69b42f12d6}\label{classSiPM_a61be9de7c3ffc5a610414f69b42f12d6}} 
+\index{SiPM@{SiPM}!setDimensions@{setDimensions}}
+\index{setDimensions@{setDimensions}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setDimensions()}{setDimensions()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+Dimensions (\begin{DoxyParamCaption}\item[{Float\+\_\+t}]{x,  }\item[{Float\+\_\+t}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 75 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75 \{dimensionXmm = x ; dimensionYmm = y;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a1cba76fe18117b949101ec0f72923e7c}\label{classSiPM_a1cba76fe18117b949101ec0f72923e7c}} 
+\index{SiPM@{SiPM}!setDimensionX@{setDimensionX}}
+\index{setDimensionX@{setDimensionX}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setDimensionX()}{setDimensionX()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+DimensionX (\begin{DoxyParamCaption}\item[{Float\+\_\+t}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 72 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72 \{dimensionXmm=x;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a32e1678e39fe3dc7a0e811794efcc55a}\label{classSiPM_a32e1678e39fe3dc7a0e811794efcc55a}} 
+\index{SiPM@{SiPM}!setDimensionY@{setDimensionY}}
+\index{setDimensionY@{setDimensionY}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setDimensionY()}{setDimensionY()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+DimensionY (\begin{DoxyParamCaption}\item[{Float\+\_\+t}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 73 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73 \{dimensionYmm = y;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a0c5b32d0e53a35b60a1ccd9c5a077634}\label{classSiPM_a0c5b32d0e53a35b60a1ccd9c5a077634}} 
+\index{SiPM@{SiPM}!setMicrocellNum@{setMicrocellNum}}
+\index{setMicrocellNum@{setMicrocellNum}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setMicrocellNum()}{setMicrocellNum()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+Microcell\+Num (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{mcn }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 74 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74 \{microCells = mcn;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a4cc5da24163d624506439e3948a31b56}\label{classSiPM_a4cc5da24163d624506439e3948a31b56}} 
+\index{SiPM@{SiPM}!setRows@{setRows}}
+\index{setRows@{setRows}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{setRows()}{setRows()}}
+{\footnotesize\ttfamily void Si\+PM\+::set\+Rows (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{row }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 70 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{70 \{rows = row;\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSiPM_a329f4f64f8a203d758216f101c7115b6}\label{classSiPM_a329f4f64f8a203d758216f101c7115b6}} 
+\index{SiPM@{SiPM}!showPositions@{showPositions}}
+\index{showPositions@{showPositions}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{showPositions()}{showPositions()}}
+{\footnotesize\ttfamily void Si\+PM\+::show\+Positions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the position of the center of each pixel in X and Y directions. 
+
+
+
+Definido na linha 220 do ficheiro Si\+PM.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{220                         \{}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222     std::cout<<\textcolor{stringliteral}{"{}positions for X"{}}<<std::endl;}
+\DoxyCodeLine{223     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i =0; i< positionsX.size(); i++)\{}
+\DoxyCodeLine{224         std::cout<<positionsX[i]<<\textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{225     \} }
+\DoxyCodeLine{226     std::cout<<std::endl;}
+\DoxyCodeLine{227     }
+\DoxyCodeLine{228     std::cout<<\textcolor{stringliteral}{"{}positions for y"{}}<<std::endl;}
+\DoxyCodeLine{229     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i =0; i< positionsY.size(); i++)\{}
+\DoxyCodeLine{230         std::cout<<positionsY[i]<<\textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{231     \} }
+\DoxyCodeLine{232     std::cout<<std::endl;}
+\DoxyCodeLine{233 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Documentação dos dados membro}
+\mbox{\Hypertarget{classSiPM_a85ea416882f95cbfbab0e51aab5e9d7a}\label{classSiPM_a85ea416882f95cbfbab0e51aab5e9d7a}} 
+\index{SiPM@{SiPM}!Sipm\_e@{Sipm\_e}}
+\index{Sipm\_e@{Sipm\_e}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{Sipm\_e}{Sipm\_e}}
+{\footnotesize\ttfamily std\+::vector$<$TMatrixT$<$double$>$ $>$ Si\+PM\+::\+Sipm\+\_\+e}
+
+
+
+Definido na linha 29 do ficheiro Si\+PM.\+C.
+
+\mbox{\Hypertarget{classSiPM_a3695fc10408feba97c3a20b20df8b35d}\label{classSiPM_a3695fc10408feba97c3a20b20df8b35d}} 
+\index{SiPM@{SiPM}!Sipm\_t@{Sipm\_t}}
+\index{Sipm\_t@{Sipm\_t}!SiPM@{SiPM}}
+\doxysubsubsection{\texorpdfstring{Sipm\_t}{Sipm\_t}}
+{\footnotesize\ttfamily std\+::vector$<$TMatrixT$<$long long$>$ $>$ Si\+PM\+::\+Sipm\+\_\+t}
+
+
+
+Definido na linha 30 do ficheiro Si\+PM.\+C.
+
+
+
+A documentação para esta classe foi gerada a partir do seguinte ficheiro\+:\begin{DoxyCompactItemize}
+\item 
+source/3-\/positioning/\mbox{\hyperlink{SiPM_8C}{Si\+PM.\+C}}\end{DoxyCompactItemize}

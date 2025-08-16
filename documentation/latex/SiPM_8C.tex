@@ -1,0 +1,11 @@
+\hypertarget{SiPM_8C}{}\doxysection{Referência ao ficheiro source/3-\/positioning/\+Si\+PM.C}
+\label{SiPM_8C}\index{source/3-\/positioning/SiPM.C@{source/3-\/positioning/SiPM.C}}
+\doxysubsection*{Componentes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classSiPM}{Si\+PM}}
+\begin{DoxyCompactList}\small\item\em This class stores information from the \mbox{\hyperlink{classSiPM}{Si\+PM}} used while processing acquired data. It have some important features such as convert channel\+ID into an index for rows and columns, or into the position of the event in mm, in this case the zero is located in the center of the crystal array. ~\newline
+ In the case of segmented crystals the position represents the center of the crystal element. ~\newline
+ Other options such as micro\+Cells have been added for future works. ~\newline
+ This class have hard coded the positions of the channels in a matrix using as reference the Ketek Pa 3325 wb 0808 channels disposition ~\newline
+ It also have implemented a method for converting the crystal\+ID from a gate acquisition into a i,j index that represents the position in a mxn matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}

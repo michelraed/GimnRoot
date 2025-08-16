@@ -1,0 +1,41 @@
+digraph "processCoincidencePre"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="processCoincidencePre",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="anger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$positionings_8C.html#a3594ccf39b56f4d1fb53fcf99bd8f0fd",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="SiPM::getPositionsX",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSiPM.html#a635ae10d24ec15e014ce2304b6a2cacd",tooltip="Builded to give access to the vector containing the positions of the SiPM centers in X direction;."];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="SiPM::getPositionsY",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classSiPM.html#af5ddd2833d562976f7a337c702fce42e",tooltip="Builded to give access to the vector containing the positions of the SiPM centers in Y direction;."];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="getRowAndColumnSums",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a58ded12ac7f7c04057c493ccf56a3f9f",tooltip="Irá gerar a soma em linhas e colunas de uma dada matriz fornecida, este irá passar por referência os ..."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="Identificator::checkInCoincidence",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIdentificator.html#a5eb0050a8faca59cf6927c701021d6ab",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="GimnWriteClass::close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWriteClass.html#a54e72db67d1483877edc1345bbc1097d",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="CorrectChannelToPixelPs",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a6f1e23b4e523c7cf4a7d7f7f93a6fa79",tooltip="CorrectChannelToPixelPS irá converter um determinado valor de canal das sipms ketek 3325-WB0808 em su..."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="Identificator::LoadIdentificators",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIdentificator.html#afc08e1f94af4dd5cf18b3e27f5b4edf1",tooltip="Irá ler o arquivo identificators.conf e guardar os valores lidos em vetores que poderão ser acessados..."];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="Loader::loadFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classLoader.html#a9f91f7434ff11ffbf74ff56f07ccf8f4",tooltip="Ira Abrir diretamente o arquivo fornecido;."];
+  Node9 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="Identificator::printLine",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIdentificator.html#a1cc261a3a467fa62e3030f86b4053a54",tooltip="Função interna da classe Identificator que servirá para imprimir os valores de cada linha lida na tab..."];
+  Node9 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="splitString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Utils_8C.html#a20f5ab9d09a254c776886ca97b67872c",tooltip="splitString é uma função que irá separar em um vetor de strings uma determinada string a partir de um..."];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="Identificator::print",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIdentificator.html#a3702b8083a447f9e801d0240f9c8c253",tooltip="Irá imprimir os valores armazenados nos vetores de portas, chipID, coincidencia entre outros."];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="GimnWriteClass::putData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWriteClass.html#a55c875ef940a5ede9eec60d538d45570",tooltip="Este método irá carregar os dados processados em cada evento para as arvores que serão escritas no ar..."];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="tea",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timing_8C.html#a3236e93cd277b7408821fc3adf3c48e9",tooltip=" "];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="GimnWriteClass::writeObject",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGimnWriteClass.html#a527db0c1e72e54ef290a774767ae16fa",tooltip="Guarda os dados dos diversos histogramas coletados em pastas dentro do arquivo root gerado."];
+}

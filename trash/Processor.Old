@@ -1,0 +1,495 @@
+
+class Processor
+{
+
+private:
+    std::vector<std::string> portNames;
+    std::vector<std::string> chipIDNames;
+    std::vector<TH2F> Floods;
+    std::vector<std::vector<std::shared_ptr<TH1F>>> channels;
+
+public:
+
+
+void fitParabolaAtPeak(TH1F* hist) {
+    // Criar um canvas para desenhar o histograma e o ajuste
+    TCanvas *c1 = new TCanvas("c1", "Fit Parabola at Peak", 800, 600);
+
+    // Desenhar o histograma
+    hist->Draw();
+
+    // Encontrar o índice do bin do pico
+    int peakBin = hist->GetMaximumBin();
+    double peakX = hist->GetBinCenter(peakBin);
+
+    TSpectrum *s = new TSpectrum();
+    int npeaks = s->Search(histo, sigma, "", Threshold);
+    double *peaks = s->GetPositionX();
+
+    // Find the peak with the highest amplitude
+    int maxPeakIndex = 0;
+    double maxPeakHeight = 0;
+    for (int i = 0; i < npeaks; i++)
+    {
+        double height = histo->GetBinContent(histo->FindBin(peaks[i]));
+        if (height > maxPeakHeight)
+        {
+            maxPeakHeight = height;
+            maxPeakIndex = i;
+        }
+    }
+    
+    // Definir a janela para o ajuste (por exemplo, 2 bins antes e 2 bins depois do pico)
+    int nBinsToFit = 3; // Total de 5 bins (2 antes + 1 no pico + 2 depois)
+    int startBin = std::max(1, peakBin - 1); // Garantir que não vá para menos que 1
+    int endBin = std::min(hist->GetNbinsX(), peakBin + 1); // Garantir que não exceda o número de bins
+
+    // Criar uma função parabólica: f(x) = ax^2 + bx + c
+    TF1 *parabola = new TF1("parabola", "pol2", hist->GetBinCenter(startBin), hist->GetBinCenter(endBin));
+
+    // Ajustar a parábola apenas na janela definida
+    hist->Fit(parabola, "R", "", hist->GetBinCenter(startBin), hist->GetBinCenter(endBin));
+
+    // Desenhar a função ajustada sobre o histograma
+    parabola->Draw("same");
+
+    // Mostrar os resultados do ajuste no console
+    std::cout << "Resultados do ajuste:" << std::endl;
+    parabola->Print();
+}
+
+std::vector<std::vector<std::shared_ptr<TH1F>>> getHistoFromRoot(std::string file_name)
+{
+    //  FILE
+    //   |--Detectors
+    //   |  |--ChipID
+    //   |  |   |--Channel_energy
+    //   |  |
+    //   |
+    // std::string file_name = "/home/michelraed/dev/gimnpet/GimnROOT/Beg_27112024_600_group_pre.root";
+
+    // reads file
+    TFile *file = new TFile(file_name.c_str(), "Open");
+
+    // Vetor dos canais
+    std::vector<std::vector<std::shared_ptr<TH1F>>> histograms;
+
+    // Gets the name of the files inside the
+    TList *keysFile = file->GetListOfKeys();
+
+    // Iterate over each key in the directory
+    for (int i = 0; i < keysFile->GetSize(); ++i)
+    {
+        // Get keys
+        TKey *key = (TKey *)keysFile->At(i);
+        std::string name = key->GetName();
+
+        // Print the name of the key with prefix for hierarchy
+        std::cout << name << std::endl;
+
+        // Get detector Folder
+        if (name.find("Detectors") != -1 && key->IsFolder())
+        {
+            std::cout << "detecores encontrado e 'e uma pasta " << std::endl;
+            TDirectory *detector = (TDirectory *)file->Get(name.c_str());
+            auto *keysDetectors = detector->GetListOfKeys();
+            for (int j = 0; j < keysDetectors->GetSize(); j++)
+            {
+                TKey *key2 = (TKey *)keysDetectors->At(j);
+                std::string name2 = key2->GetName();
+                std::cout << name2 << std::endl;
+
+                if (name2.find("ChipID") != -1 && key->IsFolder())
+                {
+                    this->chipIDNames.push_back(name2);
+                    int num = extractNumber(name2);                
+                    int p  = (int)num/2+1;    
+                    std::string portName =  "PORT-"+std::to_str(p);
+                    this->portNames.push_back(portName);
+
+
+                    std::cout << "chipID encontrado e 'e uma pasta " << std::endl;
+                    TDirectory *chipID = (TDirectory *)detector->Get(name2.c_str());
+                    auto *keysChipID = chipID->GetListOfKeys();
+                    // std::cout<<(int)keysChipID->GetSize()<<" fimim"<<std::endl;
+
+                    std::vector<std::shared_ptr<TH1F>> detAux;
+                    for (int k = 0; k < keysChipID->GetSize(); k++)
+                    {
+
+                        TKey *key3 = (TKey *)keysChipID->At(k);
+                        std::string name3 = key3->GetName();
+                        if (name3.find("Channel_energy") != -1 && key3->IsFolder())
+                        {
+                            std::cout << "Pasta de canais  encontrada" << std::endl;
+                            TDirectory *channelEnergy = (TDirectory *)chipID->Get(name3.c_str());
+                            auto *keysChannelsE = channelEnergy->GetListOfKeys();
+                            
+                            std::shared_ptr<TH1F> canal;
+                            for (int m = 0; m < keysChannelsE->GetSize(); m++)
+                            {
+                                TKey *key4 = (TKey *)keysChannelsE->At(m);
+                                std::string name4 = key4->GetName();
+                                std::cout << name4 << std::endl;
+                                canal = std::shared_ptr<TH1F>(dynamic_cast<TH1F*>(channelEnergy->Get(name4.c_str())));
+                                detAux.push_back(canal);
+                            }
+                            histograms.push_back(detAux);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return histograms;
+}
+
+
+
+
+    std::map<std::string, Float_t> FindFWHM(T *histo, Double_t sigma, Double_t Threshold)
+    {
+        std::map<std::string, Float_t> out;
+
+        TSpectrum *s = new TSpectrum();
+        int npeaks = s->Search(histo, sigma, "", Threshold);
+        double *peaks = s->GetPositionX();
+
+        // Find the peak with the highest amplitude
+        int maxPeakIndex = 0;
+        double maxPeakHeight = 0;
+        for (int i = 0; i < npeaks; i++)
+        {
+            double height = histo->GetBinContent(histo->FindBin(peaks[i]));
+            if (height > maxPeakHeight)
+            {
+                maxPeakHeight = height;
+                maxPeakIndex = i;
+            }
+        }
+
+        // Fit a Gaussian to the peak with the highest amplitude
+        double mean = peaks[maxPeakIndex];
+        Double_t amplitude = histo->GetBinContent(histo->FindBin(mean));
+        double sigma2 = 1; // Valor inicial para sigma
+        TF1 *fitFunc = new TF1("fitFunc", "[0] * TMath::Gaus(x, [1], [2])", mean - 1 * sigma2, mean + 1 * sigma2);
+        fitFunc->SetParameters(amplitude, mean, sigma2);
+        histo->Fit(fitFunc, "Q", "", mean - 1, mean + 1);
+        // Calculate FWHM
+        double fwhm = 2.35482 * fitFunc->GetParameter(2); // FWHM = 2.35482 * sigma
+
+        // Return a map with the FWHM value
+        out.insert(std::make_pair("FWHM", fwhm));
+
+        return out;
+    }
+
+    std::vector<Float_t> linearizePetSys(Float_t energy1, Float_t energy2)
+    {
+        std::vector<float_t> energies;
+
+        Float_t P0{8.00000};
+        Float_t P1{1.04676};
+        Float_t P2{1.02734};
+        Float_t P3{0.31909};
+        energies.push_back(P0 * pow(P1, pow(energy1, P2)) + P3 * energy1 - P0);
+        energies.push_back(P0 * pow(P1, pow(energy2, P2)) + P3 * energy2 - P0);
+        return energies;
+    }
+
+    std::map<std::string, Float_t> FindGauss(TH1F *histo, Double_t sigma, Double_t Threshold)
+    {
+        std::map<std::string, Float_t> out;
+
+        TSpectrum s;
+        int npeaks = s.Search(histo, sigma, "", Threshold);
+        double *peaks = s.GetPositionX();
+
+        // Encontra o pico com maior amplitude
+        int maxPeakIndex = 0;
+        double maxPeakHeight = 0;
+        for (int i = 0; i < npeaks; i++)
+        {
+            double height = histo->GetBinContent(histo->FindBin(peaks[i]));
+            if (height > maxPeakHeight)
+            {
+                maxPeakHeight = height;
+                maxPeakIndex = i;
+            }
+        }
+
+        // Ajusta uma gaussiana no pico de maior amplitude
+        double mean = peaks[maxPeakIndex];
+        double sigma2 = 1; // Valor inicial para sigma
+        TF1 *fitFunc = new TF1("fitFunc", "gaus", mean - 3 * sigma2, mean + 3 * sigma2);
+        fitFunc->SetParameters(maxPeakHeight, mean, sigma2);
+        histo->Fit(fitFunc, "Q");
+
+        // Retorna um mapa com os parâmetros da gaussiana ajustada
+        out.insert(std::make_pair("Mean", fitFunc->GetParameter(1)));
+        out.insert(std::make_pair("Sigma", fitFunc->GetParameter(2)));
+        out.insert(std::make_pair("Amplitude", fitFunc->GetParameter(0)));
+
+        return out;
+    }
+
+    std::map<TString, Float_t> FindLinearization(TH1F *histo, Double_t sigma, Double_t Threshold)
+    {
+
+        std::map<TString, Float_t> out;
+
+        TSpectrum *s = new TSpectrum();
+        int npeaks = s->Search(histo, sigma, "", Threshold);
+        double *peaks = s->GetPositionX();
+
+        double maior{0};
+        std::cout << "Número de picos encontrados: " << npeaks << std::endl;
+        for (int i = 0; i < npeaks; i++)
+        {
+            if (peaks[i] > maior)
+            {
+                maior = peaks[i];
+            }
+            std::cout << "Pico " << i << ": " << peaks[i] << std::endl;
+        }
+        if (npeaks > 2)
+        {
+            Double_t E[3]{0, 511, 1274}; // 1274};
+            Double_t Q[3]{0, peaks[0], maior};
+
+            TGraph graph(3, Q, E);
+
+            TF1 fitFunc("fitFunc", " [0] * pow([1], pow(x, [2])) + [3] * x - [0]");
+
+            fitFunc.SetParameters(8.00000, 1.04676, 1.02734, 0.31909);
+            graph.Fit(&fitFunc, "Q");
+            float P0 = fitFunc.GetParameter(0);
+            float P1 = fitFunc.GetParameter(1);
+            float P2 = fitFunc.GetParameter(2);
+            float P3 = fitFunc.GetParameter(3);
+
+            out.insert(std::make_pair("P0", fitFunc.GetParameter(0)));
+            out.insert(std::make_pair("P1", fitFunc.GetParameter(1)));
+            out.insert(std::make_pair("P2", fitFunc.GetParameter(2)));
+            out.insert(std::make_pair("P3", fitFunc.GetParameter(3)));
+
+            delete peaks;
+            delete s;
+        }
+
+        return out;
+    }
+};
+
+
+void Tomography()
+{
+
+    TStopwatch timer;
+    timer.Start();
+
+    // Metodologia:
+    //  1 - Aquisição da calibração usando fonte de Na-22
+    //  2 - Aquisição do BG
+    //  3 - Aquisiçao Tomográfica, com variação de angulos
+    //  4 - Processamento
+
+    //"/home/gimn6/Documentos/Michel/Tomografica_final/"
+
+    //  Aquisicao de calibraçao
+    // std::string CalibrationAQD = "/media/gimn6/Gimn6_data/Michel/Tomografica/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Calibration_NaSource_360S_24062025_16_50_pm_HW_OFF_QDC_360s_source1_group.root"; // fILENAME
+    // std::string identificatorPath = "/home/gimn6/Documentos/Michel/produtos_moles/gimnpet/GimnROOT/petsys_conf/identificators.conf";
+
+    // // O arquivo processado aqui
+    // ProcessAcquisition aqd(CalibrationAQD, identificatorPath);
+    // aqd.setIdentificator(identificatorPath);
+
+    // // Calibration step :
+    // // Selecionar onde salvar as calibrações que serão feitas com base na aquisição de Na-22lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+    // aqd.setCalibrationFolder("/home/gimn6/Documentos/Michel/Tomografica_final/Calibration");
+    // aqd.setPlotsFolder("/home/gimn6/Documentos/Michel/Tomografica_final/Plots");
+    // aqd.setProcessedFolder("/home/gimn6/Documentos/Michel/Tomografica_final/Processed");
+    // aqd.setMethod("PetSys");
+
+    // // Calibra:
+    // aqd.ProcessGroupFromRaw();
+    // aqd.writeCalibration();
+    // aqd.clear();
+    // aqd.ProcessGroupFromRaw();
+
+    const UInt_t nProcesses = 32; // Number of processes in paralells
+
+    // Instantiates our Multi threading class
+    MultiThreaderGimn mt(nProcesses);
+
+    //     auto runGimn = [](std::vector<TString> aqdData)
+    //     {
+    //         ProcessAcquisition aqd(std::stoi(aqdData[5].Data()));
+    //         aqd.setIdentificator(aqdData[0].Data());
+    //         aqd.setCalibrationFactors(aqdData[1].Data());
+    //         aqd.setProcessedFolder(aqdData[2].Data());
+    //         aqd.setMethod("PetSys");
+    //         aqd.initializeEmpty();
+    //         aqd.setPlotsFolder(aqdData[3].Data());
+    //         aqd.ProcessGroupTomographic(aqdData[4].Data());
+    //         aqd.clear();
+    //     };
+
+    //     // // Order:
+    //     // // Identificators
+    //     // // Calibration
+    //     // // ProcessedFolder
+    //     // // PlotsFolder
+    //     // // FileToProcess
+    //     // //
+    //     // std::vector<TString> positionFiles{
+    //     //     "/media/gimn6/Gimn6_data/Michel/Tomografica/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P1_D1_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     //     "/media/gimn6/Gimn6_data/Michel/Tomografica/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P1_D2_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root"
+    //     // };
+
+    //     std::vector<TString> positionFiles{
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P12D1_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P1_D1_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P1_D2_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P2D2_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P3D1_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P3D2_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P4D1_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P4D2_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P5D1_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root",
+    //     "/media/gimn6/Gimn6_data/Michel/Tomografica/Positions/time_180_t1_10_t2_20_te_10_HW_OFF_qdc_AQD_P5D2_HW_OFF_QDC_180s_T1_10_T2_20_Te_10_OV_4_50_group.root"
+
+    // };
+
+    //     //  A seguir serão processados os dados adquiridos para realizar o teste re posicionamento do detector.
+    //     //  Dependendo da montagem experimental a posição do detector pode estar rotacionada. De modo a saber o angulo que se deve rotacionar o detector,
+    //     //  colocamos na superficie de cada um dos detectores uma fonte de Na-22 a fim de verificar as regiões de maior contagem na superficie do cristal.
+    //     //  Para Cada uma das posições foi feita uma aquisição, e estas serão processadas pela metodologia em sequencia
+    //     //
+
+    //     // Variavel utilizada para diferenciar entre as variaveis que estão sendo criadas em cada core
+    //     // para que o Root nao gere o aviso de memory leak;
+    // DIFERENTIATOR = 0;
+    // //std::this_thread::sleep_for(std::chrono::seconds(1));
+    // // Itera sobre os arquivos:
+    // for (auto &file : positionFiles)
+    // {
+
+    //     TString contador = std::to_string(DIFERENTIATOR);
+
+    //     // vetor de strings de "configurações"
+    //     std::vector<TString> aqdData{"/home/gimn6/Documentos/Michel/produtos_moles/gimnpet/GimnROOT/petsys_conf/identificators.conf",
+    //                                  "/home/gimn6/Documentos/Michel/Tomografica_final/Calibration/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Calibration_NaSource_360S_24062025_16_50_pm_HW_OFF_QDC_360s_source1_group-CalibrationFactors.root",
+    //                                  "/home/gimn6/Documentos/Michel/Tomografica_final/Processed",
+    //                                  "/home/gimn6/Documentos/Michel/Tomografica_final/Plots",
+    //                                  file.Data(),
+    //                                  contador};
+
+    //     // initiates a new thread with the function groupPreCal that will process the data
+    //     mt.createThread(runGimn, aqdData);
+    //     DIFERENTIATOR++; // Proximo core
+    //     std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    //     //gSystem->Sleep(15000); // Como queremos usar varios cores, de modo a evitar qualquer tipo de sobreposição de dados utilizamos um tempo de 15 segundos entre o começo de cada aquisição
+    // }
+
+    // mt.waitForCompletion();
+
+    // Processa TOMO
+
+    // Lista de Arquivos
+
+    auto runGimnCoinc = [](std::vector<TString> aqdData)
+    {
+        ProcessAcquisition aqd(std::stoi(aqdData[5].Data()));
+        aqd.setIdentificator(aqdData[0].Data());
+        aqd.setCalibrationFactors(aqdData[1].Data());
+        aqd.setProcessedFolder(aqdData[2].Data());
+        aqd.setMethod("PetSys");
+        aqd.initializeEmpty();
+        aqd.setVerbose(true);
+        aqd.setAlignmentFolder("/home/gimn6/Documentos/Michel/Tomografica_final/Calibration");
+        aqd.setObtainAlignmentData(true);
+        // aqd.setAligmentFileName("/home/gimn6/Documentos/Michel/Tomografica_final/Calibration/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Calibration_NaSource_360S_24062025_16_50_pm_HW_OFF_QDC_360s_source1_coinc-AlignmentCorrection.root");
+        aqd.setPlotsFolder(aqdData[3].Data());
+        aqd.processCoincidenceTomographic(aqdData[4].Data());
+        aqd.clear();
+    };
+
+    //     //std::string tomographicFolder = "/media/gimn6/Gimn6_data/Michel/Tomografica/1Fonte_OFf_2";
+    //     std::string tomographicFolder = "/media/gimn6/Gimn6_data/Michel/Tomografica/2Fontes_OFF";
+    //     //std::string tomographicFolder = "/media/gimn6/Gimn6_data/Michel/Tomografica/background";
+
+    //     std::vector<std::string> tomographicFiles = checkIfTomographyc(tomographicFolder);
+
+    //     DIFERENTIATOR = 0;
+    //     for (auto &file : tomographicFiles)
+    //     {
+    //         if (file.find("coin") != -1)
+    //         {
+    //             std::cout << "Coincidence file Found..." << std::endl;
+    //             std::cout << "Processing File :" << file << std::endl;
+
+    //         TString contador = std::to_string(DIFERENTIATOR);
+
+    //         std::string fileName = tomographicFolder +"/"+ file;
+    //         std::vector<TString> aqdData{"/home/gimn6/Documentos/Michel/produtos_moles/gimnpet/GimnROOT/petsys_conf/identificators.conf",
+    //                                      "/home/gimn6/Documentos/Michel/Tomografica_final/Calibration/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Calibration_NaSource_360S_24062025_16_50_pm_HW_OFF_QDC_360s_source1_group-CalibrationFactors.root",
+    //                                      "/home/gimn6/Documentos/Michel/Tomografica_final/Processed/Tomo_off_2sources",
+    //                                      //"/home/gimn6/Documentos/Michel/Tomografica_final/Processed/Tomo_off_1",
+    //                                      //"/home/gimn6/Documentos/Michel/Tomografica_final/Processed/background",
+    //                                      //"/home/gimn6/Documentos/Michel/Tomografica_final/Processed/Tomo_off_1",
+
+    //                                      "/home/gimn6/Documentos/Michel/Tomografica_final/Plots",
+    //                                      fileName.c_str(),
+    //                                      contador};
+
+    //         mt.createThread(runGimnCoinc, aqdData);
+    //         DIFERENTIATOR++; // Proximo core
+    //         std::this_thread::sleep_for(std::chrono::seconds(2));
+    //         }
+    //     }
+    //     mt.waitForCompletion();
+
+    //     //std::string folder = "/home/gimn6/Documentos/Michel/Tomografica_final/Processed/Tomo_off_1";
+
+    //    // std::string folder = "/home/gimn6/Documentos/Michel/Tomografica_final/Processed/background";
+    //     std::string folder = "/home/gimn6/Documentos/Michel/Tomografica_final/Processed/Tomo_off_2sources";
+
+    //     DeleteRootFileWithFolderName(folder);
+
+    //     MergeTreesInFolder(folder.c_str());
+
+    std::vector<std::string> CoincidenceFiles{
+        "/media/gimn6/Gimn6_data/Michel/Tomografica/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Calibration_NaSource_360S_24062025_16_50_pm_HW_OFF_QDC_360s_source1_coinc.root"
+        //    "/media/gimn6/Gimn6_data/Michel/Tomografica/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Background_HW_OFF_QDC_24062025_16_41pm_360_coinc.root",
+    };
+
+    // Processar Coincidencia
+
+    DIFERENTIATOR = 0;
+    for (auto &file : CoincidenceFiles)
+    {
+        if (file.find("coin") != -1)
+        {
+            TString contador = std::to_string(DIFERENTIATOR);
+
+            std::vector<TString> aqdData{"/home/gimn6/Documentos/Michel/produtos_moles/gimnpet/GimnROOT/petsys_conf/identificators.conf",
+                                         "/home/gimn6/Documentos/Michel/Tomografica_final/Calibration/time_360_t1_10_t2_20_te_10_HW_OFF_qdc_Calibration_NaSource_360S_24062025_16_50_pm_HW_OFF_QDC_360s_source1_group-CalibrationFactors.root",
+                                         "/home/gimn6/Documentos/Michel/Tomografica_final/Processed",
+                                         "/home/gimn6/Documentos/Michel/Tomografica_final/Plots",
+                                         file.c_str(),
+                                         contador};
+
+            mt.createThread(runGimnCoinc, aqdData);
+            DIFERENTIATOR++; // Proximo core
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+        }
+    }
+
+    mt.waitForCompletion();
+
+    timer.Stop();
+    timer.Print();
+    // std::cout<<"****************************************************"<<std::endl;
+}

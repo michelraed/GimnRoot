@@ -1,0 +1,304 @@
+#include <iostream>
+#include <string>
+#include <TTree.h>
+#include <TH1F.h>
+#include <TH2F.h>
+#include <TFile.h>
+#include <TCanvas.h>
+#include <vector>
+#include <TMatrixT.h>
+
+// int MinimumGroupSize = 64;
+using namespace std;
+
+std::vector<TCanvas *> ProcessGroup(std::string fileName, int MinimumGroupSize)
+{
+
+    // cria as variaveis nescessárias à leitura do arquivo root
+    UShort_t mh_n{0}, mh_j{0};
+    UInt_t channelID{0};
+    Float_t energy{0.0};
+    Long64_t time{0};
+    std::vector<TString> ports;
+
+    // abre o arquivo root
+    TFile *file = new TFile(fileName.c_str(), "read");
+    TTree *tree = (TTree *)file->Get("data");
+
+    // cria os vetores que armazenarão as informações de tempo e energia dos eventos no grupo para calculo do timing
+    std::vector<Long64_t> timeChanels(64, 0);
+    std::vector<Float_t> energyChanels(64, 0);
+
+    // set branches
+    tree->SetBranchAddress("mh_n", &mh_n);
+    tree->SetBranchAddress("mh_j", &mh_j);
+    tree->SetBranchAddress("channelID", &channelID);
+    tree->SetBranchAddress("energy", &energy);
+    tree->SetBranchAddress("time", &time);
+
+    // declaracao dos histogramas;
+
+    std::vector<TCanvas *> Canvas;
+
+    /// numero de detectores e de canais por arrays
+    int detNum = 2;
+    int channelsPerArray = 64;
+
+    // inicializa os histogramas de energia por canal;
+    vector<vector<TH1F *>> chanellHistogram; // histograma por canal por detector
+    vector<TH1F *> GlobalEnergy;             // histograma global
+    vector<TH1F *> depthOfInteraction;       // profundidade de interação
+    vector<TH2F *> FloodHist;                // histograma de flood
+    int bins = 250;                          // bins dos histogramas
+
+    // aqui se inicializa a parte de configuração do nosso sistema
+    Configurations c;
+    auto correctionFactor = c.getCorrectionFactors(); // fatores de correção para linearidade
+    auto detectorName = c.getName();                  // nomes dos detectores
+    auto chpid = c.getChipIDs();                      // chip ID de cada detector
+    auto myType = c.getType();                        // tipo do cristal em cada detector podendo ser mono ou seg
+    auto hmin = c.gethMins();                         // pega o minimo dos histogramas para cada detector
+    auto hmax = c.gethMaxs();                         // pega o maximo dos histogramas para cada detector
+    vector<TMatrixT<double>> Sipm; // matriz que irá representar as posições na SIPM
+
+    // vector<TMatrixT<Long64_t>> Sipm_t;
+
+    // Processa o caminho, para obter somente o nome do arquivo
+    auto name = splitString(fileName, '/');
+    auto name_pos = name.size();
+    string outName = name[name_pos - 1];
+    name = splitString(outName, '.');
+    name_pos = name.size();
+    outName = name[0];
+    outName = outName + "_processed.root";
+
+    // cria a classe que irá salvar os arquivos processados no HDD
+    GimnWrite Output(outName.c_str());
+
+    // inicializa os histogramas em cada posição do vetor para armazenar os dados da aqusição
+    for (int detector = 0; detector < detNum; detector++)
+    {
+        // inicia as sipms
+        Sipm.push_back(TMatrixT<double>(8, 8));
+
+        // inicia os canais
+        vector<TH1F *> auxHistChan;
+        for (int chan = 0; chan < channelsPerArray; chan++)
+        {
+            string channelName{"channel-"};
+            channelName = channelName + std::to_string(chan) + std::string(detectorName[detector].c_str());
+            TH1F *myHisto = new TH1F(channelName.c_str(), channelName.c_str(), bins, hmin[detector], hmax[detector]);
+            auxHistChan.push_back(myHisto);
+            std::cout << "initializing histogram : " << channelName << std::endl;
+        }
+
+        // inicia histograma global doi e flood
+        string globalName = std::string(detectorName[detector].c_str());
+        TH1F *myglobalHisto = new TH1F(globalName.c_str(), globalName.c_str(), bins, hmin[detector], hmax[detector]);
+        std::string floodName = globalName + "flood";
+        TH2F *flood = new TH2F(floodName.c_str(), floodName.c_str(), 256, -13.44, 13.44, 256, -13.44, 13.44);
+        std::string DoiName = globalName + "- Doi";
+        TH1F *myDoi = new TH1F(DoiName.c_str(), DoiName.c_str(), 256, 0, 3);
+
+        depthOfInteraction.push_back(myDoi);
+        GlobalEnergy.push_back(myglobalHisto);
+        FloodHist.push_back(flood);
+        chanellHistogram.push_back(auxHistChan);
+    }
+
+    int pos = 0;    // posicao do elemento dentro do vetor de detectores e configurações
+    float esum = 0; // soma da energia do grupo
+
+    // inicializa a barra de progresso ...
+    std::string loading = "[--------------------------------------------------]";
+    int load_pos = 1;
+
+    const int entries = tree->GetEntries();
+    for (Int_t event = 0; event <= entries; event++)
+    {
+        // std::cout << " *******************************************  " << std::endl;
+        // std::cout << " Event  " << event << std::endl;
+        tree->GetEntry(event);
+        Int_t chipID = (int)channelID / 64;
+        Int_t channel = channelID - 64 * chipID;
+
+
+        if (event > ((entries / 50.0) * load_pos))
+        {
+            auto porcento = ((double)event /(double) entries) * 100;
+            auto clear = system("clear");
+            loading[load_pos] = '=';
+            std::cout << loading << porcento << "%" << std::endl;
+            load_pos += 1;
+        }
+
+        // std::cout << " channelID  " << channelID << std::endl;
+        // std::cout << " chipID  " << chipID << std::endl;
+        // std::cout << " channel  " << channel << std::endl;
+
+        // aqui o programa busca qual a posição do chipID no vetor chpid de configuração
+        auto it = std::find(chpid.begin(), chpid.end(), chipID);
+        if (it != chpid.end())
+            pos = std::distance(chpid.begin(), it);
+
+        // se monolitico
+        if (myType[pos] == "mono")
+        {
+            // se numero de eventos no grupo maior do que um numero minimo
+            if (mh_n > MinimumGroupSize)
+            {
+                chanellHistogram[pos][channel]->Fill(energy);
+                auto pos_xy = CorrectChannelToPixelPs(channel);
+
+  
+                // eventos do grupo
+                if (mh_j < (mh_n - 1))
+                {
+                    Sipm[pos](pos_xy[1], pos_xy[0]) = +energy;
+                    timeChanels[channel] = time;
+                    energyChanels[channel] = energy;
+                    esum += energy;
+                }
+                // ultimo evento
+                else if (mh_j == mh_n - 1)
+                {
+
+                    Sipm[pos](pos_xy[1], pos_xy[0]) = +energy;
+                    esum += energy;
+
+                    timeChanels[channel] = time;
+                    energyChanels[channel] = energy;
+
+                    // corrige pelo fator de correção encontrado
+                    divideMatrix(Sipm[pos], correctionFactor[pos]);
+
+                    {
+                        GimnEvent ev;
+                        auto Positions3D = anger(Sipm[pos]);
+
+                        ev.channel = 0;
+                        ev.Energy = esum;
+                        ev.time = tea(timeChanels, energyChanels);
+                        ev.xmm = Positions3D[0];
+                        ev.ymm = Positions3D[1];
+                        ev.doi = Positions3D[2];
+                        ev.Port = chpid[pos];
+                        ev.sipmX = 0;
+                        ev.sipmY = 0.;
+
+                        GlobalEnergy[pos]->Fill(ev.Energy);
+                        depthOfInteraction[pos]->Fill(ev.doi);
+                        FloodHist[pos]->Fill(ev.xmm, ev.ymm);
+
+                        bool out = false;
+                        if ((ev.xmm > 13.44 || ev.xmm < -13.44) && (ev.ymm > 13.44 || ev.ymm < -13.44))
+                            out = true;
+
+                        if (!out)
+                        {
+                            Output.putData(ev);
+                        }
+                    }
+                    esum = 0;
+                    Sipm[pos].Zero();
+                }
+            }
+        }
+        else if (myType[pos] == "seg")
+        {
+            if (mh_j == 0)
+            {
+                chanellHistogram[pos][channel]->Fill(energy);
+
+                auto pos_xy = CorrectChannelToPixelPs(channel);
+                Sipm[pos](pos_xy[1], pos_xy[0]) = +energy;
+
+                SiPM aux;
+                std::vector<Float_t> xPos = aux.getPositionsX();
+                std::vector<Float_t> yPos = aux.getPositionsY();
+
+                GimnEvent ev;
+                ev.channel = 0;
+                ev.Energy = energy;
+                ev.time = time;
+                ev.xmm = xPos[pos_xy[0]];
+                ev.ymm = yPos[pos_xy[1]];
+                ev.doi = 0;
+                ev.Port = chpid[pos];
+                ev.sipmX = 0;
+                ev.sipmY = 0.;
+                GlobalEnergy[pos]->Fill(ev.Energy);
+                depthOfInteraction[pos]->Fill(ev.doi);
+                FloodHist[pos]->Fill(ev.xmm, ev.ymm);
+
+                Output.putData(ev);
+            }
+        }
+    }
+
+    Canvas.push_back(new TCanvas("Detector1", "Detector1", 4000, 4000));
+    Canvas.push_back(new TCanvas("Detector2", "Detector2", 4000, 4000));
+    //Canvas.push_back(new TCanvas("Detector3", "Detector3", 4000, 4000));
+    //Canvas.push_back(new TCanvas("Detector4", "Detector4", 4000, 4000));
+    Canvas.push_back(new TCanvas("Global Energy", "Global Energy", 4000, 4000));
+    Canvas.push_back(new TCanvas("Floods", "Floods", 4000, 4000));
+    Canvas.push_back(new TCanvas("Doi", "Doi", 4000, 4000));
+
+    for (Int_t i = 0; i < detNum; i++)
+    {
+        // std::string canvasName = (std::string)ports[i].Data()+ "Channel MAP";
+        // Canvas.push_back(new TCanvas(ports[i].Data(),canvasName.c_str(),4000,4000));
+        Canvas[i]->Divide(8, 8);
+        for (Int_t channels = 0; channels < channelsPerArray; channels++)
+        {
+            auto pos_yx = CorrectChannelToPixelPs(channels);
+
+            Canvas[i]->cd((pos_yx[0] * 8 + pos_yx[1]) + 1);
+            chanellHistogram[i][channels]->Draw("HIST");
+        }
+        // std::string saveAs = (std::string)ports[i].Data()+ "ChannelMAP.png";
+        Canvas[i]->Draw(); // Print(saveAs.c_str());
+    }
+
+    Canvas[2]->Divide(2, 2);
+    Canvas[2]->cd(1);
+    GlobalEnergy[0]->Draw("L");
+    Canvas[2]->cd(2);
+    GlobalEnergy[1]->Draw("L");
+    Canvas[2]->cd(3);
+    FloodHist[0]->Draw("COLZ");
+    //GlobalEnergy[2]->Draw("L");
+    Canvas[2]->cd(4);
+    FloodHist[1]->Draw("COLZ");
+    
+    //GlobalEnergy[3]->Draw("L");
+    Canvas[2]->Draw();
+
+    //Canvas[3]->Divide(2, 2);
+    //Canvas[3]->cd(1);
+    //FloodHist[0]->Draw("COLZ");
+    //Canvas[3]->cd(2);
+    //FloodHist[1]->Draw("COLZ");
+    //Canvas[3]->cd(3);
+    //FloodHist[2]->Draw("COLZ");
+    //Canvas[3]->cd(4);
+    //FloodHist[3]->Draw("COLZ");
+    //Canvas[3]->Draw();
+
+    Canvas[4]->Divide(2, 1);
+    Canvas[4]->cd(1);
+    depthOfInteraction[0]->Draw("L");
+    Canvas[4]->cd(2);
+    depthOfInteraction[1]->Draw("L");
+    //Canvas[4]->cd(3);
+    //depthOfInteraction[2]->Draw("L");
+    //Canvas[4]->cd(4);
+    //depthOfInteraction[3]->Draw("L");
+    Canvas[4]->Draw();
+
+    Output.writeObject(chanellHistogram, GlobalEnergy, depthOfInteraction, FloodHist, detectorName, chpid, Canvas);
+    Output.close();
+
+
+    return Canvas;
+}

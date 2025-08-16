@@ -1,0 +1,430 @@
+#include <iostream>
+#include <string>
+#include <TTree.h>
+#include <TH1F.h>
+#include <TH2F.h>
+#include <TFile.h>
+#include <TCanvas.h>
+#include <vector>
+#include <TMatrixT.h>
+
+// int MinimumGroupSize = 64;
+
+// File Name Para atualizar
+// std::string fileName {"/home/michelraed/Desktop/Dados_root/qdc_20_20_15_3_1800s_coinc.root"};
+// std::string fileName =  {"/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/2405_qdc_20_20_15_4_1800s_coinc.root"};
+// std::string fileName {"/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/data_test/caracterization/qdc_20_20_15_4_1800s_coinc.root"};
+std::string M1 = {"/home/gimn6/Documentos/Michel/Doutorado/PETSYS/GIMNroot/data_test/caracterization/Posicionamento/M1-Flood-1800_coinc.root"};
+std::string M2 = {"/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/data_test/caracterization/Posicionamento/M2-Flood-1800_coinc.root"};
+std::string M14 = {"/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/data_test/caracterization/Posicionamento/M1-4-300s_coinc.root"};
+std::string M24 = {"/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/data_test/caracterization/Posicionamento/M2-4-300s_coinc.root"};
+// quando fizer o .X Run, após isso, no terminal do root
+// digite processCoincidencePre(std::string do caminho para o arquivo que desejar)
+// e ele irá processar os dados, e gerar na pasta "mae" um arquivo .root com os dados processados
+//
+GimnData processCoincidencePre(std::string fileName)
+{
+
+    int groupSize = 1;
+
+    // LAB //std::string fileName {"/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/data_test/caracterization/qdc_20_20_15_4_1800s_coinc.root"};
+    // PC Michel
+
+    // cria as variaveis nescessárias à leitura do arquivo root
+    UShort_t mh_n1{0}, mh_j1{0}, mh_n2{0}, mh_j2{0};
+    UInt_t channelID1{0}, channelID2{0};
+    Float_t energy1{0.0}, energy2{0};
+    Long64_t time1{0}, time2{0};
+
+    std::vector<Long64_t> timeChanels1(64, 0);
+    std::vector<Float_t> energyChannels1(64, 0);
+    std::vector<Long64_t> timeChanels2(64, 0);
+    std::vector<Float_t> energyChannels2(64, 0);
+
+    // abre o arquivo root
+    TFile *file = new TFile(fileName.c_str(), "read");
+    TTree *tree = nullptr;
+    tree = (TTree *)file->Get("data");
+
+    // set branches
+    tree->SetBranchAddress("mh_n1", &mh_n1);
+    tree->SetBranchAddress("mh_j1", &mh_j1);
+    tree->SetBranchAddress("channelID1", &channelID1);
+    tree->SetBranchAddress("energy1", &energy1);
+    tree->SetBranchAddress("time1", &time1);
+    tree->SetBranchAddress("mh_n2", &mh_n2);
+    tree->SetBranchAddress("mh_j2", &mh_j2);
+    tree->SetBranchAddress("channelID2", &channelID2);
+    tree->SetBranchAddress("energy2", &energy2);
+    tree->SetBranchAddress("time2", &time2);
+
+    // declaracao dos histogramas;
+
+
+    // AQUI TEM PROBLEMA
+    Identificator Id;
+    Id.LoadIdentificators("/home/gimn6/Documentos/Michel/Doutorado/PETSYS/GIMNroot/petsys_conf/identificators.conf");
+    // michel
+    // Id.LoadIdentificators("./petsys_conf/identificators.conf");
+
+    SiPM sipm_tools(64, 8, 8, 3.36, Id);
+
+    int pos1 = 0;
+    int pos2 = 0;
+    float esum1 = 0;
+    float esum2 = 0.0;
+    Long64_t counting = 0;
+    std::string loading = "[--------------------------------------------------]";
+    int load_pos = 1;
+    bool first = true;
+    const int entries = tree->GetEntries();
+    int initial_event{0}, ini_n1{0}, ini_n2{0};
+
+    // Processa o nome da string de entrada
+    auto name = splitString(fileName, '/');
+    auto name_pos = name.size();
+    string outName = name[name_pos - 1];
+    name = splitString(outName, '.');
+    name_pos = name.size();
+    outName = name[0];
+    outName = outName + "_pre.root";
+
+    // cria a classe responsável pela escrita
+    GimnWriteClass Output(outName.c_str());
+
+    float e1_first = 0;
+    float e2_first = 0;
+    unsigned int coincidenceID{1};
+    for (Int_t event = 0; event <= entries; event++)
+    {
+
+        if (event > ((entries / 50.0) * load_pos))
+        {
+
+            auto porcento = ((double)event / (double)entries) * 100;
+            auto clear = system("clear");
+            loading[load_pos] = '=';
+            std::cout << loading << porcento << "%" << std::endl;
+            load_pos += 1;
+        }
+
+        tree->GetEntry(event);
+
+        Int_t chipID1 = (int)channelID1 / 64;
+        Int_t channel1 = channelID1 - 64 * chipID1;
+
+        Int_t chipID2 = (int)channelID2 / 64;
+        Int_t channel2 = channelID2 - 64 * chipID2;
+
+        if ((mh_n1 >= groupSize) && (mh_n2 >= groupSize))
+        {
+            auto it = std::find(Id.chipID.begin(), Id.chipID.end(), chipID1);
+            if (it != Id.chipID.end())
+                pos1 = std::distance(Id.chipID.begin(), it);
+            // pega a posição do chipID 2 no vetor de detectores
+            it = std::find(Id.chipID.begin(), Id.chipID.end(), chipID2);
+            if (it != Id.chipID.end())
+                pos2 = std::distance(Id.chipID.begin(), it);
+
+            // std::cout<<"------------------------------------------"<<std::endl;
+            // std::cout<<"pos "<<pos1<<" chipID "<<Id.chipID[pos1]<<endl;
+            // std::cout<<Id.chipID[pos1]<<" in coincidence "<<Id.inCoincidenceWith[pos1][0]<<std::endl;
+            // std::cout<<"chipID1 "<< chipID1<<std::endl;
+            // std::cout<<"chipID2 "<< chipID2<<std::endl;
+
+            // auto energies = sipm_tools.linearizePetSys(energy1,energy2);
+            std::vector<Float_t> energies;
+            energies.push_back(energy1);
+            energies.push_back(energy2);
+
+            // Id.chec   kInCoincidence(pos2,chipID1)
+            // Id.checkInCoincidence(pos1,chipID2)
+            if (Id.checkInCoincidence(pos1, chipID2))
+            {
+                auto pos_xy1 = sipm_tools.CorrectChannelToPixelPs(channel1);
+                auto pos_xy2 = sipm_tools.CorrectChannelToPixelPs(channel2);
+
+                GimnEvent event_seg;
+
+                if (mh_j1 == 0 && mh_j2 == 0) // Primeiro Evento
+                {
+                    auto referencia = Id.ref[0]; // para todos será a mesma refereência:
+                    Long64_t timeDif = 0;
+                    int pos = 0;
+                    int channel = 0;
+                    Float_t energy = 0;
+                    if (referencia == chipID1)
+                    {
+                        timeDif = time2 - time1;
+                        pos = pos2;
+                        channel = channel2;
+                        energy = energy2;
+                    }
+                    if (referencia == chipID2)
+                    {
+                        timeDif = time1 - time2;
+                        pos = pos1;
+                        channel = channel1;
+                        energy = energy1;
+                    }
+
+                    sipm_tools.Histos.channelTimeSkew[pos][channel]->Fill(timeDif);
+                    sipm_tools.Histos.channelEnergyHistogram[pos1][channel1]->Fill(energies[0]);
+                    sipm_tools.Histos.channelEnergyHistogram[pos2][channel2]->Fill(energies[1]);
+                    sipm_tools.Histos.channelTimeWalk[pos][channel]->Fill(energy * timeDif, timeDif);
+                    coincidenceID++;
+                    initial_event = event;
+                    ini_n1 = mh_n1;
+                    ini_n2 = mh_n2;
+
+                    e1_first = energies[0];
+                    e2_first = energies[1];
+
+                    sipm_tools.Sipm_e[pos1](pos_xy1[1], pos_xy1[0]) = +energies[0];
+                    sipm_tools.Sipm_e[pos2](pos_xy2[1], pos_xy2[0]) = +energies[1];
+
+                    timeChanels1[channel1] = time1;
+                    energyChannels1[channel1] = energies[0];
+                    timeChanels2[channel2] = time2;
+                    energyChannels2[channel2] = energies[1];
+
+                    std::vector<Float_t> xPos = sipm_tools.getPositionsX();
+                    std::vector<Float_t> yPos = sipm_tools.getPositionsY();
+
+                    if ((Id.crystalType[pos1] == "seg") && (Id.crystalType[pos2] == "seg"))
+                    {
+                        // std::cout <<"on seg"<<std::endl;
+                        event_seg.Energy_1 = energies[0];
+                        event_seg.time_1 = time1;
+                        event_seg.xmm_1 = xPos[pos_xy1[0]];
+                        event_seg.ymm_1 = yPos[pos_xy1[1]];
+                        event_seg.doi_1 = 0.0;
+                        event_seg.Port_1 = Id.chipID[pos1];
+                        event_seg.sipmX_1 = pos_xy1[0];
+                        event_seg.sipmY_1 = pos_xy1[1];
+                        event_seg.channel_1 = channel1;
+                        // std::cout<<"group1"<<event_seg.Energy_1<<endl;
+                        sipm_tools.Histos.GlobalEnergy[pos1]->Fill(event_seg.Energy_1);
+                        sipm_tools.Histos.depthOfInteraction[pos1]->Fill(event_seg.doi_1);
+                        sipm_tools.Histos.FloodHist[pos1]->Fill(event_seg.xmm_1, event_seg.ymm_1);
+
+                        event_seg.Energy_2 = energies[1];
+                        event_seg.time_2 = time2;
+                        event_seg.xmm_2 = xPos[pos_xy2[0]];
+                        event_seg.ymm_2 = yPos[pos_xy2[1]];
+                        event_seg.doi_2 = 0.0;
+                        event_seg.Port_2 = Id.chipID[pos2];
+                        event_seg.sipmX_2 = pos_xy2[0];
+                        event_seg.sipmY_2 = pos_xy2[1];
+                        event_seg.channel_2 = channel2;
+                        event_seg.coincidenceID = coincidenceID;
+                        sipm_tools.Histos.GlobalEnergy[pos2]->Fill(event_seg.Energy_2);
+                        sipm_tools.Histos.depthOfInteraction[pos2]->Fill(event_seg.doi_2);
+                        sipm_tools.Histos.FloodHist[pos2]->Fill(event_seg.xmm_2, event_seg.ymm_2);
+
+                        // std::cout<<"Event Energy "<<event_seg.Energy_1<<std::endl;
+                        Output.putData(event_seg);
+
+                        // std::cout<<" saving segmented event in a tree"<<std::endl;
+                    }
+
+                    // cout<<"evento "<<event<<endl;
+                    // cout<<"evento inicial "<<initial_event<<endl;
+                    // cout<<"mh_n1 "<<mh_n1<<endl;
+                    // cout<<"mh_n2 "<<mh_n2<<endl;
+                    // cout<<"evento final"<<initial_event+(ini_n1+ini_n2)-2<<endl;
+                    coincidenceID++;
+                } // indica o começo de uma nova coincidencia
+
+                if (mh_j1 != 0 && mh_j2 == 0)
+                {
+                    sipm_tools.Sipm_e[pos1](pos_xy1[1], pos_xy1[0]) = +energies[0];
+                    timeChanels1[channel1] = time1;
+                    energyChannels1[channel1] = energies[0];
+                } // adiciona no grupo 1
+
+                if (mh_j1 == 0 && mh_j2 != 0)
+                {
+                    sipm_tools.Sipm_e[pos2](pos_xy2[1], pos_xy2[0]) = +energies[1];
+                    timeChanels2[channel2] = time2;
+                    energyChannels2[channel2] = energies[1];
+                } // adiciona no grupo 1
+
+                //
+                //      AQUI é onde os dados são salvos no arquivo de saida.
+                //
+                //
+                if (event == (initial_event + (ini_n1 + ini_n2) - 2))
+                {
+
+                    GimnEvent ev;
+
+                    // ev. CTR
+                    // ev. channel_1
+                    // divideMatrix(Sipm[pos1], correctionFactor[pos1]);
+
+                    auto Positions3D = anger(sipm_tools.Sipm_e[pos1]);
+                    ev.Energy_1 = e1_first; // Sipm[pos1].Sum();
+                    ev.time_1 = tea(timeChanels1, energyChannels1);
+                    ev.xmm_1 = Positions3D[0];
+                    ev.ymm_1 = Positions3D[1];
+                    ev.doi_1 = 0; // Positions3D[2];
+                    ev.Port_1 = Id.chipID[pos1];
+                    ev.sipmX_1 = 0;
+                    ev.sipmY_1 = 0;
+
+                    // divideMatrix(Sipm[pos2], correctionFactor[pos2]);
+                    Positions3D = anger(sipm_tools.Sipm_e[pos2]);
+                    ev.channel_2 = 0;
+                    ev.Energy_2 = e2_first; // Sipm[pos2].Sum();
+                    ev.time_2 = tea(timeChanels2, energyChannels2);
+
+                    ev.xmm_2 = Positions3D[0];
+                    ev.ymm_2 = Positions3D[1];
+                    ev.doi_2 = 0; // Positions3D[2];
+                    ev.Port_2 = Id.chipID[pos2];
+                    ev.sipmX_2 = 0;
+                    ev.sipmY_2 = 0;
+                    ev.coincidenceID = coincidenceID;
+
+                    ev.CTR = abs(ev.time_1 - ev.time_2);
+
+                    bool out1 = false;
+                    bool out2 = false;
+                    if ((ev.xmm_1 < 13.44 || ev.xmm_1 > -13.44) && (ev.ymm_1 < 13.44 || ev.ymm_1 > -13.44))
+                    {
+                        {
+                            out1 = true;
+                            sipm_tools.Histos.GlobalEnergy[pos1]->Fill(ev.Energy_1); // Sipm[pos1].Sum());
+                            sipm_tools.Histos.depthOfInteraction[pos1]->Fill(ev.doi_1);
+                            sipm_tools.Histos.FloodHist[pos1]->Fill(ev.xmm_1, ev.ymm_1);
+                        }
+                    }
+                    if ((ev.xmm_2 < 13.44 && ev.xmm_2 > -13.44) && (ev.ymm_2 < 13.44 && ev.ymm_2 > -13.44))
+                    {
+
+                        {
+                            out2 = true;
+
+                            sipm_tools.Histos.GlobalEnergy[pos2]->Fill(ev.Energy_1); // Sipm[pos2].Sum());
+                            sipm_tools.Histos.depthOfInteraction[pos2]->Fill(ev.doi_2);
+                            sipm_tools.Histos.FloodHist[pos2]->Fill(ev.xmm_2, ev.ymm_2);
+                        }
+                    }
+                    if (!((out1 == false) && (out2 == false)))
+                    {
+                        if ((Id.crystalType[pos1] == "mono") && (Id.crystalType[pos2] == "mono"))
+                        {
+                            Output.putData(ev);
+
+                            // std::cout<<"printing"<<std::endl;
+                        }
+                    }
+
+                    sipm_tools.Sipm_e[pos1].Zero();
+                    sipm_tools.Sipm_e[pos2].Zero();
+                    // cout<<"evento "<<event<<endl;
+                    // cout<<"evento inicial "<<initial_event<<endl;
+                    // cout<<"evento final"<<initial_event+(ini_n1+ini_n2)-2<<endl;
+                } // ultimo evento
+            }
+        }
+    }
+
+
+    ////std::vector<std::shared_ptr<TCanvas>> Canvas;
+////
+    ////auto c1 = std::make_shared<TCanvas> ("Detector1", "Detector1", 4000, 4000);
+    ////Canvas.push_back(c1);
+    ////auto c2 = std::make_shared<TCanvas>("Detector2", "Detector2", 4000, 4000);
+    ////Canvas.push_back(c2);
+    ////// Canvas.push_back(new TCanvas("Detector3", "Detector3", 4000, 4000));
+    ////// Canvas.push_back(new TCanvas("Detector4", "Detector4", 4000, 4000));
+    ////auto c3 = std::make_shared<TCanvas>("Global Energy", "Global Energy", 4000, 4000);
+    ////Canvas.push_back(c3);
+    ////auto c4 = std::make_shared<TCanvas>("Floods", "Floods", 4000, 4000);
+    ////Canvas.push_back(c4);
+    ////auto c5 = std::make_shared<TCanvas>("Doi", "Doi", 4000, 4000);
+    ////Canvas.push_back(c5);
+
+    std::vector<TCanvas*> Canvas;
+    Canvas.push_back(new TCanvas("Detector1", "Detector1", 4000, 4000));
+    Canvas.push_back(new TCanvas("Detector2", "Detector2", 4000, 4000));
+    Canvas.push_back(new TCanvas("Detector3", "Detector3", 4000, 4000));
+    Canvas.push_back(new TCanvas("Detector4", "Detector4", 4000, 4000));
+    Canvas.push_back(new TCanvas("Global Energy", "Global Energy", 4000, 4000));
+    Canvas.push_back(new TCanvas("Floods", "Floods", 4000, 4000));
+    Canvas.push_back(new TCanvas("Doi", "Doi", 4000, 4000));
+
+    std::vector<std::vector<std::map<std::string, Float_t>>> timeSkew;
+    std::vector<std::vector<std::map<std::string, Float_t>>> fwhm;
+
+    for (Int_t i = 0; i < Id.detNum; i++)
+    {
+        std::vector<std::map<std::string, Float_t>> auxFWHM;
+        std::vector<std::map<std::string, Float_t>> auxGauss;
+
+        float sigma = 3;
+        float threshold = 0.4;
+        // std::string canvasName = (std::string)ports[i].Data()+ "Channel MAP";
+        // Canvas.push_back(new TCanvas(ports[i].Data(),canvasName.c_str(),4000,4000));
+        Canvas[i]->Divide(8, 8);
+        for (Int_t channels = 0; channels < 64; channels++)
+        {
+            auto pos_yx = CorrectChannelToPixelPs(channels);
+
+            Canvas[i]->cd((pos_yx[1] * 8 + pos_yx[0]) + 1);
+            sipm_tools.Histos.channelEnergyHistogram[i][channels]->Draw("HIST");
+            // auxFWHM.push_back(sipm_tools.FindFWHM(sipm_tools.Histos.channelEnergyHistogram[i][channels], 2, 0.3));
+            // auxGauss.push_back(sipm_tools.FindGauss(sipm_tools.Histos.channelTimeSkew[i][channels], 700, 0.7));
+        }
+        // std::string saveAs = (std::string)ports[i].Data()+ "ChannelMAP.png";
+        timeSkew.push_back(auxGauss);
+        fwhm.push_back(auxFWHM);
+
+        Canvas[i]->Draw(); // Print(saveAs.c_str());
+    }
+
+    WriteGenericConf saveConf(timeSkew, Id, "timeSkew");
+    saveConf.WriteConf();
+
+    Canvas[2]->Divide(2, 2);
+    Canvas[2]->cd(1);
+    sipm_tools.Histos.GlobalEnergy[0]->Draw("L");
+    Canvas[2]->cd(2);
+    sipm_tools.Histos.GlobalEnergy[1]->Draw("L");
+    Canvas[2]->cd(3);
+    sipm_tools.Histos.FloodHist[0]->Draw("COLZ");
+    // GlobalEnergy[2]->Draw("L");
+    Canvas[2]->cd(4);
+    sipm_tools.Histos.FloodHist[1]->Draw("COLZ");
+
+    // GlobalEnergy[3]->Draw("L");
+    Canvas[2]->Draw();
+
+    // Canvas[3]->Divide(2, 2);
+    // Canvas[3]->cd(1);
+    // FloodHist[0]->Draw("COLZ");
+    // Canvas[3]->cd(2);
+    // FloodHist[1]->Draw("COLZ");
+    // Canvas[3]->cd(3);
+    // FloodHist[2]->Draw("COLZ");
+    // Canvas[3]->cd(4);
+    // FloodHist[3]->Draw("COLZ");
+    // Canvas[3]->Draw();
+
+    Canvas[4]->Divide(2, 1);
+    Canvas[4]->cd(1);
+    sipm_tools.Histos.depthOfInteraction[0]->Draw("L");
+    Canvas[4]->cd(2);
+    sipm_tools.Histos.depthOfInteraction[1]->Draw("L");
+    // Canvas[4]->cd(3);
+    // depthOfInteraction[2]->Draw("L");
+    // Canvas[4]->cd(4);
+    // depthOfInteraction[3]->Draw("L");
+    Canvas[4]->Draw();
+    Output.writeObject(sipm_tools.Histos, Canvas);
+    Output.close();
+
+    return sipm_tools.Histos;
+}

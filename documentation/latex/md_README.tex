@@ -1,0 +1,21 @@
+O objetivo deste projeto é criar um ambiente para processamento dos dados que são entregues pelo sistema PETSys TOFPET2, da PETSys® Electronics. Este será fito de maneira modularizada, com funções que permitem o calculo do posicionamento dos eventos, estimativa do tempo do evento, além de correções necessárias para a utilização do mesmo.
+
+O projeto está organizado da seguinte forma \+:
+
+
+\begin{DoxyItemize}
+\item ./base \+: Local onde se encontram os codigos de base para o processamento, responsáveis pela escrita de arquivos, montagem de histogramas entre outros
+\item ./caracterização\+: Local onde serão armazenados os codigos específicos a serem utilizados para a caracterização do sistema
+\item ./outout\+: Local onde serão salvos os arquivos processados
+\item ./\+Run.C \+: Arquivo que deve ser executado para carregar o projeto no ROOT
+\end{DoxyItemize}
+
+Para carregar as funções e classes implementadas ao root, navegue ate a pasta onde o projeto foi baixado e abra o root, logo no terminal do root digite\+:
+
+\textquotesingle{}\textquotesingle{}\textquotesingle{}
+
+.X \mbox{\hyperlink{Run_8C}{Run.\+C}}
+
+\textquotesingle{}\textquotesingle{}\textquotesingle{}
+
+Isso irá carregar todas as funções e classes implementadas para a memoria, sendo facilmente utilizadas no terminal do ROOT. 

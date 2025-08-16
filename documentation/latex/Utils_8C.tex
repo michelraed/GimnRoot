@@ -1,0 +1,469 @@
+\hypertarget{Utils_8C}{}\doxysection{Referência ao ficheiro source/0-\/functions/\+Utils.C}
+\label{Utils_8C}\index{source/0-\/functions/Utils.C@{source/0-\/functions/Utils.C}}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{Utils_8C_a2ea243d9817bc86f16b11a606b7d18b2}{Utils}} ()
+\item 
+void \mbox{\hyperlink{Utils_8C_a23932ea1202706c57e0283e2e3732286}{divide\+Matrix}} (TMatrixT$<$ double $>$ \&mat, double divisor)
+\begin{DoxyCompactList}\small\item\em Esta função irá dividir todos os elementos de uma matriz por um determinado valor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Utils_8C_a3391ffe34972c26a342b30cdcbd0d658}{divide\+Matrix}} (TMatrixT$<$ double $>$ \&mat, TMatrixT$<$ double $>$ \&mat2)
+\begin{DoxyCompactList}\small\item\em Esta função é utilizada quando se deseja dividir duas matrizes de tamanhos iguals os elementos correspondentes de uma matriz pelos elementos correspondentes de outra desta forma será feito mat1\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}/mat2\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{Utils_8C_aeea8cfe3dd6c22f85d61e2c751c51685}{join\+String}} (std\+::vector$<$ std\+::string $>$ to\+Join, char separator)
+\begin{DoxyCompactList}\small\item\em Esta função irá juntar um vetor de strings em uma unica string, usando um separador que é um caractere fornecido pelo usuário. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}{split\+String}} (std\+::string string, char separator)
+\begin{DoxyCompactList}\small\item\em split\+String é uma função que irá separar em um vetor de strings uma determinada string a partir de um separador dado. exemplo \+: a menina comeu banana. Se for utilizado como separador \textquotesingle{} \textquotesingle{} isso resultará na seguinte saida \+: \mbox{[}\textquotesingle{}a\textquotesingle{},\textquotesingle{}menina\textquotesingle{},\textquotesingle{}comeu\textquotesingle{},\textquotesingle{}banana\textquotesingle{}\mbox{]} Esta função pode ser muito util para processar caminhos de arquivos; \end{DoxyCompactList}\item 
+std\+::vector$<$ Int\+\_\+t $>$ \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{Correct\+Channel\+To\+Pixel\+Ps}} (Int\+\_\+t channel)
+\begin{DoxyCompactList}\small\item\em Correct\+Channel\+To\+Pixel\+PS irá converter um determinado valor de canal das sipms ketek 3325-\/WB0808 em sua posição em (x,y) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Utils_8C_a58ded12ac7f7c04057c493ccf56a3f9f}{get\+Row\+And\+Column\+Sums}} (const TMatrixT$<$ double $>$ \&matrix, std\+::vector$<$ double $>$ \&row\+Sums, std\+::vector$<$ double $>$ \&col\+Sums)
+\begin{DoxyCompactList}\small\item\em Irá gerar a soma em linhas e colunas de uma dada matriz fornecida, este irá passar por referência os valores da soma das linhas e das colunas para os vetores row\+Sum e col\+Sum. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{Utils_8C_af69686edba0015a74bd23c0de75e4de1}{show\+Files}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em show\+Files irá mostrar todos os arquivos presentes em uma determinada pasta \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{Utils_8C_a74e20cd38f3c12487df0b6b0880d75d2}{get\+Files}} (std\+::string path, int index)
+\begin{DoxyCompactList}\small\item\em Obtem um vetor contendo a lista de arquivos presentes em uma determinada pasta e devolve o arquivo de indice \char`\"{}index\char`\"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}\label{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}} 
+\index{Utils.C@{Utils.C}!CorrectChannelToPixelPs@{CorrectChannelToPixelPs}}
+\index{CorrectChannelToPixelPs@{CorrectChannelToPixelPs}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{CorrectChannelToPixelPs()}{CorrectChannelToPixelPs()}}
+{\footnotesize\ttfamily std\+::vector$<$Int\+\_\+t$>$ Correct\+Channel\+To\+Pixel\+Ps (\begin{DoxyParamCaption}\item[{Int\+\_\+t}]{channel }\end{DoxyParamCaption})}
+
+
+
+Correct\+Channel\+To\+Pixel\+PS irá converter um determinado valor de canal das sipms ketek 3325-\/WB0808 em sua posição em (x,y) 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em channel} & numero do canal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+std\+::vector$<$\+Int\+\_\+t$>$ retorna como saida um vetor contendo na posição 0 o valor da posição de x e na posição 1 o valor referente à posição em y 
+\end{DoxyReturn}
+
+
+Definido na linha 111 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{112 \{}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     \textcolor{keywordtype}{int} CORRECTION\_MAP[64][3]\{}
+\DoxyCodeLine{115         \textcolor{comment}{// \{Channel,X,Y\}}}
+\DoxyCodeLine{116         \{0, 1, 7\},}
+\DoxyCodeLine{117         \{1, 1, 6\},}
+\DoxyCodeLine{118         \{2, 2, 4\},}
+\DoxyCodeLine{119         \{3, 0, 6\},}
+\DoxyCodeLine{120         \{4, 0, 5\},}
+\DoxyCodeLine{121         \{5, 3, 7\},}
+\DoxyCodeLine{122         \{6, 0, 4\},}
+\DoxyCodeLine{123         \{7, 2, 6\},}
+\DoxyCodeLine{124         \{8, 1, 5\},}
+\DoxyCodeLine{125         \{9, 3, 3\},}
+\DoxyCodeLine{126         \{10, 0, 7\},}
+\DoxyCodeLine{127         \{11, 3, 4\},}
+\DoxyCodeLine{128         \{12, 3, 6\},}
+\DoxyCodeLine{129         \{13, 2, 5\},}
+\DoxyCodeLine{130         \{14, 2, 7\},}
+\DoxyCodeLine{131         \{15, 1, 4\},}
+\DoxyCodeLine{132         \{16, 6, 6\},}
+\DoxyCodeLine{133         \{17, 7, 7\},}
+\DoxyCodeLine{134         \{18, 6, 7\},}
+\DoxyCodeLine{135         \{19, 7, 6\},}
+\DoxyCodeLine{136         \{20, 4, 7\},}
+\DoxyCodeLine{137         \{21, 4, 6\},}
+\DoxyCodeLine{138         \{22, 5, 6\},}
+\DoxyCodeLine{139         \{23, 5, 7\},}
+\DoxyCodeLine{140         \{24, 7, 4\},}
+\DoxyCodeLine{141         \{25, 7, 5\},}
+\DoxyCodeLine{142         \{26, 6, 4\},}
+\DoxyCodeLine{143         \{27, 3, 5\},}
+\DoxyCodeLine{144         \{28, 6, 5\},}
+\DoxyCodeLine{145         \{29, 5, 5\},}
+\DoxyCodeLine{146         \{30, 5, 4\},}
+\DoxyCodeLine{147         \{31, 4, 4\},}
+\DoxyCodeLine{148         \{32, 4, 5\},}
+\DoxyCodeLine{149         \{33, 4, 3\},}
+\DoxyCodeLine{150         \{34, 4, 2\},}
+\DoxyCodeLine{151         \{35, 5, 2\},}
+\DoxyCodeLine{152         \{36, 5, 3\},}
+\DoxyCodeLine{153         \{37, 6, 2\},}
+\DoxyCodeLine{154         \{38, 3, 2\},}
+\DoxyCodeLine{155         \{39, 6, 3\},}
+\DoxyCodeLine{156         \{40, 7, 2\},}
+\DoxyCodeLine{157         \{41, 7, 3\},}
+\DoxyCodeLine{158         \{42, 4, 0\},}
+\DoxyCodeLine{159         \{43, 4, 1\},}
+\DoxyCodeLine{160         \{44, 5, 0\},}
+\DoxyCodeLine{161         \{45, 6, 1\},}
+\DoxyCodeLine{162         \{46, 5, 1\},}
+\DoxyCodeLine{163         \{47, 6, 0\},}
+\DoxyCodeLine{164         \{48, 7, 0\},}
+\DoxyCodeLine{165         \{49, 7, 1\},}
+\DoxyCodeLine{166         \{50, 0, 3\},}
+\DoxyCodeLine{167         \{51, 3, 0\},}
+\DoxyCodeLine{168         \{52, 3, 1\},}
+\DoxyCodeLine{169         \{53, 2, 1\},}
+\DoxyCodeLine{170         \{54, 2, 0\},}
+\DoxyCodeLine{171         \{55, 1, 0\},}
+\DoxyCodeLine{172         \{56, 1, 1\},}
+\DoxyCodeLine{173         \{57, 0, 2\},}
+\DoxyCodeLine{174         \{58, 2, 2\},}
+\DoxyCodeLine{175         \{59, 1, 3\},}
+\DoxyCodeLine{176         \{60, 0, 0\},}
+\DoxyCodeLine{177         \{61, 1, 2\},}
+\DoxyCodeLine{178         \{62, 2, 3\},}
+\DoxyCodeLine{179         \{63, 0, 1\},}
+\DoxyCodeLine{180     \};}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182     \textcolor{comment}{// RETORNA X,Y}}
+\DoxyCodeLine{183     std::vector<Int\_t> aux\{CORRECTION\_MAP[channel][1], CORRECTION\_MAP[channel][2]\};}
+\DoxyCodeLine{184     \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{185 \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 0
+\mbox{\Hypertarget{Utils_8C_a23932ea1202706c57e0283e2e3732286}\label{Utils_8C_a23932ea1202706c57e0283e2e3732286}} 
+\index{Utils.C@{Utils.C}!divideMatrix@{divideMatrix}}
+\index{divideMatrix@{divideMatrix}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{divideMatrix()}{divideMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void divide\+Matrix (\begin{DoxyParamCaption}\item[{TMatrixT$<$ double $>$ \&}]{mat,  }\item[{double}]{divisor }\end{DoxyParamCaption})}
+
+
+
+Esta função irá dividir todos os elementos de uma matriz por um determinado valor. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em mat} & matriz a ser dividida \\
+\hline
+{\em divisor} & valor pelo qual se deseja dividir os elementos da matriz \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 9 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}.GetNrows(); i++)}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}.GetNcols(); j++)}
+\DoxyCodeLine{15         \{}
+\DoxyCodeLine{16             \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}[i][j] = \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}[i][j] / divisor;}
+\DoxyCodeLine{17         \}}
+\DoxyCodeLine{18     \}}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+Referências calculate\+Correction\+::mat.
+
+\mbox{\Hypertarget{Utils_8C_a3391ffe34972c26a342b30cdcbd0d658}\label{Utils_8C_a3391ffe34972c26a342b30cdcbd0d658}} 
+\index{Utils.C@{Utils.C}!divideMatrix@{divideMatrix}}
+\index{divideMatrix@{divideMatrix}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{divideMatrix()}{divideMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void divide\+Matrix (\begin{DoxyParamCaption}\item[{TMatrixT$<$ double $>$ \&}]{mat,  }\item[{TMatrixT$<$ double $>$ \&}]{mat2 }\end{DoxyParamCaption})}
+
+
+
+Esta função é utilizada quando se deseja dividir duas matrizes de tamanhos iguals os elementos correspondentes de uma matriz pelos elementos correspondentes de outra desta forma será feito mat1\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}/mat2\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em mat} & Matriz do numerador \\
+\hline
+{\em mat2} & Matriz denominador \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 28 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}.GetNrows(); i++)}
+\DoxyCodeLine{31     \{}
+\DoxyCodeLine{32         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}.GetNcols(); j++)}
+\DoxyCodeLine{33         \{}
+\DoxyCodeLine{34             \textcolor{keyword}{auto} answer = \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}[i][j] / mat2[i][j];}
+\DoxyCodeLine{35             \textcolor{keywordflow}{if} (!std::isnan(answer))}
+\DoxyCodeLine{36                 \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}[i][j] = answer;}
+\DoxyCodeLine{37             \textcolor{keywordflow}{else} }
+\DoxyCodeLine{38                 \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}}[i][j] = 0;}
+\DoxyCodeLine{39         \}}
+\DoxyCodeLine{40         }
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+Referências calculate\+Correction\+::mat.
+
+\mbox{\Hypertarget{Utils_8C_a74e20cd38f3c12487df0b6b0880d75d2}\label{Utils_8C_a74e20cd38f3c12487df0b6b0880d75d2}} 
+\index{Utils.C@{Utils.C}!getFiles@{getFiles}}
+\index{getFiles@{getFiles}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{getFiles()}{getFiles()}}
+{\footnotesize\ttfamily std\+::string get\+Files (\begin{DoxyParamCaption}\item[{std\+::string}]{path,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Obtem um vetor contendo a lista de arquivos presentes em uma determinada pasta e devolve o arquivo de indice \char`\"{}index\char`\"{}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em path} & caminho desejado \\
+\hline
+{\em index} & indice, de posição do arquivo desejado na lista gerada \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+std\+::string nome do arquivo é devolvido como uma string 
+\end{DoxyReturn}
+
+
+Definido na linha 251 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{251                                               \{}
+\DoxyCodeLine{252     TSystemDirectory dir(path.c\_str(), path.c\_str());}
+\DoxyCodeLine{253     TList* files = dir.GetListOfFiles();}
+\DoxyCodeLine{254     \textcolor{keywordflow}{if} (files) \{}
+\DoxyCodeLine{255         TSystemFile* \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}};}
+\DoxyCodeLine{256         TString fname;}
+\DoxyCodeLine{257         \textcolor{keywordtype}{int} i = 0;}
+\DoxyCodeLine{258         TIter next(files);}
+\DoxyCodeLine{259         \textcolor{keywordflow}{while} ((\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}=(TSystemFile*)next())) \{}
+\DoxyCodeLine{260             fname = \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>GetName();}
+\DoxyCodeLine{261             \textcolor{keywordflow}{if} (i == index) \{}
+\DoxyCodeLine{262                 \textcolor{keywordflow}{return} fname.Data();}
+\DoxyCodeLine{263             \}}
+\DoxyCodeLine{264             i++;}
+\DoxyCodeLine{265         \}}
+\DoxyCodeLine{266     \}}
+\DoxyCodeLine{267     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{268 \}}
+
+\end{DoxyCode}
+
+
+Referências generate\+Conf\+::file.
+
+\mbox{\Hypertarget{Utils_8C_a58ded12ac7f7c04057c493ccf56a3f9f}\label{Utils_8C_a58ded12ac7f7c04057c493ccf56a3f9f}} 
+\index{Utils.C@{Utils.C}!getRowAndColumnSums@{getRowAndColumnSums}}
+\index{getRowAndColumnSums@{getRowAndColumnSums}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{getRowAndColumnSums()}{getRowAndColumnSums()}}
+{\footnotesize\ttfamily void get\+Row\+And\+Column\+Sums (\begin{DoxyParamCaption}\item[{const TMatrixT$<$ double $>$ \&}]{matrix,  }\item[{std\+::vector$<$ double $>$ \&}]{row\+Sums,  }\item[{std\+::vector$<$ double $>$ \&}]{col\+Sums }\end{DoxyParamCaption})}
+
+
+
+Irá gerar a soma em linhas e colunas de uma dada matriz fornecida, este irá passar por referência os valores da soma das linhas e das colunas para os vetores row\+Sum e col\+Sum. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em matrix} & Matriz de interesse \\
+\hline
+{\em row\+Sums} & vetor vazio onde será colocada a soma das linhas \\
+\hline
+{\em col\+Sums} & vetor vazio onde serão colocadas as somas das colunas \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 196 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{197 \{}
+\DoxyCodeLine{198     \textcolor{keywordtype}{int} numRows = matrix.GetNrows();}
+\DoxyCodeLine{199     \textcolor{keywordtype}{int} numCols = matrix.GetNcols();}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < numRows; i++)}
+\DoxyCodeLine{202     \{}
+\DoxyCodeLine{203         \textcolor{keywordtype}{double} rowSum = 0;}
+\DoxyCodeLine{204         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < numCols; j++)}
+\DoxyCodeLine{205         \{}
+\DoxyCodeLine{206             rowSum += matrix(i, j);}
+\DoxyCodeLine{207         \}}
+\DoxyCodeLine{208         rowSums[i] = rowSum;}
+\DoxyCodeLine{209     \}}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < numCols; j++)}
+\DoxyCodeLine{212     \{}
+\DoxyCodeLine{213         \textcolor{keywordtype}{double} colSum = 0;}
+\DoxyCodeLine{214         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < numRows; i++)}
+\DoxyCodeLine{215         \{}
+\DoxyCodeLine{216             colSum += matrix(i, j);}
+\DoxyCodeLine{217         \}}
+\DoxyCodeLine{218         colSums[j] = colSum;}
+\DoxyCodeLine{219     \}}
+\DoxyCodeLine{220 \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 1
+\mbox{\Hypertarget{Utils_8C_aeea8cfe3dd6c22f85d61e2c751c51685}\label{Utils_8C_aeea8cfe3dd6c22f85d61e2c751c51685}} 
+\index{Utils.C@{Utils.C}!joinString@{joinString}}
+\index{joinString@{joinString}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{joinString()}{joinString()}}
+{\footnotesize\ttfamily std\+::string join\+String (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{to\+Join,  }\item[{char}]{separator }\end{DoxyParamCaption})}
+
+
+
+Esta função irá juntar um vetor de strings em uma unica string, usando um separador que é um caractere fornecido pelo usuário. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em to\+Join} & vetor de strings contendo os dados que se desejam juntar \\
+\hline
+{\em separator} & caractere que será utilizado para juntar os elementos do vetor em uma unica string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+std\+::string 
+\end{DoxyReturn}
+
+
+Definido na linha 52 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54     std::string out;}
+\DoxyCodeLine{55     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} item : toJoin)}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57         out += item + separator;}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59     \textcolor{keywordflow}{return} out;}
+\DoxyCodeLine{60 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{Utils_8C_af69686edba0015a74bd23c0de75e4de1}\label{Utils_8C_af69686edba0015a74bd23c0de75e4de1}} 
+\index{Utils.C@{Utils.C}!showFiles@{showFiles}}
+\index{showFiles@{showFiles}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{showFiles()}{showFiles()}}
+{\footnotesize\ttfamily void show\+Files (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+show\+Files irá mostrar todos os arquivos presentes em uma determinada pasta 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em path} & Caminho para a pasta desejada \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 228 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{228                                \{}
+\DoxyCodeLine{229     TSystemDirectory dir(path.c\_str(), path.c\_str());}
+\DoxyCodeLine{230     TList* files = dir.GetListOfFiles();}
+\DoxyCodeLine{231     \textcolor{keywordflow}{if} (files) \{}
+\DoxyCodeLine{232         TSystemFile* \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}};}
+\DoxyCodeLine{233         TString fname;}
+\DoxyCodeLine{234         \textcolor{keywordtype}{int} i = 0;}
+\DoxyCodeLine{235         TIter next(files);}
+\DoxyCodeLine{236         \textcolor{keywordflow}{while} ((\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}=(TSystemFile*)next())) \{}
+\DoxyCodeLine{237             fname = \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>GetName();}
+\DoxyCodeLine{238             std::cout << i << \textcolor{stringliteral}{"{}: "{}} << fname.Data() << std::endl;}
+\DoxyCodeLine{239             i++;}
+\DoxyCodeLine{240         \}}
+\DoxyCodeLine{241     \}}
+\DoxyCodeLine{242 \}}
+
+\end{DoxyCode}
+
+
+Referências generate\+Conf\+::file.
+
+\mbox{\Hypertarget{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}\label{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}} 
+\index{Utils.C@{Utils.C}!splitString@{splitString}}
+\index{splitString@{splitString}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{splitString()}{splitString()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ split\+String (\begin{DoxyParamCaption}\item[{std\+::string}]{string,  }\item[{char}]{separator }\end{DoxyParamCaption})}
+
+
+
+split\+String é uma função que irá separar em um vetor de strings uma determinada string a partir de um separador dado. exemplo \+: a menina comeu banana. Se for utilizado como separador \textquotesingle{} \textquotesingle{} isso resultará na seguinte saida \+: \mbox{[}\textquotesingle{}a\textquotesingle{},\textquotesingle{}menina\textquotesingle{},\textquotesingle{}comeu\textquotesingle{},\textquotesingle{}banana\textquotesingle{}\mbox{]} Esta função pode ser muito util para processar caminhos de arquivos; 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em string} & \\
+\hline
+{\em separator} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+std\+::vector$<$std\+::string$>$ 
+\end{DoxyReturn}
+
+
+Definido na linha 71 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73     \textcolor{keywordtype}{int} aux\{0\};}
+\DoxyCodeLine{74     \textcolor{keywordtype}{int} beg\{0\};}
+\DoxyCodeLine{75     \textcolor{keywordtype}{int} lastSize\{0\};}
+\DoxyCodeLine{76     \textcolor{comment}{//std::cout << string << std::endl;}}
+\DoxyCodeLine{77     std::vector<std::string> out;}
+\DoxyCodeLine{78     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} position = 0; position < \textcolor{keywordtype}{string}.size(); position++)}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80         \textcolor{keywordflow}{if} (\textcolor{keywordtype}{string}[position] == separator)}
+\DoxyCodeLine{81         \{}
+\DoxyCodeLine{82             \textcolor{keywordtype}{int} newSize = position -\/ beg;}
+\DoxyCodeLine{83             std::string splited;}
+\DoxyCodeLine{84             aux = beg;}
+\DoxyCodeLine{85             beg = position + 1;}
+\DoxyCodeLine{86             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} internalPos = 0; internalPos < newSize; internalPos++)}
+\DoxyCodeLine{87             \{}
+\DoxyCodeLine{88                 splited += \textcolor{keywordtype}{string}[aux + internalPos];}
+\DoxyCodeLine{89             \}}
+\DoxyCodeLine{90             lastSize = newSize;}
+\DoxyCodeLine{91             out.push\_back(splited);}
+\DoxyCodeLine{92         \}}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94     \textcolor{keywordtype}{int} newSize = \textcolor{keywordtype}{string}.size() -\/ beg;}
+\DoxyCodeLine{95     \textcolor{comment}{//std::cout << newSize << std::endl;}}
+\DoxyCodeLine{96     std::string splited;}
+\DoxyCodeLine{97     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} internalPos = 0; internalPos < newSize; internalPos++)}
+\DoxyCodeLine{98     \{}
+\DoxyCodeLine{99         splited += \textcolor{keywordtype}{string}[aux + lastSize + 1 + internalPos];}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101     out.push\_back(splited);}
+\DoxyCodeLine{102     \textcolor{keywordflow}{return} out;}
+\DoxyCodeLine{103 \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 2
+\mbox{\Hypertarget{Utils_8C_a2ea243d9817bc86f16b11a606b7d18b2}\label{Utils_8C_a2ea243d9817bc86f16b11a606b7d18b2}} 
+\index{Utils.C@{Utils.C}!Utils@{Utils}}
+\index{Utils@{Utils}!Utils.C@{Utils.C}}
+\doxysubsubsection{\texorpdfstring{Utils()}{Utils()}}
+{\footnotesize\ttfamily void Utils (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 1 do ficheiro Utils.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \{\}}
+
+\end{DoxyCode}

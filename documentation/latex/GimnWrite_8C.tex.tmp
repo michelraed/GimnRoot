@@ -1,0 +1,38 @@
+\hypertarget{GimnWrite_8C}{}\doxysection{Referência ao ficheiro source/1-\/base/\+Gimn\+Write.C}
+\label{GimnWrite_8C}\index{source/1-\/base/GimnWrite.C@{source/1-\/base/GimnWrite.C}}
+{\ttfamily \#include $<$TFile.\+h$>$}\newline
+{\ttfamily \#include $<$TTree.\+h$>$}\newline
+{\ttfamily \#include $<$TDirectory.\+h$>$}\newline
+Diagrama de dependências de inclusão para Gimn\+Write.\+C\+:
+% FIG 0
+\doxysubsection*{Componentes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structGimnEvent}{Gimn\+Event}}
+\begin{DoxyCompactList}\small\item\em Esta estrutura servir para salvar os dados de cada evento ~\newline
+ \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classGimnWriteClass}{Gimn\+Write\+Class}}
+\begin{DoxyCompactList}\small\item\em Gimn\+Write será a classe responsável pela escrita dos dados processados e dos histogramas gerados Esta irá gerar um arquivo do tipo $\ast$.root, cntendo em seu interior duas arvores, uma contendo os eventos separados individualmente e outra contendo as coincidencias. Além disso no interior desta classe serão geradas pastas contendo todos os histogramas produzidos por canal e globais. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{GimnWrite_8C_a681cf6fda13b2fd74732ff8743b6c20b}{Gimn\+Write}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{GimnWrite_8C_a681cf6fda13b2fd74732ff8743b6c20b}\label{GimnWrite_8C_a681cf6fda13b2fd74732ff8743b6c20b}} 
+\index{GimnWrite.C@{GimnWrite.C}!GimnWrite@{GimnWrite}}
+\index{GimnWrite@{GimnWrite}!GimnWrite.C@{GimnWrite.C}}
+\doxysubsubsection{\texorpdfstring{GimnWrite()}{GimnWrite()}}
+{\footnotesize\ttfamily void Gimn\+Write (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 6 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{6 \{\}}
+
+\end{DoxyCode}

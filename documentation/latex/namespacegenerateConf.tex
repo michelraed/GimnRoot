@@ -1,0 +1,280 @@
+\hypertarget{namespacegenerateConf}{}\doxysection{Referência ao namespace generate\+Conf}
+\label{namespacegenerateConf}\index{generateConf@{generateConf}}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{namespacegenerateConf_ab5c8bd586fbe58c47e14840173d8d658}{generate\+\_\+conf}} (list \mbox{\hyperlink{namespacegenerateConf_a0c8b4e4264804c9c577189e2a82a67aa}{chip\+IDs}}, list porta, int \mbox{\hyperlink{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}{hmin}}, int \mbox{\hyperlink{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}{hmax}}, \mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{str}} \mbox{\hyperlink{namespacegenerateConf_a1c4a9b606caac9ec1b490cda312d2035}{positioning}}, \mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{str}} cristal, \mbox{\hyperlink{namespacegenerateConf_abd7876686a5ff13dd48fd754f8f3b57c}{float}} \mbox{\hyperlink{namespacegenerateConf_a1412768f347d6dd29e00f9381799e067}{ftrim}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_abbeb83ec573db799978acfe70a27d28b}{parser}} = argparse.\+Argument\+Parser(description=)
+\item 
+\mbox{\hyperlink{namespacegenerateConf_af68232d46a5b0bc0b6c111379584f7bd}{type}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{str}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a11e9f0cc893d89466823850ec5e7dbac}{help}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_abd7876686a5ff13dd48fd754f8f3b57c}{float}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_afcd9d724a45e225d2649f9c620122543}{default}}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a537a4cc2ee6e258792d1fb15a84461d8}{args}} = parser.\+parse\+\_\+args()
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a5d97a7370c0c754ba6fd0ceb689047cc}{file\+\_\+name}} = args.\+file
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}{hmin}} = args.\+hmin
+\item 
+\mbox{\hyperlink{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}{hmax}} = args.\+hmax
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a1c4a9b606caac9ec1b490cda312d2035}{positioning}} = args.\+positioning
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a3e6426cb7b8d68521d2ca4be95ae12a2}{crystal}} = args.\+crystal
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a1412768f347d6dd29e00f9381799e067}{ftrim}} = args.\+ftrim
+\item 
+\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}} = up.\+open(\mbox{\hyperlink{namespacegenerateConf_a5d97a7370c0c754ba6fd0ceb689047cc}{file\+\_\+name}})
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a31da83ab37124536ca336056c5493cce}{data}} = \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}\mbox{[}\textquotesingle{}data\textquotesingle{}\mbox{]}
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}{dados}} = data.\+arrays(\mbox{[}\textquotesingle{}mh\+\_\+n\textquotesingle{},\textquotesingle{}mh\+\_\+j\textquotesingle{},\textquotesingle{}energy\textquotesingle{},\textquotesingle{}time\textquotesingle{},\textquotesingle{}channel\+ID\textquotesingle{}\mbox{]},library=\textquotesingle{}pd\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespacegenerateConf_ae1b78f9aabd125d52923e9b0f5bb3255}{portas}} = \mbox{\hyperlink{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}{dados}}\mbox{[}\textquotesingle{}port\+ID\textquotesingle{}\mbox{]}.unique()
+\item 
+\mbox{\hyperlink{namespacegenerateConf_a0c8b4e4264804c9c577189e2a82a67aa}{chip\+IDs}} = \mbox{\hyperlink{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}{dados}}\mbox{[}\textquotesingle{}chip\+ID\textquotesingle{}\mbox{]}.unique()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{namespacegenerateConf_ab5c8bd586fbe58c47e14840173d8d658}\label{namespacegenerateConf_ab5c8bd586fbe58c47e14840173d8d658}} 
+\index{generateConf@{generateConf}!generate\_conf@{generate\_conf}}
+\index{generate\_conf@{generate\_conf}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{generate\_conf()}{generate\_conf()}}
+{\footnotesize\ttfamily None generate\+Conf.\+generate\+\_\+conf (\begin{DoxyParamCaption}\item[{list}]{chip\+IDs,  }\item[{list}]{porta,  }\item[{int}]{hmin,  }\item[{int}]{hmax,  }\item[{\mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{str}}}]{positioning,  }\item[{\mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{str}}}]{cristal,  }\item[{\mbox{\hyperlink{namespacegenerateConf_abd7876686a5ff13dd48fd754f8f3b57c}{float}}}]{ftrim }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Esta função irá gerar o arquivo de configuração a ser utilizado no software do sistema PETSYS
+        chipIDs : vetor contendo todos os chipIDs respectivos aos detectores ativos durante a aquisição
+        porta: vetor contendo todas as portas em utilização durante o momento da quisicao
+        hmin: valor minimo dos histogramas
+        hmax: valor maximo dos histogramas 
+        positioning: o metodo refere-se ao tipo de avaliação da posição a ser utilizado, no momento temos 
+        implementado somente o metodo de anger
+        cristal: tipo de cristal a  ser utilizado o qual pode ser monolitico ou segmentado
+        ftrim: parametro de otimização do metodo proposto por bonifacio\end{DoxyVerb}
+ 
+
+Definido na linha 6 do ficheiro generate\+Conf.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{6 \textcolor{keyword}{def }\mbox{\hyperlink{namespacegenerateConf_ab5c8bd586fbe58c47e14840173d8d658}{generate\_conf}}(chipIDs:list,porta:list,hmin:int,hmax:int,positioning:str,cristal:str,ftrim:float)-\/>\textcolor{keywordtype}{None}:}
+\DoxyCodeLine{7     \textcolor{stringliteral}{'''}}
+\DoxyCodeLine{8 \textcolor{stringliteral}{        Esta função irá gerar o arquivo de configuração a ser utilizado no software do sistema PETSYS}}
+\DoxyCodeLine{9 \textcolor{stringliteral}{            chipIDs : vetor contendo todos os chipIDs respectivos aos detectores ativos durante a aquisição}}
+\DoxyCodeLine{10 \textcolor{stringliteral}{            porta: vetor contendo todas as portas em utilização durante o momento da quisicao}}
+\DoxyCodeLine{11 \textcolor{stringliteral}{            hmin: valor minimo dos histogramas}}
+\DoxyCodeLine{12 \textcolor{stringliteral}{            hmax: valor maximo dos histogramas }}
+\DoxyCodeLine{13 \textcolor{stringliteral}{            positioning: o metodo refere-\/se ao tipo de avaliação da posição a ser utilizado, no momento temos }}
+\DoxyCodeLine{14 \textcolor{stringliteral}{            implementado somente o metodo de anger}}
+\DoxyCodeLine{15 \textcolor{stringliteral}{            cristal: tipo de cristal a  ser utilizado o qual pode ser monolitico ou segmentado}}
+\DoxyCodeLine{16 \textcolor{stringliteral}{            ftrim: parametro de otimização do metodo proposto por bonifacio}}
+\DoxyCodeLine{17 \textcolor{stringliteral}{        }}
+\DoxyCodeLine{18 \textcolor{stringliteral}{    '''}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{comment}{\#cria o cabeçalio}}
+\DoxyCodeLine{21     header = [\textcolor{stringliteral}{"{}port"{}},\textcolor{stringliteral}{"{}chipID"{}},\textcolor{stringliteral}{"{}inCoincidence"{}},\textcolor{stringliteral}{"{}algorithm"{}},\textcolor{stringliteral}{"{}type"{}},\textcolor{stringliteral}{"{}hMin"{}},\textcolor{stringliteral}{"{}hMax"{}},\textcolor{stringliteral}{"{}ftrim"{}},\textcolor{stringliteral}{"{}name\(\backslash\)n"{}}]}
+\DoxyCodeLine{22     head = \textcolor{stringliteral}{"{}\(\backslash\)t"{}}.join(header) \textcolor{comment}{\# junta o mesmo}}
+\DoxyCodeLine{23     \textcolor{comment}{\#abre o arquivo para se salvar a configuração}}
+\DoxyCodeLine{24     \textcolor{keyword}{with} open(\textcolor{stringliteral}{"{}configuracao.conf"{}},\textcolor{stringliteral}{'w'}) \textcolor{keyword}{as} file:}
+\DoxyCodeLine{25         file.write(head)}
+\DoxyCodeLine{26         \textcolor{keywordflow}{for} i,porta \textcolor{keywordflow}{in} enumerate(portas):}
+\DoxyCodeLine{27             line = f\textcolor{stringliteral}{"{}\{porta\}\(\backslash\)t\{chipIDs[i]\}\(\backslash\)t15\(\backslash\)t\{positioning\}\(\backslash\)t\{cristal\}\(\backslash\)t\{hmin\}\(\backslash\)t\{hmax\}\(\backslash\)t\{ftrim\}\(\backslash\)tdetector-\/\{i+1\}\(\backslash\)n"{}}}
+\DoxyCodeLine{28             file.write(line)}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 }
+
+\end{DoxyCode}
+
+
+\doxysubsection{Documentação das variáveis}
+\mbox{\Hypertarget{namespacegenerateConf_a537a4cc2ee6e258792d1fb15a84461d8}\label{namespacegenerateConf_a537a4cc2ee6e258792d1fb15a84461d8}} 
+\index{generateConf@{generateConf}!args@{args}}
+\index{args@{args}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{args}{args}}
+{\footnotesize\ttfamily generate\+Conf.\+args = parser.\+parse\+\_\+args()}
+
+
+
+Definido na linha 51 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a0c8b4e4264804c9c577189e2a82a67aa}\label{namespacegenerateConf_a0c8b4e4264804c9c577189e2a82a67aa}} 
+\index{generateConf@{generateConf}!chipIDs@{chipIDs}}
+\index{chipIDs@{chipIDs}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{chipIDs}{chipIDs}}
+{\footnotesize\ttfamily generate\+Conf.\+chip\+IDs = \mbox{\hyperlink{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}{dados}}\mbox{[}\textquotesingle{}chip\+ID\textquotesingle{}\mbox{]}.unique()}
+
+
+
+Definido na linha 67 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a3e6426cb7b8d68521d2ca4be95ae12a2}\label{namespacegenerateConf_a3e6426cb7b8d68521d2ca4be95ae12a2}} 
+\index{generateConf@{generateConf}!crystal@{crystal}}
+\index{crystal@{crystal}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{crystal}{crystal}}
+{\footnotesize\ttfamily generate\+Conf.\+crystal = args.\+crystal}
+
+
+
+Definido na linha 57 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}\label{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}} 
+\index{generateConf@{generateConf}!dados@{dados}}
+\index{dados@{dados}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{dados}{dados}}
+{\footnotesize\ttfamily generate\+Conf.\+dados = data.\+arrays(\mbox{[}\textquotesingle{}mh\+\_\+n\textquotesingle{},\textquotesingle{}mh\+\_\+j\textquotesingle{},\textquotesingle{}energy\textquotesingle{},\textquotesingle{}time\textquotesingle{},\textquotesingle{}channel\+ID\textquotesingle{}\mbox{]},library=\textquotesingle{}pd\textquotesingle{})}
+
+
+
+Definido na linha 63 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a31da83ab37124536ca336056c5493cce}\label{namespacegenerateConf_a31da83ab37124536ca336056c5493cce}} 
+\index{generateConf@{generateConf}!data@{data}}
+\index{data@{data}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily generate\+Conf.\+data = \mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}\mbox{[}\textquotesingle{}data\textquotesingle{}\mbox{]}}
+
+
+
+Definido na linha 62 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_afcd9d724a45e225d2649f9c620122543}\label{namespacegenerateConf_afcd9d724a45e225d2649f9c620122543}} 
+\index{generateConf@{generateConf}!default@{default}}
+\index{default@{default}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{default}{default}}
+{\footnotesize\ttfamily generate\+Conf.\+default}
+
+
+
+Definido na linha 45 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}\label{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}} 
+\index{generateConf@{generateConf}!file@{file}}
+\index{file@{file}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{file}{file}}
+{\footnotesize\ttfamily generate\+Conf.\+file = up.\+open(\mbox{\hyperlink{namespacegenerateConf_a5d97a7370c0c754ba6fd0ceb689047cc}{file\+\_\+name}})}
+
+
+
+Definido na linha 61 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a5d97a7370c0c754ba6fd0ceb689047cc}\label{namespacegenerateConf_a5d97a7370c0c754ba6fd0ceb689047cc}} 
+\index{generateConf@{generateConf}!file\_name@{file\_name}}
+\index{file\_name@{file\_name}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{file\_name}{file\_name}}
+{\footnotesize\ttfamily generate\+Conf.\+file\+\_\+name = args.\+file}
+
+
+
+Definido na linha 53 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_abd7876686a5ff13dd48fd754f8f3b57c}\label{namespacegenerateConf_abd7876686a5ff13dd48fd754f8f3b57c}} 
+\index{generateConf@{generateConf}!float@{float}}
+\index{float@{float}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{float}{float}}
+{\footnotesize\ttfamily generate\+Conf.\+float}
+
+
+
+Definido na linha 45 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a1412768f347d6dd29e00f9381799e067}\label{namespacegenerateConf_a1412768f347d6dd29e00f9381799e067}} 
+\index{generateConf@{generateConf}!ftrim@{ftrim}}
+\index{ftrim@{ftrim}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{ftrim}{ftrim}}
+{\footnotesize\ttfamily generate\+Conf.\+ftrim = args.\+ftrim}
+
+
+
+Definido na linha 58 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a11e9f0cc893d89466823850ec5e7dbac}\label{namespacegenerateConf_a11e9f0cc893d89466823850ec5e7dbac}} 
+\index{generateConf@{generateConf}!help@{help}}
+\index{help@{help}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{help}{help}}
+{\footnotesize\ttfamily generate\+Conf.\+help}
+
+
+
+Definido na linha 44 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}\label{namespacegenerateConf_aacc00e84653eb6c0d546e5eef381072b}} 
+\index{generateConf@{generateConf}!hmax@{hmax}}
+\index{hmax@{hmax}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{hmax}{hmax}}
+{\footnotesize\ttfamily generate\+Conf.\+hmax = args.\+hmax}
+
+
+
+Definido na linha 55 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}\label{namespacegenerateConf_a6fed9eada0c0a54c2882d457916daa04}} 
+\index{generateConf@{generateConf}!hmin@{hmin}}
+\index{hmin@{hmin}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{hmin}{hmin}}
+{\footnotesize\ttfamily generate\+Conf.\+hmin = args.\+hmin}
+
+
+
+Definido na linha 54 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_abbeb83ec573db799978acfe70a27d28b}\label{namespacegenerateConf_abbeb83ec573db799978acfe70a27d28b}} 
+\index{generateConf@{generateConf}!parser@{parser}}
+\index{parser@{parser}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{parser}{parser}}
+{\footnotesize\ttfamily generate\+Conf.\+parser = argparse.\+Argument\+Parser(description=)}
+
+
+
+Definido na linha 32 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_ae1b78f9aabd125d52923e9b0f5bb3255}\label{namespacegenerateConf_ae1b78f9aabd125d52923e9b0f5bb3255}} 
+\index{generateConf@{generateConf}!portas@{portas}}
+\index{portas@{portas}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{portas}{portas}}
+{\footnotesize\ttfamily generate\+Conf.\+portas = \mbox{\hyperlink{namespacegenerateConf_a8d069704b34294005a6365bbcfa58701}{dados}}\mbox{[}\textquotesingle{}port\+ID\textquotesingle{}\mbox{]}.unique()}
+
+
+
+Definido na linha 66 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_a1c4a9b606caac9ec1b490cda312d2035}\label{namespacegenerateConf_a1c4a9b606caac9ec1b490cda312d2035}} 
+\index{generateConf@{generateConf}!positioning@{positioning}}
+\index{positioning@{positioning}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{positioning}{positioning}}
+{\footnotesize\ttfamily generate\+Conf.\+positioning = args.\+positioning}
+
+
+
+Definido na linha 56 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}\label{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}} 
+\index{generateConf@{generateConf}!str@{str}}
+\index{str@{str}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily generate\+Conf.\+str}
+
+
+
+Definido na linha 44 do ficheiro generate\+Conf.\+py.
+
+\mbox{\Hypertarget{namespacegenerateConf_af68232d46a5b0bc0b6c111379584f7bd}\label{namespacegenerateConf_af68232d46a5b0bc0b6c111379584f7bd}} 
+\index{generateConf@{generateConf}!type@{type}}
+\index{type@{type}!generateConf@{generateConf}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily generate\+Conf.\+type}
+
+
+
+Definido na linha 44 do ficheiro generate\+Conf.\+py.
+

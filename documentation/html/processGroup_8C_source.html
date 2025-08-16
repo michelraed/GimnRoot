@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GimnRoot: Código-Fonte de source/5-process/processGroup.C</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GimnRoot
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_80b91aae45128c7a4c1b153ba9dd387a.html">5-process</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">processGroup.C</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="processGroup_8C.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;TTree.h&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;TH1F.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;TH2F.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;TFile.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;TCanvas.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;TMatrixT.h&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// int MinimumGroupSize = 64;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="processGroup_8C.html#a0d8e8f735e382523c2be67cd8335ff8c">   14</a></span>&#160;std::vector&lt;TCanvas *&gt; <a class="code" href="processGroup_8C.html#a0d8e8f735e382523c2be67cd8335ff8c">ProcessGroup</a>(std::string fileName, <span class="keywordtype">int</span> MinimumGroupSize)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">// cria as variaveis nescessárias à leitura do arquivo root</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    UShort_t mh_n{0}, mh_j{0};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    UInt_t channelID{0};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    Float_t energy{0.0};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    Long64_t time{0};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::vector&lt;TString&gt; ports;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// abre o arquivo root</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    TFile *<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a> = <span class="keyword">new</span> TFile(fileName.c_str(), <span class="stringliteral">&quot;read&quot;</span>);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    TTree *tree = (TTree *)<a class="code" href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">file</a>-&gt;Get(<span class="stringliteral">&quot;data&quot;</span>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// cria os vetores que armazenarão as informações de tempo e energia dos eventos no grupo para calculo do timing</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::vector&lt;Long64_t&gt; timeChanels(64, 0);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    std::vector&lt;Float_t&gt; energyChanels(64, 0);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// set branches</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    tree-&gt;SetBranchAddress(<span class="stringliteral">&quot;mh_n&quot;</span>, &amp;mh_n);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    tree-&gt;SetBranchAddress(<span class="stringliteral">&quot;mh_j&quot;</span>, &amp;mh_j);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    tree-&gt;SetBranchAddress(<span class="stringliteral">&quot;channelID&quot;</span>, &amp;channelID);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    tree-&gt;SetBranchAddress(<span class="stringliteral">&quot;energy&quot;</span>, &amp;energy);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    tree-&gt;SetBranchAddress(<span class="stringliteral">&quot;time&quot;</span>, &amp;time);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// declaracao dos histogramas;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::vector&lt;TCanvas *&gt; Canvas;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">int</span> detNum = 2;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">int</span> channelsPerArray = 64;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// inicializa os histogramas de energia por canal;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    vector&lt;vector&lt;TH1F *&gt;&gt; chanellHistogram; <span class="comment">// histograma por canal por detector</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    vector&lt;TH1F *&gt; GlobalEnergy;             <span class="comment">// histograma global</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    vector&lt;TH1F *&gt; depthOfInteraction;       <span class="comment">// profundidade de interação</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    vector&lt;TH2F *&gt; FloodHist;                <span class="comment">// histograma de flood</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> bins = 250;                          <span class="comment">// bins dos histogramas</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// aqui se inicializa a parte de configuração do nosso sistema</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classConfigurations.html">Configurations</a> c;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">auto</span> correctionFactor = c.<a class="code" href="classConfigurations.html#ac3ee3266bb03685d6140514d9f4340ac">getCorrectionFactors</a>(); <span class="comment">// fatores de correção para linearidade</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">auto</span> detectorName = c.<a class="code" href="classConfigurations.html#a6069927d9a2fe30b1072ccec66211438">getName</a>();                  <span class="comment">// nomes dos detectores</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">auto</span> chpid = c.<a class="code" href="classConfigurations.html#ace17727ff1c223937e5d2c348dc4aadd">getChipIDs</a>();                      <span class="comment">// chip ID de cada detector</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">auto</span> myType = c.<a class="code" href="classConfigurations.html#aa35a1d10ce57058b465ca6134715c50e">getType</a>();                        <span class="comment">// tipo do cristal em cada detector podendo ser mono ou seg</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">auto</span> <a class="code" href="namespacegenerateConf.html#a6fed9eada0c0a54c2882d457916daa04">hmin</a> = c.<a class="code" href="classConfigurations.html#a383a49ba4ebb632dba52861705548673">gethMins</a>();                         <span class="comment">// pega o minimo dos histogramas para cada detector</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">auto</span> <a class="code" href="namespacegenerateConf.html#aacc00e84653eb6c0d546e5eef381072b">hmax</a> = c.<a class="code" href="classConfigurations.html#a3d4a74954385babbc4d84eec0851f5c5">gethMaxs</a>();                         <span class="comment">// pega o maximo dos histogramas para cada detector</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    vector&lt;TMatrixT&lt;double&gt;&gt; Sipm; <span class="comment">// matriz que irá representar as posições na SIPM</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// vector&lt;TMatrixT&lt;Long64_t&gt;&gt; Sipm_t;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// Processa o caminho, para obter somente o nome do arquivo</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">auto</span> name = <a class="code" href="Utils_8C.html#a20f5ab9d09a254c776886ca97b67872c">splitString</a>(fileName, <span class="charliteral">&#39;/&#39;</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">auto</span> name_pos = name.size();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">string</span> outName = name[name_pos - 1];</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    name = <a class="code" href="Utils_8C.html#a20f5ab9d09a254c776886ca97b67872c">splitString</a>(outName, <span class="charliteral">&#39;.&#39;</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    name_pos = name.size();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    outName = name[0];</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    outName = outName + <span class="stringliteral">&quot;_processed.root&quot;</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// cria a classe que irá salvar os arquivos processados no HDD</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classGimnWrite.html">GimnWrite</a> Output(outName.c_str());</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// inicializa os histogramas em cada posição do vetor para armazenar os dados da aqusição</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a> = 0; <a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a> &lt; detNum; <a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>++)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment">// inicia as sipms</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        Sipm.push_back(TMatrixT&lt;double&gt;(8, 8));</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="comment">// inicia os canais</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        vector&lt;TH1F *&gt; auxHistChan;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> chan = 0; chan &lt; channelsPerArray; chan++)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordtype">string</span> channelName{<span class="stringliteral">&quot;channel-&quot;</span>};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            channelName = channelName + std::to_string(chan) + std::string(detectorName[<a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>].c_str());</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            TH1F *myHisto = <span class="keyword">new</span> TH1F(channelName.c_str(), channelName.c_str(), bins, <a class="code" href="namespacegenerateConf.html#a6fed9eada0c0a54c2882d457916daa04">hmin</a>[<a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>], <a class="code" href="namespacegenerateConf.html#aacc00e84653eb6c0d546e5eef381072b">hmax</a>[<a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>]);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            auxHistChan.push_back(myHisto);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;initializing histogram : &quot;</span> &lt;&lt; channelName &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="comment">// inicia histograma global doi e flood</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">string</span> globalName = std::string(detectorName[<a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>].c_str());</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        TH1F *myglobalHisto = <span class="keyword">new</span> TH1F(globalName.c_str(), globalName.c_str(), bins, <a class="code" href="namespacegenerateConf.html#a6fed9eada0c0a54c2882d457916daa04">hmin</a>[<a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>], <a class="code" href="namespacegenerateConf.html#aacc00e84653eb6c0d546e5eef381072b">hmax</a>[<a class="code" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">detector</a>]);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        std::string floodName = globalName + <span class="stringliteral">&quot;flood&quot;</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        TH2F *flood = <span class="keyword">new</span> TH2F(floodName.c_str(), floodName.c_str(), 256, -13.44, 13.44, 256, -13.44, 13.44);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        std::string DoiName = globalName + <span class="stringliteral">&quot;- Doi&quot;</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        TH1F *myDoi = <span class="keyword">new</span> TH1F(DoiName.c_str(), DoiName.c_str(), 256, 0, 3);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        depthOfInteraction.push_back(myDoi);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        GlobalEnergy.push_back(myglobalHisto);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        FloodHist.push_back(flood);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        chanellHistogram.push_back(auxHistChan);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">int</span> pos = 0;    <span class="comment">// posicao do elemento dentro do vetor de detectores e configurações</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">float</span> esum = 0; <span class="comment">// soma da energia do grupo</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// inicializa a barra de progresso ...</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    std::string loading = <span class="stringliteral">&quot;[--------------------------------------------------]&quot;</span>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">int</span> load_pos = 1;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> entries = tree-&gt;GetEntries();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">for</span> (Int_t event = 0; <span class="keyword">event</span> &lt;= entries; <span class="keyword">event</span>++)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot; *******************************************  &quot; &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot; Event  &quot; &lt;&lt; event &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        tree-&gt;GetEntry(event);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        Int_t chipID = (int)channelID / 64;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        Int_t channel = channelID - 64 * chipID;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span> (event &gt; ((entries / 50.0) * load_pos))</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keyword">auto</span> porcento = ((double)event /(<span class="keywordtype">double</span>) entries) * 100;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keyword">auto</span> clear = system(<span class="stringliteral">&quot;clear&quot;</span>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            loading[load_pos] = <span class="charliteral">&#39;=&#39;</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            std::cout &lt;&lt; loading &lt;&lt; porcento &lt;&lt; <span class="stringliteral">&quot;%&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            load_pos += 1;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot; channelID  &quot; &lt;&lt; channelID &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot; chipID  &quot; &lt;&lt; chipID &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="comment">// std::cout &lt;&lt; &quot; channel  &quot; &lt;&lt; channel &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="comment">// aqui o programa busca qual a posição do chipID no vetor chpid de configuração</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">auto</span> it = std::find(chpid.begin(), chpid.end(), chipID);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">if</span> (it != chpid.end())</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            pos = std::distance(chpid.begin(), it);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="comment">// se monolitico</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">if</span> (myType[pos] == <span class="stringliteral">&quot;mono&quot;</span>)</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="comment">// se numero de eventos no grupo maior do que um numero minimo</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordflow">if</span> (mh_n &gt; MinimumGroupSize)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                chanellHistogram[pos][channel]-&gt;Fill(energy);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                <span class="keyword">auto</span> pos_xy = <a class="code" href="Utils_8C.html#a6f1e23b4e523c7cf4a7d7f7f93a6fa79">CorrectChannelToPixelPs</a>(channel);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="comment">// eventos do grupo</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                <span class="keywordflow">if</span> (mh_j &lt; (mh_n - 1))</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    Sipm[pos](pos_xy[1], pos_xy[0]) = +energy;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    timeChanels[channel] = time;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    energyChanels[channel] = energy;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    esum += energy;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                <span class="comment">// ultimo evento</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mh_j == mh_n - 1)</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                    Sipm[pos](pos_xy[1], pos_xy[0]) = +energy;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    esum += energy;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                    timeChanels[channel] = time;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    energyChanels[channel] = energy;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    <span class="comment">// corrige pelo fator de correção encontrado</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    <a class="code" href="Utils_8C.html#a23932ea1202706c57e0283e2e3732286">divideMatrix</a>(Sipm[pos], correctionFactor[pos]);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                        <a class="code" href="structGimnEvent.html">GimnEvent</a> ev;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                        <span class="keyword">auto</span> Positions3D = <a class="code" href="positionings_8C.html#a3594ccf39b56f4d1fb53fcf99bd8f0fd">anger</a>(Sipm[pos]);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#ac3f45fc5f73834e532b34fd9a6c2320a">channel</a> = 0;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#a6360034c363ffa9d13eea675e183548a">Energy</a> = esum;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#a521ae7f19bb4cde9533a579bb0304137">time</a> = <a class="code" href="timing_8C.html#a3236e93cd277b7408821fc3adf3c48e9">tea</a>(timeChanels, energyChanels);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">xmm</a> = Positions3D[0];</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">ymm</a> = Positions3D[1];</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#a1dcd2ad41d532d230aae8a6f08169a0a">doi</a> = Positions3D[2];</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#a69c41d7fb454e50509c61cbc5053ab4d">Port</a> = chpid[pos];</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#a4185387693d9c0b7d286c48e65e3a109">sipmX</a> = 0;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                        ev.<a class="code" href="structGimnEvent.html#aaeb414157eac4de04ac65acc373b905c">sipmY</a> = 0.;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                        GlobalEnergy[pos]-&gt;Fill(ev.<a class="code" href="structGimnEvent.html#a6360034c363ffa9d13eea675e183548a">Energy</a>);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                        depthOfInteraction[pos]-&gt;Fill(ev.<a class="code" href="structGimnEvent.html#a1dcd2ad41d532d230aae8a6f08169a0a">doi</a>);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                        FloodHist[pos]-&gt;Fill(ev.<a class="code" href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">xmm</a>, ev.<a class="code" href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">ymm</a>);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                        <span class="keywordtype">bool</span> out = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                        <span class="keywordflow">if</span> ((ev.<a class="code" href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">xmm</a> &gt; 13.44 || ev.<a class="code" href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">xmm</a> &lt; -13.44) &amp;&amp; (ev.<a class="code" href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">ymm</a> &gt; 13.44 || ev.<a class="code" href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">ymm</a> &lt; -13.44))</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                            out = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                        <span class="keywordflow">if</span> (!out)</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                        {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                            Output.<a class="code" href="classGimnWrite.html#ac34e33df18488a906e9e2c7e033ea0cb">putData</a>(ev);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                        }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                    }</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                    esum = 0;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                    Sipm[pos].Zero();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                }</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (myType[pos] == <span class="stringliteral">&quot;seg&quot;</span>)</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        {</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            <span class="keywordflow">if</span> (mh_j == 0)</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                chanellHistogram[pos][channel]-&gt;Fill(energy);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                <span class="keyword">auto</span> pos_xy = <a class="code" href="Utils_8C.html#a6f1e23b4e523c7cf4a7d7f7f93a6fa79">CorrectChannelToPixelPs</a>(channel);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                Sipm[pos](pos_xy[1], pos_xy[0]) = +energy;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                <a class="code" href="classSiPM.html">SiPM</a> aux;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                std::vector&lt;Float_t&gt; xPos = aux.<a class="code" href="classSiPM.html#a635ae10d24ec15e014ce2304b6a2cacd">getPositionsX</a>();</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                std::vector&lt;Float_t&gt; yPos = aux.getPositionsY();</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                <a class="code" href="structGimnEvent.html">GimnEvent</a> ev;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                ev.<a class="code" href="structGimnEvent.html#ac3f45fc5f73834e532b34fd9a6c2320a">channel</a> = 0;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                ev.<a class="code" href="structGimnEvent.html#a6360034c363ffa9d13eea675e183548a">Energy</a> = energy;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                ev.<a class="code" href="structGimnEvent.html#a521ae7f19bb4cde9533a579bb0304137">time</a> = time;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                ev.<a class="code" href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">xmm</a> = xPos[pos_xy[0]];</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                ev.<a class="code" href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">ymm</a> = yPos[pos_xy[1]];</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                ev.<a class="code" href="structGimnEvent.html#a1dcd2ad41d532d230aae8a6f08169a0a">doi</a> = 0;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                ev.<a class="code" href="structGimnEvent.html#a69c41d7fb454e50509c61cbc5053ab4d">Port</a> = chpid[pos];</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                ev.<a class="code" href="structGimnEvent.html#a4185387693d9c0b7d286c48e65e3a109">sipmX</a> = 0;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                ev.<a class="code" href="structGimnEvent.html#aaeb414157eac4de04ac65acc373b905c">sipmY</a> = 0.;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                GlobalEnergy[pos]-&gt;Fill(ev.<a class="code" href="structGimnEvent.html#a6360034c363ffa9d13eea675e183548a">Energy</a>);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                depthOfInteraction[pos]-&gt;Fill(ev.<a class="code" href="structGimnEvent.html#a1dcd2ad41d532d230aae8a6f08169a0a">doi</a>);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                FloodHist[pos]-&gt;Fill(ev.<a class="code" href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">xmm</a>, ev.<a class="code" href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">ymm</a>);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                Output.<a class="code" href="classGimnWrite.html#ac34e33df18488a906e9e2c7e033ea0cb">putData</a>(ev);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    }</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    Canvas.push_back(<span class="keyword">new</span> TCanvas(<span class="stringliteral">&quot;Detector1&quot;</span>, <span class="stringliteral">&quot;Detector1&quot;</span>, 4000, 4000));</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    Canvas.push_back(<span class="keyword">new</span> TCanvas(<span class="stringliteral">&quot;Detector2&quot;</span>, <span class="stringliteral">&quot;Detector2&quot;</span>, 4000, 4000));</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="comment">//Canvas.push_back(new TCanvas(&quot;Detector3&quot;, &quot;Detector3&quot;, 4000, 4000));</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="comment">//Canvas.push_back(new TCanvas(&quot;Detector4&quot;, &quot;Detector4&quot;, 4000, 4000));</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    Canvas.push_back(<span class="keyword">new</span> TCanvas(<span class="stringliteral">&quot;Global Energy&quot;</span>, <span class="stringliteral">&quot;Global Energy&quot;</span>, 4000, 4000));</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    Canvas.push_back(<span class="keyword">new</span> TCanvas(<span class="stringliteral">&quot;Floods&quot;</span>, <span class="stringliteral">&quot;Floods&quot;</span>, 4000, 4000));</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    Canvas.push_back(<span class="keyword">new</span> TCanvas(<span class="stringliteral">&quot;Doi&quot;</span>, <span class="stringliteral">&quot;Doi&quot;</span>, 4000, 4000));</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordflow">for</span> (Int_t i = 0; i &lt; detNum; i++)</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="comment">// std::string canvasName = (std::string)ports[i].Data()+ &quot;Channel MAP&quot;;</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="comment">// Canvas.push_back(new TCanvas(ports[i].Data(),canvasName.c_str(),4000,4000));</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        Canvas[i]-&gt;Divide(8, 8);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">for</span> (Int_t channels = 0; channels &lt; channelsPerArray; channels++)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <span class="keyword">auto</span> pos_yx = <a class="code" href="Utils_8C.html#a6f1e23b4e523c7cf4a7d7f7f93a6fa79">CorrectChannelToPixelPs</a>(channels);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            Canvas[i]-&gt;cd((pos_yx[0] * 8 + pos_yx[1]) + 1);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            chanellHistogram[i][channels]-&gt;Draw(<span class="stringliteral">&quot;HIST&quot;</span>);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        }</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="comment">// std::string saveAs = (std::string)ports[i].Data()+ &quot;ChannelMAP.png&quot;;</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        Canvas[i]-&gt;Draw(); <span class="comment">// Print(saveAs.c_str());</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    Canvas[2]-&gt;Divide(2, 2);</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    Canvas[2]-&gt;cd(1);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    GlobalEnergy[0]-&gt;Draw(<span class="stringliteral">&quot;L&quot;</span>);</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    Canvas[2]-&gt;cd(2);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    GlobalEnergy[1]-&gt;Draw(<span class="stringliteral">&quot;L&quot;</span>);</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    Canvas[2]-&gt;cd(3);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    FloodHist[0]-&gt;Draw(<span class="stringliteral">&quot;COLZ&quot;</span>);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="comment">//GlobalEnergy[2]-&gt;Draw(&quot;L&quot;);</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    Canvas[2]-&gt;cd(4);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    FloodHist[1]-&gt;Draw(<span class="stringliteral">&quot;COLZ&quot;</span>);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="comment">//GlobalEnergy[3]-&gt;Draw(&quot;L&quot;);</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    Canvas[2]-&gt;Draw();</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="comment">//Canvas[3]-&gt;Divide(2, 2);</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="comment">//Canvas[3]-&gt;cd(1);</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="comment">//FloodHist[0]-&gt;Draw(&quot;COLZ&quot;);</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="comment">//Canvas[3]-&gt;cd(2);</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="comment">//FloodHist[1]-&gt;Draw(&quot;COLZ&quot;);</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">//Canvas[3]-&gt;cd(3);</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="comment">//FloodHist[2]-&gt;Draw(&quot;COLZ&quot;);</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="comment">//Canvas[3]-&gt;cd(4);</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="comment">//FloodHist[3]-&gt;Draw(&quot;COLZ&quot;);</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="comment">//Canvas[3]-&gt;Draw();</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    Canvas[4]-&gt;Divide(2, 1);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    Canvas[4]-&gt;cd(1);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    depthOfInteraction[0]-&gt;Draw(<span class="stringliteral">&quot;L&quot;</span>);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    Canvas[4]-&gt;cd(2);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    depthOfInteraction[1]-&gt;Draw(<span class="stringliteral">&quot;L&quot;</span>);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="comment">//Canvas[4]-&gt;cd(3);</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="comment">//depthOfInteraction[2]-&gt;Draw(&quot;L&quot;);</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="comment">//Canvas[4]-&gt;cd(4);</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="comment">//depthOfInteraction[3]-&gt;Draw(&quot;L&quot;);</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    Canvas[4]-&gt;Draw();</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    Output.<a class="code" href="classGimnWrite.html#aa3a85d6a4e5119988fe491b22b51df2c">writeObject</a>(chanellHistogram, GlobalEnergy, depthOfInteraction, FloodHist, detectorName, chpid, Canvas);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    Output.<a class="code" href="classGimnWrite.html#af441b64ae446ea298d77c1047ff0e4b6">close</a>();</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">return</span> Canvas;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;}</div>
+<div class="ttc" id="aUtils_8C_html_a20f5ab9d09a254c776886ca97b67872c"><div class="ttname"><a href="Utils_8C.html#a20f5ab9d09a254c776886ca97b67872c">splitString</a></div><div class="ttdeci">std::vector&lt; std::string &gt; splitString(std::string string, char separator)</div><div class="ttdoc">splitString é uma função que irá separar em um vetor de strings uma determinada string a partir de um...</div><div class="ttdef"><b>Definition:</b> <a href="Utils_8C_source.html#l00071">Utils.C:71</a></div></div>
+<div class="ttc" id="aUtils_8C_html_a23932ea1202706c57e0283e2e3732286"><div class="ttname"><a href="Utils_8C.html#a23932ea1202706c57e0283e2e3732286">divideMatrix</a></div><div class="ttdeci">void divideMatrix(TMatrixT&lt; double &gt; &amp;mat, double divisor)</div><div class="ttdoc">Esta função irá dividir todos os elementos de uma matriz por um determinado valor.</div><div class="ttdef"><b>Definition:</b> <a href="Utils_8C_source.html#l00009">Utils.C:9</a></div></div>
+<div class="ttc" id="aUtils_8C_html_a6f1e23b4e523c7cf4a7d7f7f93a6fa79"><div class="ttname"><a href="Utils_8C.html#a6f1e23b4e523c7cf4a7d7f7f93a6fa79">CorrectChannelToPixelPs</a></div><div class="ttdeci">std::vector&lt; Int_t &gt; CorrectChannelToPixelPs(Int_t channel)</div><div class="ttdoc">CorrectChannelToPixelPS irá converter um determinado valor de canal das sipms ketek 3325-WB0808 em su...</div><div class="ttdef"><b>Definition:</b> <a href="Utils_8C_source.html#l00111">Utils.C:111</a></div></div>
+<div class="ttc" id="aclassConfigurations_html"><div class="ttname"><a href="classConfigurations.html">Configurations</a></div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00004">LoadConf.C:5</a></div></div>
+<div class="ttc" id="aclassConfigurations_html_a383a49ba4ebb632dba52861705548673"><div class="ttname"><a href="classConfigurations.html#a383a49ba4ebb632dba52861705548673">Configurations::gethMins</a></div><div class="ttdeci">vector&lt; int &gt; gethMins()</div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00028">LoadConf.C:28</a></div></div>
+<div class="ttc" id="aclassConfigurations_html_a3d4a74954385babbc4d84eec0851f5c5"><div class="ttname"><a href="classConfigurations.html#a3d4a74954385babbc4d84eec0851f5c5">Configurations::gethMaxs</a></div><div class="ttdeci">vector&lt; int &gt; gethMaxs()</div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00029">LoadConf.C:29</a></div></div>
+<div class="ttc" id="aclassConfigurations_html_a6069927d9a2fe30b1072ccec66211438"><div class="ttname"><a href="classConfigurations.html#a6069927d9a2fe30b1072ccec66211438">Configurations::getName</a></div><div class="ttdeci">vector&lt; std::string &gt; getName()</div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00032">LoadConf.C:32</a></div></div>
+<div class="ttc" id="aclassConfigurations_html_aa35a1d10ce57058b465ca6134715c50e"><div class="ttname"><a href="classConfigurations.html#aa35a1d10ce57058b465ca6134715c50e">Configurations::getType</a></div><div class="ttdeci">vector&lt; std::string &gt; getType()</div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00031">LoadConf.C:31</a></div></div>
+<div class="ttc" id="aclassConfigurations_html_ac3ee3266bb03685d6140514d9f4340ac"><div class="ttname"><a href="classConfigurations.html#ac3ee3266bb03685d6140514d9f4340ac">Configurations::getCorrectionFactors</a></div><div class="ttdeci">vector&lt; TMatrixT&lt; double &gt; &gt; getCorrectionFactors()</div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00022">LoadConf.C:22</a></div></div>
+<div class="ttc" id="aclassConfigurations_html_ace17727ff1c223937e5d2c348dc4aadd"><div class="ttname"><a href="classConfigurations.html#ace17727ff1c223937e5d2c348dc4aadd">Configurations::getChipIDs</a></div><div class="ttdeci">vector&lt; int &gt; getChipIDs()</div><div class="ttdef"><b>Definition:</b> <a href="LoadConf_8C_source.html#l00026">LoadConf.C:26</a></div></div>
+<div class="ttc" id="aclassGimnWrite_html"><div class="ttname"><a href="classGimnWrite.html">GimnWrite</a></div><div class="ttdoc">GimnWrite será a classe responsável pela escrita dos dados processados e dos histogramas gerados Esta...</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00049">GimnWrite.C:50</a></div></div>
+<div class="ttc" id="aclassGimnWrite_html_aa3a85d6a4e5119988fe491b22b51df2c"><div class="ttname"><a href="classGimnWrite.html#aa3a85d6a4e5119988fe491b22b51df2c">GimnWrite::writeObject</a></div><div class="ttdeci">void writeObject(vector&lt; vector&lt; TH1F * &gt;&gt; chanellHistogram, vector&lt; TH1F * &gt; GlobalEnergy, vector&lt; TH1F * &gt; depthOfInteraction, vector&lt; TH2F * &gt; FloodHist, vector&lt; std::string &gt; detectorName, vector&lt; int &gt; chpid, std::vector&lt; TCanvas * &gt; Canvas)</div><div class="ttdoc">Guarda os dados dos diversos histogramas coletados em pastas dentro do arquivo root gerado.</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00178">GimnWrite.C:178</a></div></div>
+<div class="ttc" id="aclassGimnWrite_html_ac34e33df18488a906e9e2c7e033ea0cb"><div class="ttname"><a href="classGimnWrite.html#ac34e33df18488a906e9e2c7e033ea0cb">GimnWrite::putData</a></div><div class="ttdeci">void putData(const GimnEvent &amp;ev)</div><div class="ttdoc">Este método irá carregar os dados processados em cada evento para as arvores que serão escritas no ar...</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00078">GimnWrite.C:78</a></div></div>
+<div class="ttc" id="aclassGimnWrite_html_af441b64ae446ea298d77c1047ff0e4b6"><div class="ttname"><a href="classGimnWrite.html#af441b64ae446ea298d77c1047ff0e4b6">GimnWrite::close</a></div><div class="ttdeci">void close()</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00216">GimnWrite.C:216</a></div></div>
+<div class="ttc" id="aclassSiPM_html"><div class="ttname"><a href="classSiPM.html">SiPM</a></div><div class="ttdoc">This class stores information from the SiPM used while processing acquired data. It have some importa...</div><div class="ttdef"><b>Definition:</b> <a href="SiPM_8C_source.html#l00012">SiPM.C:12</a></div></div>
+<div class="ttc" id="aclassSiPM_html_a635ae10d24ec15e014ce2304b6a2cacd"><div class="ttname"><a href="classSiPM.html#a635ae10d24ec15e014ce2304b6a2cacd">SiPM::getPositionsX</a></div><div class="ttdeci">std::vector&lt; Float_t &gt; getPositionsX()</div><div class="ttdoc">Builded to give access to the vector containing the positions of the SiPM centers in X direction;.</div><div class="ttdef"><b>Definition:</b> <a href="SiPM_8C_source.html#l00036">SiPM.C:36</a></div></div>
+<div class="ttc" id="anamespacecalculateCorrection_html_a46906062635094b26268e2a127f92eab"><div class="ttname"><a href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">calculateCorrection.detector</a></div><div class="ttdeci">detector</div><div class="ttdef"><b>Definition:</b> <a href="calculateCorrection_8py_source.html#l00048">calculateCorrection.py:48</a></div></div>
+<div class="ttc" id="anamespacegenerateConf_html_a6fed9eada0c0a54c2882d457916daa04"><div class="ttname"><a href="namespacegenerateConf.html#a6fed9eada0c0a54c2882d457916daa04">generateConf.hmin</a></div><div class="ttdeci">hmin</div><div class="ttdef"><b>Definition:</b> <a href="generateConf_8py_source.html#l00054">generateConf.py:54</a></div></div>
+<div class="ttc" id="anamespacegenerateConf_html_aacc00e84653eb6c0d546e5eef381072b"><div class="ttname"><a href="namespacegenerateConf.html#aacc00e84653eb6c0d546e5eef381072b">generateConf.hmax</a></div><div class="ttdeci">hmax</div><div class="ttdef"><b>Definition:</b> <a href="generateConf_8py_source.html#l00055">generateConf.py:55</a></div></div>
+<div class="ttc" id="anamespacegenerateConf_html_afb71c2f6ae9835080e2abd165b6508f9"><div class="ttname"><a href="namespacegenerateConf.html#afb71c2f6ae9835080e2abd165b6508f9">generateConf.file</a></div><div class="ttdeci">file</div><div class="ttdef"><b>Definition:</b> <a href="generateConf_8py_source.html#l00061">generateConf.py:61</a></div></div>
+<div class="ttc" id="apositionings_8C_html_a3594ccf39b56f4d1fb53fcf99bd8f0fd"><div class="ttname"><a href="positionings_8C.html#a3594ccf39b56f4d1fb53fcf99bd8f0fd">anger</a></div><div class="ttdeci">std::vector&lt; double &gt; anger(TMatrixT&lt; double &gt; energy)</div><div class="ttdef"><b>Definition:</b> <a href="positionings_8C_source.html#l00018">positionings.C:18</a></div></div>
+<div class="ttc" id="aprocessGroup_8C_html_a0d8e8f735e382523c2be67cd8335ff8c"><div class="ttname"><a href="processGroup_8C.html#a0d8e8f735e382523c2be67cd8335ff8c">ProcessGroup</a></div><div class="ttdeci">std::vector&lt; TCanvas * &gt; ProcessGroup(std::string fileName, int MinimumGroupSize)</div><div class="ttdef"><b>Definition:</b> <a href="processGroup_8C_source.html#l00014">processGroup.C:14</a></div></div>
+<div class="ttc" id="astructGimnEvent_html"><div class="ttname"><a href="structGimnEvent.html">GimnEvent</a></div><div class="ttdoc">Esta estrutura servir para salvar os dados de cada evento</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00010">GimnWrite.C:11</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_a1dcd2ad41d532d230aae8a6f08169a0a"><div class="ttname"><a href="structGimnEvent.html#a1dcd2ad41d532d230aae8a6f08169a0a">GimnEvent::doi</a></div><div class="ttdeci">Float_t doi</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00037">GimnWrite.C:37</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_a4185387693d9c0b7d286c48e65e3a109"><div class="ttname"><a href="structGimnEvent.html#a4185387693d9c0b7d286c48e65e3a109">GimnEvent::sipmX</a></div><div class="ttdeci">Int_t sipmX</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00039">GimnWrite.C:39</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_a521ae7f19bb4cde9533a579bb0304137"><div class="ttname"><a href="structGimnEvent.html#a521ae7f19bb4cde9533a579bb0304137">GimnEvent::time</a></div><div class="ttdeci">Long64_t time</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00034">GimnWrite.C:34</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_a6360034c363ffa9d13eea675e183548a"><div class="ttname"><a href="structGimnEvent.html#a6360034c363ffa9d13eea675e183548a">GimnEvent::Energy</a></div><div class="ttdeci">Float_t Energy</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00033">GimnWrite.C:33</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_a69c41d7fb454e50509c61cbc5053ab4d"><div class="ttname"><a href="structGimnEvent.html#a69c41d7fb454e50509c61cbc5053ab4d">GimnEvent::Port</a></div><div class="ttdeci">Int_t Port</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00038">GimnWrite.C:38</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_aaeb414157eac4de04ac65acc373b905c"><div class="ttname"><a href="structGimnEvent.html#aaeb414157eac4de04ac65acc373b905c">GimnEvent::sipmY</a></div><div class="ttdeci">Int_t sipmY</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00040">GimnWrite.C:40</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_ac3f45fc5f73834e532b34fd9a6c2320a"><div class="ttname"><a href="structGimnEvent.html#ac3f45fc5f73834e532b34fd9a6c2320a">GimnEvent::channel</a></div><div class="ttdeci">Int_t channel</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00032">GimnWrite.C:32</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_ace3242785547bea6a3f2b4a2a4f990fb"><div class="ttname"><a href="structGimnEvent.html#ace3242785547bea6a3f2b4a2a4f990fb">GimnEvent::xmm</a></div><div class="ttdeci">Float_t xmm</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00035">GimnWrite.C:35</a></div></div>
+<div class="ttc" id="astructGimnEvent_html_aefba3624329e33a3ed7891762062a45b"><div class="ttname"><a href="structGimnEvent.html#aefba3624329e33a3ed7891762062a45b">GimnEvent::ymm</a></div><div class="ttdeci">Float_t ymm</div><div class="ttdef"><b>Definition:</b> <a href="GimnWrite_8C_source.html#l00036">GimnWrite.C:36</a></div></div>
+<div class="ttc" id="atiming_8C_html_a3236e93cd277b7408821fc3adf3c48e9"><div class="ttname"><a href="timing_8C.html#a3236e93cd277b7408821fc3adf3c48e9">tea</a></div><div class="ttdeci">double tea(vector&lt; Long64_t &gt; time, vector&lt; Float_t &gt; energy)</div><div class="ttdef"><b>Definition:</b> <a href="timing_8C_source.html#l00024">timing.C:24</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "install.C": "cpp",
+        "ProcessAcquisition.C": "cpp",
+        "Tomographyc.C": "cpp",
+        "GantryPositions.C": "cpp"
+    }
+}

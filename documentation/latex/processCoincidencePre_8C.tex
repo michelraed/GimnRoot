@@ -1,0 +1,400 @@
+\hypertarget{processCoincidencePre_8C}{}\doxysection{Referência ao ficheiro source/5-\/process/process\+Coincidence\+Pre.C}
+\label{processCoincidencePre_8C}\index{source/5-\/process/processCoincidencePre.C@{source/5-\/process/processCoincidencePre.C}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$TTree.\+h$>$}\newline
+{\ttfamily \#include $<$TH1\+F.\+h$>$}\newline
+{\ttfamily \#include $<$TH2\+F.\+h$>$}\newline
+{\ttfamily \#include $<$TFile.\+h$>$}\newline
+{\ttfamily \#include $<$TCanvas.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$TMatrix\+T.\+h$>$}\newline
+Diagrama de dependências de inclusão para process\+Coincidence\+Pre.\+C\+:
+% FIG 0
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ TCanvas $\ast$ $>$ \mbox{\hyperlink{processCoincidencePre_8C_a37b09e1ea9f054826199a23cf42cc8ae}{process\+Coincidence\+Pre}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{processCoincidencePre_8C_a37b09e1ea9f054826199a23cf42cc8ae}\label{processCoincidencePre_8C_a37b09e1ea9f054826199a23cf42cc8ae}} 
+\index{processCoincidencePre.C@{processCoincidencePre.C}!processCoincidencePre@{processCoincidencePre}}
+\index{processCoincidencePre@{processCoincidencePre}!processCoincidencePre.C@{processCoincidencePre.C}}
+\doxysubsubsection{\texorpdfstring{processCoincidencePre()}{processCoincidencePre()}}
+{\footnotesize\ttfamily std\+::vector$<$TCanvas $\ast$$>$ process\+Coincidence\+Pre (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 15 do ficheiro process\+Coincidence\+Pre.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keywordtype}{int} groupSize = 1;}
+\DoxyCodeLine{19     std::string fileName \{\textcolor{stringliteral}{"{}/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/data\_test/caracterization/qdc\_20\_20\_15\_4\_1800s\_coinc.root"{}}\};}
+\DoxyCodeLine{20     \textcolor{comment}{// cria as variaveis nescessárias à leitura do arquivo root}}
+\DoxyCodeLine{21     UShort\_t mh\_n1\{0\}, mh\_j1\{0\}, mh\_n2\{0\}, mh\_j2\{0\};}
+\DoxyCodeLine{22     UInt\_t channelID1\{0\}, channelID2\{0\};}
+\DoxyCodeLine{23     Float\_t energy1\{0.0\}, energy2\{0\};}
+\DoxyCodeLine{24     Long64\_t time1\{0\}, time2\{0\};}
+\DoxyCodeLine{25     }
+\DoxyCodeLine{26     std::vector<TString> ports;}
+\DoxyCodeLine{27     std::vector<Long64\_t> timeChanels1(64, 0);}
+\DoxyCodeLine{28     std::vector<Float\_t> energyChannels1(64, 0);}
+\DoxyCodeLine{29     std::vector<Long64\_t> timeChanels2(64, 0);}
+\DoxyCodeLine{30     std::vector<Float\_t> energyChannels2(64, 0);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{comment}{// abre o arquivo root}}
+\DoxyCodeLine{33     TFile *\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}} = \textcolor{keyword}{new} TFile(fileName.c\_str(), \textcolor{stringliteral}{"{}read"{}});}
+\DoxyCodeLine{34     TTree *tree = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{35     tree = (TTree *)\mbox{\hyperlink{namespacegenerateConf_afb71c2f6ae9835080e2abd165b6508f9}{file}}-\/>Get(\textcolor{stringliteral}{"{}data"{}});}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{comment}{// set branches}}
+\DoxyCodeLine{38     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}mh\_n1"{}}, \&mh\_n1);}
+\DoxyCodeLine{39     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}mh\_j1"{}}, \&mh\_j1);}
+\DoxyCodeLine{40     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}channelID1"{}}, \&channelID1);}
+\DoxyCodeLine{41     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}energy1"{}}, \&energy1);}
+\DoxyCodeLine{42     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}time1"{}}, \&time1);}
+\DoxyCodeLine{43     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}mh\_n2"{}}, \&mh\_n2);}
+\DoxyCodeLine{44     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}mh\_j2"{}}, \&mh\_j2);}
+\DoxyCodeLine{45     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}channelID2"{}}, \&channelID2);}
+\DoxyCodeLine{46     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}energy2"{}}, \&energy2);}
+\DoxyCodeLine{47     tree-\/>SetBranchAddress(\textcolor{stringliteral}{"{}time2"{}}, \&time2);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{comment}{// declaracao dos histogramas;}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     std::vector<TCanvas *> Canvas;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{comment}{// AQUI TEM PROBLEMA}}
+\DoxyCodeLine{54     \mbox{\hyperlink{classIdentificator}{Identificator}} Id;}
+\DoxyCodeLine{55     Id.\mbox{\hyperlink{classIdentificator_afc08e1f94af4dd5cf18b3e27f5b4edf1}{LoadIdentificators}}(\textcolor{stringliteral}{"{}/home/gimn6/Documentos/Michel/PETSYS/GIMNroot/petsys\_conf/identificators.conf"{}});}
+\DoxyCodeLine{56     Id.\mbox{\hyperlink{classIdentificator_a3702b8083a447f9e801d0240f9c8c253}{print}}();}
+\DoxyCodeLine{57     cin.get();}
+\DoxyCodeLine{58     \textcolor{comment}{//*\&*\#\&*\&!*\&\#*!\&\#*!\&\#*!\&\#*!\&\#*!\&\#*\&\#!*\&}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \mbox{\hyperlink{classGimnData}{GimnData}} Histos(Id);}
+\DoxyCodeLine{62     \mbox{\hyperlink{classSiPM}{SiPM}} sipm\_tools(64,8,8,3.36,Id);}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \textcolor{keywordtype}{int} pos1 = 0;}
+\DoxyCodeLine{65     \textcolor{keywordtype}{int} pos2 = 0;}
+\DoxyCodeLine{66     \textcolor{keywordtype}{float} esum1 = 0;}
+\DoxyCodeLine{67     \textcolor{keywordtype}{float} esum2 = 0.0;}
+\DoxyCodeLine{68     Long64\_t counting = 0;}
+\DoxyCodeLine{69     std::string loading = \textcolor{stringliteral}{"{}[-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/]"{}};}
+\DoxyCodeLine{70     \textcolor{keywordtype}{int} load\_pos = 1;}
+\DoxyCodeLine{71     \textcolor{keywordtype}{bool} first = \textcolor{keyword}{true};}
+\DoxyCodeLine{72     \textcolor{keyword}{const} \textcolor{keywordtype}{int} entries = tree-\/>GetEntries();}
+\DoxyCodeLine{73     \textcolor{keywordtype}{int} initial\_event\{0\}, ini\_n1\{0\}, ini\_n2\{0\};}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{comment}{// Processa o nome da string de entrada}}
+\DoxyCodeLine{76     \textcolor{keyword}{auto} name = \mbox{\hyperlink{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}{splitString}}(fileName, \textcolor{charliteral}{'/'});}
+\DoxyCodeLine{77     \textcolor{keyword}{auto} name\_pos = name.size();}
+\DoxyCodeLine{78     \textcolor{keywordtype}{string} outName = name[name\_pos -\/ 1];}
+\DoxyCodeLine{79     name = \mbox{\hyperlink{Utils_8C_a20f5ab9d09a254c776886ca97b67872c}{splitString}}(outName, \textcolor{charliteral}{'.'});}
+\DoxyCodeLine{80     name\_pos = name.size();}
+\DoxyCodeLine{81     outName = name[0];}
+\DoxyCodeLine{82     outName = outName + \textcolor{stringliteral}{"{}\_pre.root"{}};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{comment}{// cria a classe responsável pela escrita}}
+\DoxyCodeLine{85     \mbox{\hyperlink{classGimnWriteClass}{GimnWriteClass}} Output(outName.c\_str());}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{keywordtype}{float} e1\_first =0;}
+\DoxyCodeLine{88     \textcolor{keywordtype}{float} e2\_first = 0;}
+\DoxyCodeLine{89     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} coincidenceID\{1\};}
+\DoxyCodeLine{90     \textcolor{keywordflow}{for} (Int\_t event = 0; \textcolor{keyword}{event} <= entries; \textcolor{keyword}{event}++)}
+\DoxyCodeLine{91     \{}
+\DoxyCodeLine{92         }
+\DoxyCodeLine{93         }
+\DoxyCodeLine{94         \textcolor{keywordflow}{if} (event > ((entries / 50.0) * load\_pos))}
+\DoxyCodeLine{95         \{}
+\DoxyCodeLine{96                     }
+\DoxyCodeLine{97             \textcolor{keyword}{auto} porcento = ((double)event / (\textcolor{keywordtype}{double})entries) * 100;}
+\DoxyCodeLine{98             \textcolor{keyword}{auto} clear = system(\textcolor{stringliteral}{"{}clear"{}});}
+\DoxyCodeLine{99             loading[load\_pos] = \textcolor{charliteral}{'='};}
+\DoxyCodeLine{100             std::cout << loading << porcento << \textcolor{stringliteral}{"{}\%"{}} << std::endl;}
+\DoxyCodeLine{101             load\_pos += 1;}
+\DoxyCodeLine{102         \}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104         }
+\DoxyCodeLine{105         }
+\DoxyCodeLine{106         tree-\/>GetEntry(event);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108         Int\_t chipID1 = (int)channelID1 / 64;}
+\DoxyCodeLine{109         Int\_t channel1 = channelID1 -\/ 64 * chipID1;}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111         Int\_t chipID2 = (int)channelID2 / 64;}
+\DoxyCodeLine{112         Int\_t channel2 = channelID2 -\/ 64 * chipID2;}
+\DoxyCodeLine{113        }
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116         \textcolor{keywordflow}{if} ((mh\_n1 > groupSize) \&\& (mh\_n2 > groupSize))}
+\DoxyCodeLine{117         \{}
+\DoxyCodeLine{118             \textcolor{keyword}{auto} it = std::find(Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.begin(), Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.end(), chipID1);}
+\DoxyCodeLine{119             \textcolor{keywordflow}{if} (it != Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.end())}
+\DoxyCodeLine{120                 pos1 = std::distance(Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.begin(), it);}
+\DoxyCodeLine{121             \textcolor{comment}{// pega a posição do chipID 2 no vetor de detectores}}
+\DoxyCodeLine{122             it = std::find(Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.begin(), Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.end(), chipID2);}
+\DoxyCodeLine{123             \textcolor{keywordflow}{if} (it != Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.end())}
+\DoxyCodeLine{124                 pos2 = std::distance(Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}.begin(), it);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127             \textcolor{keywordflow}{if} (Id.\mbox{\hyperlink{classIdentificator_a5eb0050a8faca59cf6927c701021d6ab}{checkInCoincidence}}(pos2,chipID1))}
+\DoxyCodeLine{128             \{}
+\DoxyCodeLine{129                 \textcolor{keyword}{auto} pos\_xy1 = \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{CorrectChannelToPixelPs}}(channel1);}
+\DoxyCodeLine{130                 \textcolor{keyword}{auto} pos\_xy2 = \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{CorrectChannelToPixelPs}}(channel2);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132                 \mbox{\hyperlink{structGimnEvent}{GimnEvent}} event\_seg;}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134                 \textcolor{keywordflow}{if} (mh\_j1 == 0 \&\& mh\_j2 == 0)\textcolor{comment}{// Primeiro Evento}}
+\DoxyCodeLine{135                 \{}
+\DoxyCodeLine{136                     Long64\_t time\_diff = 0;}
+\DoxyCodeLine{137                     \textcolor{keywordflow}{if} (chipID1 == Id.\mbox{\hyperlink{classIdentificator_a8dbbf8db2b9018878d0fa694b688d102}{ref}}[pos2])}
+\DoxyCodeLine{138                         time\_diff = time2 -\/ time1;}
+\DoxyCodeLine{139                     }
+\DoxyCodeLine{140                     \textcolor{keywordflow}{if}(chipID2 == Id.\mbox{\hyperlink{classIdentificator_a8dbbf8db2b9018878d0fa694b688d102}{ref}}[pos1])}
+\DoxyCodeLine{141                         time\_diff = time1-\/time2;}
+\DoxyCodeLine{142                     \textcolor{comment}{// Colocar a energia no devido canal}}
+\DoxyCodeLine{143                     Histos.channelEnergyHistogram[pos1][channel1]-\/>Fill(energy1);}
+\DoxyCodeLine{144                     Histos.channelEnergyHistogram[pos2][channel2]-\/>Fill(energy2);}
+\DoxyCodeLine{145                     coincidenceID++;}
+\DoxyCodeLine{146                     initial\_event = event;}
+\DoxyCodeLine{147                     ini\_n1 = mh\_n1;}
+\DoxyCodeLine{148                     ini\_n2 = mh\_n2;}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150                     e1\_first = energy1;}
+\DoxyCodeLine{151                     e2\_first = energy2;}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153 }
+\DoxyCodeLine{154                     sipm\_tools.Sipm\_e[pos1](pos\_xy1[1], pos\_xy1[0]) = +energy1;}
+\DoxyCodeLine{155                     sipm\_tools.Sipm\_e[pos2](pos\_xy2[1], pos\_xy2[0]) = +energy2;}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157                     timeChanels1[channel1] = time1;}
+\DoxyCodeLine{158                     energyChannels1[channel1] = energy1;}
+\DoxyCodeLine{159                     timeChanels2[channel2] = time2;}
+\DoxyCodeLine{160                     energyChannels2[channel2] = energy2;}
+\DoxyCodeLine{161 }
+\DoxyCodeLine{162                     std::vector<Float\_t> xPos = sipm\_tools.getPositionsX();}
+\DoxyCodeLine{163                     std::vector<Float\_t> yPos = sipm\_tools.getPositionsY();}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165                     \textcolor{keywordflow}{if} ((Id.\mbox{\hyperlink{classIdentificator_a79ebe93018115b3e957df9cfb41d75ee}{crystalType}}[pos1] == \textcolor{stringliteral}{"{}seg"{}}) \&\& (Id.\mbox{\hyperlink{classIdentificator_a79ebe93018115b3e957df9cfb41d75ee}{crystalType}}[pos2] == \textcolor{stringliteral}{"{}seg"{}}))}
+\DoxyCodeLine{166                     \{}
+\DoxyCodeLine{167                         std::cout <<\textcolor{stringliteral}{"{}on seg"{}}<<std::endl;}
+\DoxyCodeLine{168                         event\_seg.\mbox{\hyperlink{structGimnEvent_a718ca43364f9969259bc07256b136865}{Energy\_1}} = energy1;}
+\DoxyCodeLine{169                         event\_seg.\mbox{\hyperlink{structGimnEvent_ab9f235e71ec2af7de2be5279bc4d1b6b}{time\_1}} = time1;}
+\DoxyCodeLine{170                         event\_seg.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}} = xPos[pos\_xy1[0]];}
+\DoxyCodeLine{171                         event\_seg.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}} = yPos[pos\_xy1[1]];}
+\DoxyCodeLine{172                         event\_seg.\mbox{\hyperlink{structGimnEvent_a7d0af1236aec1ee2294c6a8b8f2875a6}{doi\_1}} = 0.0;}
+\DoxyCodeLine{173                         event\_seg.\mbox{\hyperlink{structGimnEvent_a799c3298c603ce0bb630a90569d534ce}{Port\_1}} = Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}[pos1];}
+\DoxyCodeLine{174                         event\_seg.\mbox{\hyperlink{structGimnEvent_aeb1549324fc5e1e64c65e0881a955655}{sipmX\_1}} = pos\_xy1[0];}
+\DoxyCodeLine{175                         event\_seg.\mbox{\hyperlink{structGimnEvent_ac3af3615d8965b3ec8f9138d62d35a58}{sipmY\_1}} = pos\_xy1[1];}
+\DoxyCodeLine{176                         event\_seg.\mbox{\hyperlink{structGimnEvent_a7f34bd133a64a9ac443c80d9b4df4174}{channel\_1}} = channel1;}
+\DoxyCodeLine{177                         \textcolor{comment}{//std::cout<<"{}group1"{}<<event\_seg.Energy\_1<<endl;}}
+\DoxyCodeLine{178                         Histos.GlobalEnergy[pos1]-\/>Fill(event\_seg.\mbox{\hyperlink{structGimnEvent_a718ca43364f9969259bc07256b136865}{Energy\_1}});}
+\DoxyCodeLine{179                         Histos.depthOfInteraction[pos1]-\/>Fill(event\_seg.\mbox{\hyperlink{structGimnEvent_a7d0af1236aec1ee2294c6a8b8f2875a6}{doi\_1}});}
+\DoxyCodeLine{180                         Histos.FloodHist[pos1]-\/>Fill(event\_seg.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}}, event\_seg.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}});}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182                         event\_seg.\mbox{\hyperlink{structGimnEvent_a8304221bee88658d8227d6b307aa241f}{Energy\_2}} = energy2;}
+\DoxyCodeLine{183                         event\_seg.\mbox{\hyperlink{structGimnEvent_a7d871e28b6e20057c711330539656514}{time\_2}} = time2;}
+\DoxyCodeLine{184                         event\_seg.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}} = xPos[pos\_xy2[0]];}
+\DoxyCodeLine{185                         event\_seg.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}} = yPos[pos\_xy2[1]];}
+\DoxyCodeLine{186                         event\_seg.\mbox{\hyperlink{structGimnEvent_ad6aa39b52ed6f2e1eb76c415e6cd59de}{doi\_2}} = 0.0;}
+\DoxyCodeLine{187                         event\_seg.\mbox{\hyperlink{structGimnEvent_a2ec66e286f50bcdb20eecfa28e5c2589}{Port\_2}} = Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}[pos2];}
+\DoxyCodeLine{188                         event\_seg.\mbox{\hyperlink{structGimnEvent_a56312a41777b1ab362d78f44ce58df12}{sipmX\_2}} = pos\_xy2[0];}
+\DoxyCodeLine{189                         event\_seg.\mbox{\hyperlink{structGimnEvent_adc9e6c4ce4df77d84c3440f0e4d0eb94}{sipmY\_2}} = pos\_xy2[1];}
+\DoxyCodeLine{190                         event\_seg.\mbox{\hyperlink{structGimnEvent_a9a3bf7e784e8240b5ebf9c7e5f5db714}{channel\_2}} = channel2;}
+\DoxyCodeLine{191                         event\_seg.\mbox{\hyperlink{structGimnEvent_ac4021adf3ca3e828e56abb8df5a8184f}{coincidenceID}}=coincidenceID;}
+\DoxyCodeLine{192                         Histos.GlobalEnergy[pos2]-\/>Fill(event\_seg.\mbox{\hyperlink{structGimnEvent_a8304221bee88658d8227d6b307aa241f}{Energy\_2}});}
+\DoxyCodeLine{193                         Histos.depthOfInteraction[pos2]-\/>Fill(event\_seg.\mbox{\hyperlink{structGimnEvent_ad6aa39b52ed6f2e1eb76c415e6cd59de}{doi\_2}});}
+\DoxyCodeLine{194                         Histos.FloodHist[pos2]-\/>Fill(event\_seg.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}}, event\_seg.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}});}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196                         \textcolor{comment}{//std::cout<<"{}Event Energy "{}<<event\_seg.Energy\_1<<std::endl;}}
+\DoxyCodeLine{197                         Output.putData(event\_seg);}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199                         \textcolor{comment}{//std::cout<<"{} saving segmented event in a tree"{}<<std::endl;}}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201                     }
+\DoxyCodeLine{202                     \}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204                     \textcolor{comment}{// cout<<"{}evento "{}<<event<<endl;}}
+\DoxyCodeLine{205                     \textcolor{comment}{// cout<<"{}evento inicial "{}<<initial\_event<<endl;}}
+\DoxyCodeLine{206                     \textcolor{comment}{// cout<<"{}mh\_n1 "{}<<mh\_n1<<endl;}}
+\DoxyCodeLine{207                     \textcolor{comment}{// cout<<"{}mh\_n2 "{}<<mh\_n2<<endl;}}
+\DoxyCodeLine{208                     \textcolor{comment}{// cout<<"{}evento final"{}<<initial\_event+(ini\_n1+ini\_n2)-\/2<<endl;}}
+\DoxyCodeLine{209                 coincidenceID++;}
+\DoxyCodeLine{210                 \} \textcolor{comment}{// indica o começo de uma nova coincidencia}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212                 \textcolor{keywordflow}{if} (mh\_j1 != 0 \&\& mh\_j2 == 0)}
+\DoxyCodeLine{213                 \{}
+\DoxyCodeLine{214                     sipm\_tools.Sipm\_e[pos1](pos\_xy1[1], pos\_xy1[0]) = +energy1;}
+\DoxyCodeLine{215                     timeChanels1[channel1] = time1;}
+\DoxyCodeLine{216                     energyChannels1[channel1] = energy1;}
+\DoxyCodeLine{217                 \} \textcolor{comment}{// adiciona no grupo 1}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219                 \textcolor{keywordflow}{if} (mh\_j1 == 0 \&\& mh\_j2 != 0)}
+\DoxyCodeLine{220                 \{}
+\DoxyCodeLine{221                     sipm\_tools.Sipm\_e[pos2](pos\_xy2[1], pos\_xy2[0]) = +energy2;}
+\DoxyCodeLine{222                     timeChanels2[channel2] = time2;}
+\DoxyCodeLine{223                     energyChannels2[channel2] = energy2;}
+\DoxyCodeLine{224                 \} \textcolor{comment}{// adiciona no grupo 1}}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226                 \textcolor{comment}{//}}
+\DoxyCodeLine{227                 \textcolor{comment}{//      AQUI é onde os dados são salvos no arquivo de saida.}}
+\DoxyCodeLine{228                 \textcolor{comment}{//}}
+\DoxyCodeLine{229                 \textcolor{comment}{//}}
+\DoxyCodeLine{230                 \textcolor{keywordflow}{if} (event == (initial\_event + (ini\_n1 + ini\_n2) -\/ 2))}
+\DoxyCodeLine{231                 \{}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233                     \mbox{\hyperlink{structGimnEvent}{GimnEvent}} ev;}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235                     \textcolor{comment}{// ev. CTR}}
+\DoxyCodeLine{236                     \textcolor{comment}{// ev. channel\_1}}
+\DoxyCodeLine{237                     \textcolor{comment}{//divideMatrix(Sipm[pos1], correctionFactor[pos1]);}}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240                     \textcolor{keyword}{auto} Positions3D = \mbox{\hyperlink{positionings_8C_a3594ccf39b56f4d1fb53fcf99bd8f0fd}{anger}}(sipm\_tools.Sipm\_e[pos1]);}
+\DoxyCodeLine{241                     ev.\mbox{\hyperlink{structGimnEvent_a718ca43364f9969259bc07256b136865}{Energy\_1}} = e1\_first;\textcolor{comment}{//Sipm[pos1].Sum();}}
+\DoxyCodeLine{242                     ev.\mbox{\hyperlink{structGimnEvent_ab9f235e71ec2af7de2be5279bc4d1b6b}{time\_1}} = \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}}(timeChanels1, energyChannels1);}
+\DoxyCodeLine{243                     ev.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}} = Positions3D[0];}
+\DoxyCodeLine{244                     ev.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}} = Positions3D[1];}
+\DoxyCodeLine{245                     ev.\mbox{\hyperlink{structGimnEvent_a7d0af1236aec1ee2294c6a8b8f2875a6}{doi\_1}} = 0;\textcolor{comment}{//Positions3D[2];}}
+\DoxyCodeLine{246                     ev.\mbox{\hyperlink{structGimnEvent_a799c3298c603ce0bb630a90569d534ce}{Port\_1}} = Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}[pos1];}
+\DoxyCodeLine{247                     ev.\mbox{\hyperlink{structGimnEvent_aeb1549324fc5e1e64c65e0881a955655}{sipmX\_1}} = 0;}
+\DoxyCodeLine{248                     ev.\mbox{\hyperlink{structGimnEvent_ac3af3615d8965b3ec8f9138d62d35a58}{sipmY\_1}} = 0;}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250                     \textcolor{comment}{//divideMatrix(Sipm[pos2], correctionFactor[pos2]);}}
+\DoxyCodeLine{251                     Positions3D = \mbox{\hyperlink{positionings_8C_a3594ccf39b56f4d1fb53fcf99bd8f0fd}{anger}}(sipm\_tools.Sipm\_e[pos2]);}
+\DoxyCodeLine{252                     ev.\mbox{\hyperlink{structGimnEvent_a9a3bf7e784e8240b5ebf9c7e5f5db714}{channel\_2}} = 0;}
+\DoxyCodeLine{253                     ev.\mbox{\hyperlink{structGimnEvent_a8304221bee88658d8227d6b307aa241f}{Energy\_2}} = e2\_first;\textcolor{comment}{//Sipm[pos2].Sum();}}
+\DoxyCodeLine{254                     ev.\mbox{\hyperlink{structGimnEvent_a7d871e28b6e20057c711330539656514}{time\_2}} = \mbox{\hyperlink{timing_8C_a3236e93cd277b7408821fc3adf3c48e9}{tea}}(timeChanels2, energyChannels2);}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256                     ev.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}} = Positions3D[0];}
+\DoxyCodeLine{257                     ev.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}} = Positions3D[1];}
+\DoxyCodeLine{258                     ev.\mbox{\hyperlink{structGimnEvent_ad6aa39b52ed6f2e1eb76c415e6cd59de}{doi\_2}} = 0;\textcolor{comment}{//Positions3D[2];}}
+\DoxyCodeLine{259                     ev.\mbox{\hyperlink{structGimnEvent_a2ec66e286f50bcdb20eecfa28e5c2589}{Port\_2}} = Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}[pos2];}
+\DoxyCodeLine{260                     ev.\mbox{\hyperlink{structGimnEvent_a56312a41777b1ab362d78f44ce58df12}{sipmX\_2}} = 0;}
+\DoxyCodeLine{261                     ev.\mbox{\hyperlink{structGimnEvent_adc9e6c4ce4df77d84c3440f0e4d0eb94}{sipmY\_2}} = 0;}
+\DoxyCodeLine{262                     ev.\mbox{\hyperlink{structGimnEvent_ac4021adf3ca3e828e56abb8df5a8184f}{coincidenceID}} = coincidenceID;}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264                     ev.\mbox{\hyperlink{structGimnEvent_ab36c32bafc322bd6871a7fa6800d4a89}{CTR}} = abs(ev.\mbox{\hyperlink{structGimnEvent_ab9f235e71ec2af7de2be5279bc4d1b6b}{time\_1}} -\/ ev.\mbox{\hyperlink{structGimnEvent_a7d871e28b6e20057c711330539656514}{time\_2}});}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{266 }
+\DoxyCodeLine{267  }
+\DoxyCodeLine{268                     \textcolor{keywordtype}{bool} out1 = \textcolor{keyword}{false};}
+\DoxyCodeLine{269                     \textcolor{keywordtype}{bool} out2 = \textcolor{keyword}{false};}
+\DoxyCodeLine{270                     \textcolor{keywordflow}{if} ((ev.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}} < 13.44 || ev.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}} > -\/13.44) \&\& (ev.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}} < 13.44 || ev.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}} > -\/13.44))\{}
+\DoxyCodeLine{271                         \{}
+\DoxyCodeLine{272                             out1 = \textcolor{keyword}{true};}
+\DoxyCodeLine{273                             Histos.GlobalEnergy[pos1]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a718ca43364f9969259bc07256b136865}{Energy\_1}});\textcolor{comment}{//Sipm[pos1].Sum());}}
+\DoxyCodeLine{274                             Histos.depthOfInteraction[pos1]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a7d0af1236aec1ee2294c6a8b8f2875a6}{doi\_1}});}
+\DoxyCodeLine{275                             Histos.FloodHist[pos1]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}}, ev.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}});}
+\DoxyCodeLine{276                         \}}
+\DoxyCodeLine{277                     \}}
+\DoxyCodeLine{278                     \textcolor{keywordflow}{if} ((ev.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}} < 13.44 \&\& ev.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}} > -\/13.44) \&\& (ev.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}} < 13.44 \&\& ev.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}} > -\/13.44))\{}
+\DoxyCodeLine{279                         }
+\DoxyCodeLine{280                         \{}
+\DoxyCodeLine{281                             out2 = \textcolor{keyword}{true};}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283                             Histos.GlobalEnergy[pos2]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_a718ca43364f9969259bc07256b136865}{Energy\_1}});\textcolor{comment}{//Sipm[pos2].Sum());}}
+\DoxyCodeLine{284                             Histos.depthOfInteraction[pos2]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_ad6aa39b52ed6f2e1eb76c415e6cd59de}{doi\_2}});}
+\DoxyCodeLine{285                             Histos.FloodHist[pos2]-\/>Fill(ev.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}}, ev.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}});}
+\DoxyCodeLine{286                         \}}
+\DoxyCodeLine{287                     \}}
+\DoxyCodeLine{288                     \textcolor{keywordflow}{if} (!((out1 == \textcolor{keyword}{false}) \&\& (out2 == \textcolor{keyword}{false})))}
+\DoxyCodeLine{289                     \{}
+\DoxyCodeLine{290                     \textcolor{keywordflow}{if} ((Id.\mbox{\hyperlink{classIdentificator_a79ebe93018115b3e957df9cfb41d75ee}{crystalType}}[pos1] == \textcolor{stringliteral}{"{}mono"{}}) \&\& (Id.\mbox{\hyperlink{classIdentificator_a79ebe93018115b3e957df9cfb41d75ee}{crystalType}}[pos2] == \textcolor{stringliteral}{"{}mono"{}}))\{}
+\DoxyCodeLine{291                             Output.putData(ev);               }
+\DoxyCodeLine{292                             }
+\DoxyCodeLine{293                             \textcolor{comment}{//std::cout<<"{}printing"{}<<std::endl;}}
+\DoxyCodeLine{294                     \}}
+\DoxyCodeLine{295                     \}}
+\DoxyCodeLine{296 }
+\DoxyCodeLine{297                     }
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299                     sipm\_tools.Sipm\_e[pos1].Zero();}
+\DoxyCodeLine{300                     sipm\_tools.Sipm\_e[pos2].Zero();}
+\DoxyCodeLine{301                     \textcolor{comment}{// cout<<"{}evento "{}<<event<<endl;}}
+\DoxyCodeLine{302                     \textcolor{comment}{// cout<<"{}evento inicial "{}<<initial\_event<<endl;}}
+\DoxyCodeLine{303                     \textcolor{comment}{// cout<<"{}evento final"{}<<initial\_event+(ini\_n1+ini\_n2)-\/2<<endl;}}
+\DoxyCodeLine{304                 \} \textcolor{comment}{// ultimo evento}}
+\DoxyCodeLine{305             \}}
+\DoxyCodeLine{306         \}}
+\DoxyCodeLine{307     \}}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Detector1"{}}, \textcolor{stringliteral}{"{}Detector1"{}}, 4000, 4000));}
+\DoxyCodeLine{310     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Detector2"{}}, \textcolor{stringliteral}{"{}Detector2"{}}, 4000, 4000));}
+\DoxyCodeLine{311     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Detector3"{}}, \textcolor{stringliteral}{"{}Detector3"{}}, 4000, 4000));}
+\DoxyCodeLine{312     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Detector4"{}}, \textcolor{stringliteral}{"{}Detector4"{}}, 4000, 4000));}
+\DoxyCodeLine{313     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Global Energy"{}}, \textcolor{stringliteral}{"{}Global Energy"{}}, 4000, 4000));}
+\DoxyCodeLine{314     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Floods"{}}, \textcolor{stringliteral}{"{}Floods"{}}, 4000, 4000));}
+\DoxyCodeLine{315     Canvas.push\_back(\textcolor{keyword}{new} TCanvas(\textcolor{stringliteral}{"{}Doi"{}}, \textcolor{stringliteral}{"{}Doi"{}}, 4000, 4000));}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317     \textcolor{keywordflow}{for} (Int\_t i = 0; i < Id.\mbox{\hyperlink{classIdentificator_aaca32a16352e3f322294738226a762da}{detNum}}; i++)}
+\DoxyCodeLine{318     \{}
+\DoxyCodeLine{319         \textcolor{comment}{// std::string canvasName = (std::string)ports[i].Data()+ "{}Channel MAP"{};}}
+\DoxyCodeLine{320         \textcolor{comment}{// Canvas.push\_back(new TCanvas(ports[i].Data(),canvasName.c\_str(),4000,4000));}}
+\DoxyCodeLine{321         Canvas[i]-\/>Divide(8, 8);}
+\DoxyCodeLine{322         \textcolor{keywordflow}{for} (Int\_t channels = 0; channels < 64; channels++)}
+\DoxyCodeLine{323         \{}
+\DoxyCodeLine{324             \textcolor{keyword}{auto} pos\_yx = \mbox{\hyperlink{Utils_8C_a6f1e23b4e523c7cf4a7d7f7f93a6fa79}{CorrectChannelToPixelPs}}(channels);}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{326             Canvas[i]-\/>cd((pos\_yx[1] * 8 + pos\_yx[0]) + 1);}
+\DoxyCodeLine{327             Histos.channelEnergyHistogram[i][channels]-\/>Draw(\textcolor{stringliteral}{"{}HIST"{}});}
+\DoxyCodeLine{328         \}}
+\DoxyCodeLine{329         \textcolor{comment}{// std::string saveAs = (std::string)ports[i].Data()+ "{}ChannelMAP.png"{};}}
+\DoxyCodeLine{330         Canvas[i]-\/>Draw(); \textcolor{comment}{// Print(saveAs.c\_str());}}
+\DoxyCodeLine{331     \}}
+\DoxyCodeLine{332 }
+\DoxyCodeLine{333  }
+\DoxyCodeLine{334     Canvas[2]-\/>Divide(2, 2);}
+\DoxyCodeLine{335     Canvas[2]-\/>cd(1);}
+\DoxyCodeLine{336     Histos.GlobalEnergy[0]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{337     Canvas[2]-\/>cd(2);}
+\DoxyCodeLine{338     Histos.GlobalEnergy[1]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{339     Canvas[2]-\/>cd(3);}
+\DoxyCodeLine{340     Histos.FloodHist[0]-\/>Draw(\textcolor{stringliteral}{"{}COLZ"{}});}
+\DoxyCodeLine{341     \textcolor{comment}{//GlobalEnergy[2]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{342     Canvas[2]-\/>cd(4);}
+\DoxyCodeLine{343     Histos.FloodHist[1]-\/>Draw(\textcolor{stringliteral}{"{}COLZ"{}});}
+\DoxyCodeLine{344     }
+\DoxyCodeLine{345     \textcolor{comment}{//GlobalEnergy[3]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{346     Canvas[2]-\/>Draw();}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{348     \textcolor{comment}{//Canvas[3]-\/>Divide(2, 2);}}
+\DoxyCodeLine{349     \textcolor{comment}{//Canvas[3]-\/>cd(1);}}
+\DoxyCodeLine{350     \textcolor{comment}{//FloodHist[0]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{351     \textcolor{comment}{//Canvas[3]-\/>cd(2);}}
+\DoxyCodeLine{352     \textcolor{comment}{//FloodHist[1]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{353     \textcolor{comment}{//Canvas[3]-\/>cd(3);}}
+\DoxyCodeLine{354     \textcolor{comment}{//FloodHist[2]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{355     \textcolor{comment}{//Canvas[3]-\/>cd(4);}}
+\DoxyCodeLine{356     \textcolor{comment}{//FloodHist[3]-\/>Draw("{}COLZ"{});}}
+\DoxyCodeLine{357     \textcolor{comment}{//Canvas[3]-\/>Draw();}}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{359     Canvas[4]-\/>Divide(2, 1);}
+\DoxyCodeLine{360     Canvas[4]-\/>cd(1);}
+\DoxyCodeLine{361     Histos.depthOfInteraction[0]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{362     Canvas[4]-\/>cd(2);}
+\DoxyCodeLine{363     Histos.depthOfInteraction[1]-\/>Draw(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{364     \textcolor{comment}{//Canvas[4]-\/>cd(3);}}
+\DoxyCodeLine{365     \textcolor{comment}{//depthOfInteraction[2]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{366     \textcolor{comment}{//Canvas[4]-\/>cd(4);}}
+\DoxyCodeLine{367     \textcolor{comment}{//depthOfInteraction[3]-\/>Draw("{}L"{});}}
+\DoxyCodeLine{368     Canvas[4]-\/>Draw();}
+\DoxyCodeLine{369     }
+\DoxyCodeLine{370     Output.writeObject(Histos.channelEnergyHistogram, Histos.GlobalEnergy, Histos.depthOfInteraction, Histos.FloodHist, Id.\mbox{\hyperlink{classIdentificator_a25a53934b5330760fa025ca2d20a7ea7}{detectorName}}, Id.\mbox{\hyperlink{classIdentificator_a49a7555dea244ef69b721713c82c5c28}{chipID}}, Canvas);}
+\DoxyCodeLine{371     Output.close();}
+\DoxyCodeLine{372 }
+\DoxyCodeLine{373      \textcolor{keywordflow}{return} Canvas;}
+\DoxyCodeLine{374 \}}
+
+\end{DoxyCode}
+
+
+Referências anger(), Gimn\+Event\+::channel\+\_\+1, Gimn\+Event\+::channel\+\_\+2, Gimn\+Data\+::channel\+Energy\+Histogram, Identificator\+::check\+In\+Coincidence(), Identificator\+::chip\+ID, Gimn\+Write\+Class\+::close(), Gimn\+Event\+::coincidence\+ID, Correct\+Channel\+To\+Pixel\+Ps(), Identificator\+::crystal\+Type, Gimn\+Event\+::\+CTR, Gimn\+Data\+::depth\+Of\+Interaction, Identificator\+::detector\+Name, Identificator\+::det\+Num, Gimn\+Event\+::doi\+\_\+1, Gimn\+Event\+::doi\+\_\+2, Gimn\+Event\+::\+Energy\+\_\+1, Gimn\+Event\+::\+Energy\+\_\+2, generate\+Conf\+::file, Gimn\+Data\+::\+Flood\+Hist, Si\+PM\+::get\+Positions\+X(), Si\+PM\+::get\+Positions\+Y(), Gimn\+Data\+::\+Global\+Energy, Identificator\+::\+Load\+Identificators(), Gimn\+Event\+::\+Port\+\_\+1, Gimn\+Event\+::\+Port\+\_\+2, Identificator\+::print(), Gimn\+Write\+Class\+::put\+Data(), Identificator\+::ref, Si\+PM\+::\+Sipm\+\_\+e, Gimn\+Event\+::sipm\+X\+\_\+1, Gimn\+Event\+::sipm\+X\+\_\+2, Gimn\+Event\+::sipm\+Y\+\_\+1, Gimn\+Event\+::sipm\+Y\+\_\+2, split\+String(), tea(), Gimn\+Event\+::time\+\_\+1, Gimn\+Event\+::time\+\_\+2, Gimn\+Write\+Class\+::write\+Object(), Gimn\+Event\+::xmm\+\_\+1, Gimn\+Event\+::xmm\+\_\+2, Gimn\+Event\+::ymm\+\_\+1 e Gimn\+Event\+::ymm\+\_\+2.
+
+Grafo de chamadas desta função\+:
+% FIG 1

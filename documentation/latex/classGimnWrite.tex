@@ -1,0 +1,330 @@
+\hypertarget{classGimnWrite}{}\doxysection{Referência à classe Gimn\+Write}
+\label{classGimnWrite}\index{GimnWrite@{GimnWrite}}
+
+
+\mbox{\hyperlink{classGimnWrite}{Gimn\+Write}} será a classe responsável pela escrita dos dados processados e dos histogramas gerados Esta irá gerar um arquivo do tipo $\ast$.root, cntendo em seu interior duas arvores, uma contendo os eventos separados individualmente e outra contendo as coincidencias. Além disso no interior desta classe serão geradas pastas contendo todos os histogramas produzidos por canal e globais.  
+
+
+\doxysubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGimnWrite_a0b318d77c39b4abff1dc2bba8581b91b}{Gimn\+Write}} ()
+\item 
+\mbox{\hyperlink{classGimnWrite_aa91acaebde0dbd368b1f4a33e493ad13}{Gimn\+Write}} (const char $\ast$file\+Name)
+\item 
+void \mbox{\hyperlink{classGimnWrite_ac34e33df18488a906e9e2c7e033ea0cb}{put\+Data}} (const \mbox{\hyperlink{structGimnEvent}{Gimn\+Event}} \&ev)
+\begin{DoxyCompactList}\small\item\em Este método irá carregar os dados processados em cada evento para as arvores que serão escritas no arquivo processado. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGimnWrite_aa9b2313a6561059021961b01277a8bd2}{Set\+Branches\+Coincidences}} ()
+\begin{DoxyCompactList}\small\item\em Ajusta as referencias internas para cada folha da arvore de coincidencias. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGimnWrite_a80c272887bcc55908b9ebaf7fc55cc2b}{Set\+Branches\+Singles}} ()
+\begin{DoxyCompactList}\small\item\em Ajusta as folhas da arvore de singles. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGimnWrite_aa3a85d6a4e5119988fe491b22b51df2c}{write\+Object}} (vector$<$ vector$<$ TH1F $\ast$ $>$$>$ chanell\+Histogram, vector$<$ TH1F $\ast$ $>$ Global\+Energy, vector$<$ TH1F $\ast$ $>$ depth\+Of\+Interaction, vector$<$ TH2F $\ast$ $>$ Flood\+Hist, vector$<$ std\+::string $>$ detector\+Name, vector$<$ int $>$ chpid, std\+::vector$<$ TCanvas $\ast$ $>$ Canvas)
+\begin{DoxyCompactList}\small\item\em Guarda os dados dos diversos histogramas coletados em pastas dentro do arquivo root gerado. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGimnWrite_af441b64ae446ea298d77c1047ff0e4b6}{close}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+\mbox{\hyperlink{classGimnWrite}{Gimn\+Write}} será a classe responsável pela escrita dos dados processados e dos histogramas gerados Esta irá gerar um arquivo do tipo $\ast$.root, cntendo em seu interior duas arvores, uma contendo os eventos separados individualmente e outra contendo as coincidencias. Além disso no interior desta classe serão geradas pastas contendo todos os histogramas produzidos por canal e globais. 
+
+Definido na linha 49 do ficheiro Gimn\+Write.\+C.
+
+
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\mbox{\Hypertarget{classGimnWrite_a0b318d77c39b4abff1dc2bba8581b91b}\label{classGimnWrite_a0b318d77c39b4abff1dc2bba8581b91b}} 
+\index{GimnWrite@{GimnWrite}!GimnWrite@{GimnWrite}}
+\index{GimnWrite@{GimnWrite}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{GimnWrite()}{GimnWrite()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Gimn\+Write\+::\+Gimn\+Write (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 59 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60     \{}
+\DoxyCodeLine{61         \mbox{\hyperlink{classGimnWrite_aa9b2313a6561059021961b01277a8bd2}{SetBranchesCoincidences}}();}
+\DoxyCodeLine{62         \mbox{\hyperlink{classGimnWrite_a80c272887bcc55908b9ebaf7fc55cc2b}{SetBranchesSingles}}();}
+\DoxyCodeLine{63     \}}
+
+\end{DoxyCode}
+
+
+Referências Set\+Branches\+Coincidences() e Set\+Branches\+Singles().
+
+Grafo de chamadas desta função\+:
+% FIG 0
+\mbox{\Hypertarget{classGimnWrite_aa91acaebde0dbd368b1f4a33e493ad13}\label{classGimnWrite_aa91acaebde0dbd368b1f4a33e493ad13}} 
+\index{GimnWrite@{GimnWrite}!GimnWrite@{GimnWrite}}
+\index{GimnWrite@{GimnWrite}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{GimnWrite()}{GimnWrite()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Gimn\+Write\+::\+Gimn\+Write (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 65 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66     \{}
+\DoxyCodeLine{67         File = \textcolor{keyword}{new} TFile(fileName, \textcolor{stringliteral}{"{}RECREATE"{}});}
+\DoxyCodeLine{68         coincidences = \textcolor{keyword}{new} TTree(\textcolor{stringliteral}{"{}Coincidences"{}}, \textcolor{stringliteral}{"{}Data Tree"{}});}
+\DoxyCodeLine{69         singles = \textcolor{keyword}{new} TTree(\textcolor{stringliteral}{"{}Singles"{}}, \textcolor{stringliteral}{"{}Data Tree"{}});}
+\DoxyCodeLine{70         \mbox{\hyperlink{classGimnWrite_aa9b2313a6561059021961b01277a8bd2}{SetBranchesCoincidences}}();}
+\DoxyCodeLine{71         \mbox{\hyperlink{classGimnWrite_a80c272887bcc55908b9ebaf7fc55cc2b}{SetBranchesSingles}}();}
+\DoxyCodeLine{72     \}}
+
+\end{DoxyCode}
+
+
+Referências Set\+Branches\+Coincidences() e Set\+Branches\+Singles().
+
+Grafo de chamadas desta função\+:
+% FIG 1
+
+
+\doxysubsection{Documentação dos métodos}
+\mbox{\Hypertarget{classGimnWrite_af441b64ae446ea298d77c1047ff0e4b6}\label{classGimnWrite_af441b64ae446ea298d77c1047ff0e4b6}} 
+\index{GimnWrite@{GimnWrite}!close@{close}}
+\index{close@{close}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily void Gimn\+Write\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definido na linha 216 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217     \{}
+\DoxyCodeLine{218         File-\/>Close();}
+\DoxyCodeLine{219     \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 2
+\mbox{\Hypertarget{classGimnWrite_ac34e33df18488a906e9e2c7e033ea0cb}\label{classGimnWrite_ac34e33df18488a906e9e2c7e033ea0cb}} 
+\index{GimnWrite@{GimnWrite}!putData@{putData}}
+\index{putData@{putData}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{putData()}{putData()}}
+{\footnotesize\ttfamily void Gimn\+Write\+::put\+Data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structGimnEvent}{Gimn\+Event}} \&}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Este método irá carregar os dados processados em cada evento para as arvores que serão escritas no arquivo processado. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em ev} & Estrutura do tipo \mbox{\hyperlink{structGimnEvent}{Gimn\+Event}} que irá possuir informações a cerca da posição energia e tempo do evento \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 78 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80      }
+\DoxyCodeLine{81         \textcolor{keyword}{internal}.Energy\_1 = ev.\mbox{\hyperlink{structGimnEvent_a718ca43364f9969259bc07256b136865}{Energy\_1}};}
+\DoxyCodeLine{82         \textcolor{keyword}{internal}.time\_1 = ev.\mbox{\hyperlink{structGimnEvent_ab9f235e71ec2af7de2be5279bc4d1b6b}{time\_1}};}
+\DoxyCodeLine{83         \textcolor{keyword}{internal}.channel\_1 = ev.\mbox{\hyperlink{structGimnEvent_a7f34bd133a64a9ac443c80d9b4df4174}{channel\_1}};}
+\DoxyCodeLine{84         \textcolor{keyword}{internal}.xmm\_1 = ev.\mbox{\hyperlink{structGimnEvent_a56ac5edc6605c6ac606bf6a985b94a90}{xmm\_1}};}
+\DoxyCodeLine{85         \textcolor{keyword}{internal}.ymm\_1 = ev.\mbox{\hyperlink{structGimnEvent_aba26c0aca09b499a30ebb9fdad874c3f}{ymm\_1}};}
+\DoxyCodeLine{86         \textcolor{keyword}{internal}.doi\_1 = ev.\mbox{\hyperlink{structGimnEvent_a7d0af1236aec1ee2294c6a8b8f2875a6}{doi\_1}};}
+\DoxyCodeLine{87         \textcolor{keyword}{internal}.Port\_1 = ev.\mbox{\hyperlink{structGimnEvent_a799c3298c603ce0bb630a90569d534ce}{Port\_1}};}
+\DoxyCodeLine{88         \textcolor{keyword}{internal}.coincidenceID = ev.\mbox{\hyperlink{structGimnEvent_ac4021adf3ca3e828e56abb8df5a8184f}{coincidenceID}};}
+\DoxyCodeLine{89         \textcolor{keyword}{internal}.sipmX\_1 = ev.\mbox{\hyperlink{structGimnEvent_aeb1549324fc5e1e64c65e0881a955655}{sipmX\_1}};}
+\DoxyCodeLine{90         \textcolor{keyword}{internal}.sipmY\_1 = ev.\mbox{\hyperlink{structGimnEvent_ac3af3615d8965b3ec8f9138d62d35a58}{sipmY\_1}};}
+\DoxyCodeLine{91         \textcolor{keyword}{internal}.Energy\_2 = ev.\mbox{\hyperlink{structGimnEvent_a8304221bee88658d8227d6b307aa241f}{Energy\_2}};}
+\DoxyCodeLine{92         \textcolor{keyword}{internal}.time\_2 = ev.\mbox{\hyperlink{structGimnEvent_a7d871e28b6e20057c711330539656514}{time\_2}};}
+\DoxyCodeLine{93         \textcolor{keyword}{internal}.channel\_2 = ev.\mbox{\hyperlink{structGimnEvent_a9a3bf7e784e8240b5ebf9c7e5f5db714}{channel\_2}};}
+\DoxyCodeLine{94         \textcolor{keyword}{internal}.xmm\_2 = ev.\mbox{\hyperlink{structGimnEvent_aa7afe89a16d2e288983c878e78f98084}{xmm\_2}};}
+\DoxyCodeLine{95         \textcolor{keyword}{internal}.ymm\_2 = ev.\mbox{\hyperlink{structGimnEvent_ae9e8d3aa137e1bafd71d202deab1eebd}{ymm\_2}};}
+\DoxyCodeLine{96         \textcolor{keyword}{internal}.doi\_2 = ev.\mbox{\hyperlink{structGimnEvent_ad6aa39b52ed6f2e1eb76c415e6cd59de}{doi\_2}};}
+\DoxyCodeLine{97         \textcolor{keyword}{internal}.Port\_2 = ev.\mbox{\hyperlink{structGimnEvent_a2ec66e286f50bcdb20eecfa28e5c2589}{Port\_2}};}
+\DoxyCodeLine{98         \textcolor{keyword}{internal}.coincidenceID = ev.\mbox{\hyperlink{structGimnEvent_ac4021adf3ca3e828e56abb8df5a8184f}{coincidenceID}};}
+\DoxyCodeLine{99         \textcolor{keyword}{internal}.sipmX\_2 = ev.\mbox{\hyperlink{structGimnEvent_a56312a41777b1ab362d78f44ce58df12}{sipmX\_2}};}
+\DoxyCodeLine{100         \textcolor{keyword}{internal}.sipmY\_2 = ev.\mbox{\hyperlink{structGimnEvent_adc9e6c4ce4df77d84c3440f0e4d0eb94}{sipmY\_2}};}
+\DoxyCodeLine{101         \textcolor{keyword}{internal}.CTR = ev.\mbox{\hyperlink{structGimnEvent_ab36c32bafc322bd6871a7fa6800d4a89}{CTR}};}
+\DoxyCodeLine{102         \textcolor{keyword}{internal}.Energy = ev.\mbox{\hyperlink{structGimnEvent_a6360034c363ffa9d13eea675e183548a}{Energy}};}
+\DoxyCodeLine{103         \textcolor{keyword}{internal}.time = ev.\mbox{\hyperlink{structGimnEvent_a521ae7f19bb4cde9533a579bb0304137}{time}};}
+\DoxyCodeLine{104         \textcolor{keyword}{internal}.channel = ev.\mbox{\hyperlink{structGimnEvent_ac3f45fc5f73834e532b34fd9a6c2320a}{channel}};}
+\DoxyCodeLine{105         \textcolor{keyword}{internal}.xmm = ev.\mbox{\hyperlink{structGimnEvent_ace3242785547bea6a3f2b4a2a4f990fb}{xmm}};}
+\DoxyCodeLine{106         \textcolor{keyword}{internal}.ymm = ev.\mbox{\hyperlink{structGimnEvent_aefba3624329e33a3ed7891762062a45b}{ymm}};}
+\DoxyCodeLine{107         \textcolor{keyword}{internal}.doi = ev.\mbox{\hyperlink{structGimnEvent_a1dcd2ad41d532d230aae8a6f08169a0a}{doi}};}
+\DoxyCodeLine{108         \textcolor{keyword}{internal}.Port = ev.\mbox{\hyperlink{structGimnEvent_a69c41d7fb454e50509c61cbc5053ab4d}{Port}};}
+\DoxyCodeLine{109         \textcolor{keyword}{internal}.coincidenceID = ev.\mbox{\hyperlink{structGimnEvent_ac4021adf3ca3e828e56abb8df5a8184f}{coincidenceID}};}
+\DoxyCodeLine{110         \textcolor{keyword}{internal}.sipmX = ev.\mbox{\hyperlink{structGimnEvent_a4185387693d9c0b7d286c48e65e3a109}{sipmX}};}
+\DoxyCodeLine{111         \textcolor{keyword}{internal}.sipmY = ev.\mbox{\hyperlink{structGimnEvent_aaeb414157eac4de04ac65acc373b905c}{sipmY}};}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113         \textcolor{comment}{//std::cout<<"{}internal energy"{}<<internal.Energy\_1<<std::endl;}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115         coincidences-\/>Fill();}
+\DoxyCodeLine{116         singles-\/>Fill();}
+\DoxyCodeLine{117     \}}
+
+\end{DoxyCode}
+
+
+Referências Gimn\+Event\+::channel, Gimn\+Event\+::channel\+\_\+1, Gimn\+Event\+::channel\+\_\+2, Gimn\+Event\+::coincidence\+ID, Gimn\+Event\+::\+CTR, Gimn\+Event\+::doi, Gimn\+Event\+::doi\+\_\+1, Gimn\+Event\+::doi\+\_\+2, Gimn\+Event\+::\+Energy, Gimn\+Event\+::\+Energy\+\_\+1, Gimn\+Event\+::\+Energy\+\_\+2, Gimn\+Event\+::\+Port, Gimn\+Event\+::\+Port\+\_\+1, Gimn\+Event\+::\+Port\+\_\+2, Gimn\+Event\+::sipmX, Gimn\+Event\+::sipm\+X\+\_\+1, Gimn\+Event\+::sipm\+X\+\_\+2, Gimn\+Event\+::sipmY, Gimn\+Event\+::sipm\+Y\+\_\+1, Gimn\+Event\+::sipm\+Y\+\_\+2, Gimn\+Event\+::time, Gimn\+Event\+::time\+\_\+1, Gimn\+Event\+::time\+\_\+2, Gimn\+Event\+::xmm, Gimn\+Event\+::xmm\+\_\+1, Gimn\+Event\+::xmm\+\_\+2, Gimn\+Event\+::ymm, Gimn\+Event\+::ymm\+\_\+1 e Gimn\+Event\+::ymm\+\_\+2.
+
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 3
+\mbox{\Hypertarget{classGimnWrite_aa9b2313a6561059021961b01277a8bd2}\label{classGimnWrite_aa9b2313a6561059021961b01277a8bd2}} 
+\index{GimnWrite@{GimnWrite}!SetBranchesCoincidences@{SetBranchesCoincidences}}
+\index{SetBranchesCoincidences@{SetBranchesCoincidences}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{SetBranchesCoincidences()}{SetBranchesCoincidences()}}
+{\footnotesize\ttfamily void Gimn\+Write\+::\+Set\+Branches\+Coincidences (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Ajusta as referencias internas para cada folha da arvore de coincidencias. 
+
+
+
+Definido na linha 122 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123     \{}
+\DoxyCodeLine{124         std::cout<<\textcolor{stringliteral}{"{}setting branches for coincidences"{}}<<endl;}
+\DoxyCodeLine{125         coincidences-\/>Branch(\textcolor{stringliteral}{"{}Energy1"{}}, \&\textcolor{keyword}{internal}.Energy\_1);}
+\DoxyCodeLine{126         coincidences-\/>Branch(\textcolor{stringliteral}{"{}time1"{}}, \&\textcolor{keyword}{internal}.time\_1);}
+\DoxyCodeLine{127         coincidences-\/>Branch(\textcolor{stringliteral}{"{}channel1"{}}, \&\textcolor{keyword}{internal}.channel\_1);}
+\DoxyCodeLine{128         coincidences-\/>Branch(\textcolor{stringliteral}{"{}xmm1"{}}, \&\textcolor{keyword}{internal}.xmm\_1);}
+\DoxyCodeLine{129         coincidences-\/>Branch(\textcolor{stringliteral}{"{}ymm1"{}}, \&\textcolor{keyword}{internal}.ymm\_1);}
+\DoxyCodeLine{130         coincidences-\/>Branch(\textcolor{stringliteral}{"{}doi1"{}}, \&\textcolor{keyword}{internal}.doi\_1);}
+\DoxyCodeLine{131         coincidences-\/>Branch(\textcolor{stringliteral}{"{}Port1"{}}, \&\textcolor{keyword}{internal}.Port\_1);}
+\DoxyCodeLine{132         coincidences-\/>Branch(\textcolor{stringliteral}{"{}coincidenceID1"{}}, \&\textcolor{keyword}{internal}.coincidenceID);}
+\DoxyCodeLine{133         coincidences-\/>Branch(\textcolor{stringliteral}{"{}sipmX1"{}}, \&\textcolor{keyword}{internal}.sipmX\_1);}
+\DoxyCodeLine{134         coincidences-\/>Branch(\textcolor{stringliteral}{"{}sipmY1"{}}, \&\textcolor{keyword}{internal}.sipmY\_1);}
+\DoxyCodeLine{135         coincidences-\/>Branch(\textcolor{stringliteral}{"{}Energy2"{}}, \&\textcolor{keyword}{internal}.Energy\_2);}
+\DoxyCodeLine{136         coincidences-\/>Branch(\textcolor{stringliteral}{"{}time2"{}}, \&\textcolor{keyword}{internal}.time\_2);}
+\DoxyCodeLine{137         coincidences-\/>Branch(\textcolor{stringliteral}{"{}channel2"{}}, \&\textcolor{keyword}{internal}.channel\_2);}
+\DoxyCodeLine{138         coincidences-\/>Branch(\textcolor{stringliteral}{"{}xmm2"{}}, \&\textcolor{keyword}{internal}.xmm\_2);}
+\DoxyCodeLine{139         coincidences-\/>Branch(\textcolor{stringliteral}{"{}ymm2"{}}, \&\textcolor{keyword}{internal}.ymm\_2);}
+\DoxyCodeLine{140         coincidences-\/>Branch(\textcolor{stringliteral}{"{}doi2"{}}, \&\textcolor{keyword}{internal}.doi\_2);}
+\DoxyCodeLine{141         coincidences-\/>Branch(\textcolor{stringliteral}{"{}Port2"{}}, \&\textcolor{keyword}{internal}.Port\_2);}
+\DoxyCodeLine{142         coincidences-\/>Branch(\textcolor{stringliteral}{"{}coincidenceID2"{}}, \&\textcolor{keyword}{internal}.coincidenceID);}
+\DoxyCodeLine{143         coincidences-\/>Branch(\textcolor{stringliteral}{"{}sipmX2"{}}, \&\textcolor{keyword}{internal}.sipmX\_2);}
+\DoxyCodeLine{144         coincidences-\/>Branch(\textcolor{stringliteral}{"{}sipmY2"{}}, \&\textcolor{keyword}{internal}.sipmY\_2);}
+\DoxyCodeLine{145         coincidences-\/>Branch(\textcolor{stringliteral}{"{}CTR"{}}, \&\textcolor{keyword}{internal}.CTR);}
+\DoxyCodeLine{146     \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 4
+\mbox{\Hypertarget{classGimnWrite_a80c272887bcc55908b9ebaf7fc55cc2b}\label{classGimnWrite_a80c272887bcc55908b9ebaf7fc55cc2b}} 
+\index{GimnWrite@{GimnWrite}!SetBranchesSingles@{SetBranchesSingles}}
+\index{SetBranchesSingles@{SetBranchesSingles}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{SetBranchesSingles()}{SetBranchesSingles()}}
+{\footnotesize\ttfamily void Gimn\+Write\+::\+Set\+Branches\+Singles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Ajusta as folhas da arvore de singles. 
+
+
+
+Definido na linha 152 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153     \{}
+\DoxyCodeLine{154         std::cout<<\textcolor{stringliteral}{"{}setting branches for Singles"{}}<<endl;}
+\DoxyCodeLine{155         singles-\/>Branch(\textcolor{stringliteral}{"{}Energy"{}}, \&\textcolor{keyword}{internal}.Energy);}
+\DoxyCodeLine{156         singles-\/>Branch(\textcolor{stringliteral}{"{}time"{}}, \&\textcolor{keyword}{internal}.time);}
+\DoxyCodeLine{157         singles-\/>Branch(\textcolor{stringliteral}{"{}channel"{}}, \&\textcolor{keyword}{internal}.channel);}
+\DoxyCodeLine{158         singles-\/>Branch(\textcolor{stringliteral}{"{}xmm"{}}, \&\textcolor{keyword}{internal}.xmm);}
+\DoxyCodeLine{159         singles-\/>Branch(\textcolor{stringliteral}{"{}ymm"{}}, \&\textcolor{keyword}{internal}.ymm);}
+\DoxyCodeLine{160         singles-\/>Branch(\textcolor{stringliteral}{"{}doi"{}}, \&\textcolor{keyword}{internal}.doi);}
+\DoxyCodeLine{161         singles-\/>Branch(\textcolor{stringliteral}{"{}Port"{}}, \&\textcolor{keyword}{internal}.Port);}
+\DoxyCodeLine{162         singles-\/>Branch(\textcolor{stringliteral}{"{}coincidenceID"{}}, \&\textcolor{keyword}{internal}.coincidenceID);}
+\DoxyCodeLine{163         singles-\/>Branch(\textcolor{stringliteral}{"{}sipmX"{}}, \&\textcolor{keyword}{internal}.sipmX);}
+\DoxyCodeLine{164         singles-\/>Branch(\textcolor{stringliteral}{"{}sipmY"{}}, \&\textcolor{keyword}{internal}.sipmY);}
+\DoxyCodeLine{165     \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 5
+\mbox{\Hypertarget{classGimnWrite_aa3a85d6a4e5119988fe491b22b51df2c}\label{classGimnWrite_aa3a85d6a4e5119988fe491b22b51df2c}} 
+\index{GimnWrite@{GimnWrite}!writeObject@{writeObject}}
+\index{writeObject@{writeObject}!GimnWrite@{GimnWrite}}
+\doxysubsubsection{\texorpdfstring{writeObject()}{writeObject()}}
+{\footnotesize\ttfamily void Gimn\+Write\+::write\+Object (\begin{DoxyParamCaption}\item[{vector$<$ vector$<$ TH1F $\ast$ $>$$>$}]{chanell\+Histogram,  }\item[{vector$<$ TH1F $\ast$ $>$}]{Global\+Energy,  }\item[{vector$<$ TH1F $\ast$ $>$}]{depth\+Of\+Interaction,  }\item[{vector$<$ TH2F $\ast$ $>$}]{Flood\+Hist,  }\item[{vector$<$ std\+::string $>$}]{detector\+Name,  }\item[{vector$<$ int $>$}]{chpid,  }\item[{std\+::vector$<$ TCanvas $\ast$ $>$}]{Canvas }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Guarda os dados dos diversos histogramas coletados em pastas dentro do arquivo root gerado. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em chanell\+Histogram} & vetor de vetores de TH1F correspondendo aos histogramas de energia de cada canal de cada detector \\
+\hline
+{\em Global\+Energy} & vetor de TH1F corresponde aos histograma de energia global de cada detector \\
+\hline
+{\em depth\+Of\+Interaction} & vetor TH2F que corresponde à profundidade de interação dos fotons detectados (valido para monolitico) por detector \\
+\hline
+{\em Flood\+Hist} & vetor de TH2F que corresponde ao mapa de flood de cada detector \\
+\hline
+{\em detector\+Name} & vetor contendo os nomes dos detectores \\
+\hline
+{\em chpid} & vetor contendo os chip\+ID\textquotesingle{}s ativos durante a aquisição \\
+\hline
+{\em Canvas} & vetor de TCanvas contendo as informações da aquisição \\
+\hline
+\end{DoxyParams}
+
+
+Definido na linha 178 do ficheiro Gimn\+Write.\+C.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{179     \{}
+\DoxyCodeLine{180             File-\/>cd();}
+\DoxyCodeLine{181             coincidences-\/>Write();}
+\DoxyCodeLine{182             singles-\/>Write();}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184         TDirectory *Detectors = File-\/>mkdir(\textcolor{stringliteral}{"{}Detectors"{}});}
+\DoxyCodeLine{185         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < chpid.size(); i++)}
+\DoxyCodeLine{186         \{}
+\DoxyCodeLine{187             std::string Name = \textcolor{stringliteral}{"{}ChipID-\/"{}} + std::to\_string(chpid[i]);}
+\DoxyCodeLine{188             TDirectory *aux = Detectors-\/>mkdir(Name.c\_str());}
+\DoxyCodeLine{189             aux-\/>cd();}
+\DoxyCodeLine{190             std::string geName = \textcolor{stringliteral}{"{}global Energy -\/"{}} + Name + \textcolor{stringliteral}{"{}-\/"{}} + detectorName[i];}
+\DoxyCodeLine{191             aux-\/>WriteObject(GlobalEnergy[i], geName.c\_str());}
+\DoxyCodeLine{192             std::string fhName = \textcolor{stringliteral}{"{}Flood Histogram-\/"{}} + Name + \textcolor{stringliteral}{"{}-\/"{}} + detectorName[i];}
+\DoxyCodeLine{193             aux-\/>WriteObject(FloodHist[i], fhName.c\_str());}
+\DoxyCodeLine{194             std::string doiName = \textcolor{stringliteral}{"{}DOI -\/"{}} + Name + \textcolor{stringliteral}{"{}-\/"{}} + detectorName[i];}
+\DoxyCodeLine{195             aux-\/>WriteObject(depthOfInteraction[i], doiName.c\_str());}
+\DoxyCodeLine{196             TDirectory *aux2 = aux-\/>mkdir(\textcolor{stringliteral}{"{}Channels"{}});}
+\DoxyCodeLine{197             aux2-\/>cd();}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} ch = 0; ch < 64; ch++)}
+\DoxyCodeLine{200             \{}
+\DoxyCodeLine{201                 std::string channelName = \textcolor{stringliteral}{"{}channel-\/"{}} + std::to\_string(ch) + \textcolor{stringliteral}{"{}-\/"{}} + Name + \textcolor{stringliteral}{"{}-\/"{}} + detectorName[i];}
+\DoxyCodeLine{202                 aux2-\/>WriteObject(chanellHistogram[i][ch], channelName.c\_str());}
+\DoxyCodeLine{203             \}}
+\DoxyCodeLine{204         \}}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206         TDirectory * Canvases = File-\/>mkdir(\textcolor{stringliteral}{"{}Canvas"{}});}
+\DoxyCodeLine{207         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < Canvas.size(); i++)}
+\DoxyCodeLine{208         \{}
+\DoxyCodeLine{209             std::string cvName = \textcolor{stringliteral}{"{}Canvas -\/"{}}+std::to\_string(i);}
+\DoxyCodeLine{210             Canvases-\/>WriteObject(Canvas[i],cvName.c\_str());}
+\DoxyCodeLine{211         \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213         \textcolor{comment}{//File-\/>Write();}}
+\DoxyCodeLine{214     \}}
+
+\end{DoxyCode}
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 6
+
+
+A documentação para esta classe foi gerada a partir do seguinte ficheiro\+:\begin{DoxyCompactItemize}
+\item 
+source/1-\/base/\mbox{\hyperlink{GimnWrite_8C}{Gimn\+Write.\+C}}\end{DoxyCompactItemize}

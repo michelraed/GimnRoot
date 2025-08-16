@@ -1,0 +1,115 @@
+
+Hits->Draw(“posX:posY:posZ”,”PDGEncoding==0”)
+
+
+
+class sinogram
+{
+
+    TTree *Data = nullptr;
+    Float_t Angle, Distance;
+    Int_t slice;
+    std::string name;
+    std::vector<std::shared_ptr<TH2F>> sinograms;
+   
+    Int_t numberOfAngles;
+    Int_t numberOfSlices;
+    Int_t numberOfDistances;
+
+public:
+
+    sinogram(Point dimensions)
+    {
+
+        Data = new TTree();
+        Data->SetName("data");
+        Data->Branch("angle", &Angle);
+        Data->Branch("Distance", &Distance);
+        Data->Branch("Slice", &slice);
+
+        numberOfAngles = (int)dimensions[0];
+        numberOfSlices = (int)dimensions[2];
+        numberOfDistances =(int) dimensions[1];
+        std::cout<<" number of slices "<<numberOfSlices<<std::endl;
+        for (int i = 0; i < numberOfSlices; i++)
+        {
+            std::string Name = "Sinogram Slice" + std::to_string(i);
+            sinograms.push_back(std::make_shared<TH2F>(TH2F(Name.c_str(), Name.c_str(), numberOfDistances, -13.44, 13.44, numberOfAngles, 0, 180)));
+            sinograms[sinograms.size() - 1].get()->SetOption("Colz");
+        }
+    }
+
+    void setName(std::string name){this->name = name;}
+    ~sinogram()
+    {
+        std::cout << "Saving Sinogram" << std::endl;
+        std::string outputFilename = outDirectory + name;
+        std::string outRoot = outputFilename + ".root";
+        TFile out(outRoot.c_str(), "RECREATE");
+        int cnt = 0;
+        out.WriteObject(Data, "data");
+
+        for (auto &i : sinograms)
+        {
+            std::string name = "sinogram Slice " + std::to_string(cnt);
+            out.WriteObject(i.get(), name.c_str());
+            cnt += 1;
+        }
+
+        out.Close();
+        delete Data;
+    }
+
+    
+    sinogram(Int_t rotNumber, Int_t sipmX, Int_t sipmY)
+    {
+
+        Data = new TTree();
+        Data->SetName("data");
+        Data->Branch("angle", &Angle);
+        Data->Branch("Distance", &Distance);
+        Data->Branch("Slice", &slice);
+
+        numberOfAngles = ((2 * sipmX) - 1) * rotNumber;
+        numberOfSlices = (2 * sipmY) - 1;
+        numberOfDistances = sipmX;
+
+        for (int i = 0; i < (2 * sipmY - 1); i++)
+        {
+            std::string Name = "Sinogram Slice" + std::to_string(i);
+            sinograms.push_back(std::make_shared<TH2F>(TH2F(Name.c_str(), Name.c_str(), 
+                                                        numberOfDistances, -13.44, 13.44, 
+                                                        numberOfAngles, 0, 180)));
+
+            sinograms[sinograms.size() - 1].get()->SetOption("Colz");
+        }
+    }
+    
+    sinogram(Int_t nRing, Int_t nY)
+    {
+        Data = new TTree();
+        Data->SetName("data");
+        Data->Branch("angle", &Angle);
+        Data->Branch("Distance", &Distance);
+        Data->Branch("Slice", &slice);
+
+        // Int_t numberOfAngles = ((2*sipmX)-1)*rotNumber;
+
+        for (int i = 0; i < (2 * nRing - 1); i++)
+        {
+            std::string Name = "Sinogram Slice" + std::to_string(i);
+            sinograms.push_back(std::make_shared<TH2F>(TH2F(Name.c_str(), Name.c_str(), 45, 0, 180, 8, -11.76, 11.76)));
+            sinograms[sinograms.size() - 1].get()->SetOption("Colz");
+        }
+    }
+    
+    void fill(Int_t slice, Float_t angle, float_t distance)
+    {
+                
+        this->Angle = angle;
+        this->Distance = distance;
+        this->slice = slice;
+        Data->Fill();
+        sinograms[slice]->Fill(distance,angle);
+    }
+};

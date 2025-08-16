@@ -1,0 +1,182 @@
+\hypertarget{namespacecalculateCorrection}{}\doxysection{Referência ao namespace calculate\+Correction}
+\label{namespacecalculateCorrection}\index{calculateCorrection@{calculateCorrection}}
+\doxysubsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacecalculateCorrection_a085d2adc900648c61691d0668eb1a1ce}{read\+Conf}} (filename)
+\item 
+def \mbox{\hyperlink{namespacecalculateCorrection_aec2667c80764b92a608b5525f6afd1c7}{write\+Conf}} (\mbox{\hyperlink{namespacecalculateCorrection_ab872237c85eca295b00b05b4fdbba6d9}{detectores}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variáveis}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespacecalculateCorrection_a2a5fcb84de2e0b17db4d0d171afcfe6d}{arquivos}} = \mbox{[}$\,$\mbox{]}
+\item 
+string \mbox{\hyperlink{namespacecalculateCorrection_ad1df448624052099b265b8a3a80627a1}{separador}} = \char`\"{}groupdetector-\/\char`\"{}
+\item 
+dictionary \mbox{\hyperlink{namespacecalculateCorrection_ab872237c85eca295b00b05b4fdbba6d9}{detectores}}
+\item 
+\mbox{\hyperlink{namespacecalculateCorrection_ae1700f2651f7a31aae99ff604559531e}{nome}} = arquivo.\+split(sep=\mbox{\hyperlink{namespacecalculateCorrection_ad1df448624052099b265b8a3a80627a1}{separador}})
+\item 
+\mbox{\hyperlink{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}{detector}} = \mbox{\hyperlink{namespacecalculateCorrection_ae1700f2651f7a31aae99ff604559531e}{nome}}\mbox{[}-\/1\mbox{]}
+\item 
+def \mbox{\hyperlink{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}{mat}} = \mbox{\hyperlink{namespacecalculateCorrection_a085d2adc900648c61691d0668eb1a1ce}{read\+Conf}}(arquivo)
+\item 
+\mbox{\hyperlink{namespacecalculateCorrection_a97d4d180a74a166fa83dc8f73063e566}{data}} = np.\+zeros((8,8))
+\item 
+int \mbox{\hyperlink{namespacecalculateCorrection_a47a69498b10e729c6db8fa227ff363ec}{count}} = 1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentação das funções}
+\mbox{\Hypertarget{namespacecalculateCorrection_a085d2adc900648c61691d0668eb1a1ce}\label{namespacecalculateCorrection_a085d2adc900648c61691d0668eb1a1ce}} 
+\index{calculateCorrection@{calculateCorrection}!readConf@{readConf}}
+\index{readConf@{readConf}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{readConf()}{readConf()}}
+{\footnotesize\ttfamily def calculate\+Correction.\+read\+Conf (\begin{DoxyParamCaption}\item[{}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 5 do ficheiro calculate\+Correction.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5 \textcolor{keyword}{def }\mbox{\hyperlink{namespacecalculateCorrection_a085d2adc900648c61691d0668eb1a1ce}{readConf}}(filename):}
+\DoxyCodeLine{6     folder = \textcolor{stringliteral}{"{}/home/aquisicao/Documentos/PET\_SYS/ROOT/CorFac/"{}}}
+\DoxyCodeLine{7     filename = folder+filename}
+\DoxyCodeLine{8     output = np.zeros((8,8))}
+\DoxyCodeLine{9     \textcolor{keyword}{with} open(filename, \textcolor{stringliteral}{'r'}) \textcolor{keyword}{as} file:}
+\DoxyCodeLine{10         linhas = file.readlines()}
+\DoxyCodeLine{11         \textcolor{keywordflow}{for} i,linha \textcolor{keywordflow}{in} enumerate(linhas):}
+\DoxyCodeLine{12              l = linha.split(\textcolor{stringliteral}{"{} "{}})}
+\DoxyCodeLine{13              l.pop(-\/1)}
+\DoxyCodeLine{14              l= np.asarray(l)}
+\DoxyCodeLine{15              output[i,:]=l}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keywordflow}{return} output}
+\DoxyCodeLine{18 }
+
+\end{DoxyCode}
+\mbox{\Hypertarget{namespacecalculateCorrection_aec2667c80764b92a608b5525f6afd1c7}\label{namespacecalculateCorrection_aec2667c80764b92a608b5525f6afd1c7}} 
+\index{calculateCorrection@{calculateCorrection}!writeConf@{writeConf}}
+\index{writeConf@{writeConf}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{writeConf()}{writeConf()}}
+{\footnotesize\ttfamily def calculate\+Correction.\+write\+Conf (\begin{DoxyParamCaption}\item[{}]{detectores }\end{DoxyParamCaption})}
+
+
+
+Definido na linha 19 do ficheiro calculate\+Correction.\+py.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19 \textcolor{keyword}{def }\mbox{\hyperlink{namespacecalculateCorrection_aec2667c80764b92a608b5525f6afd1c7}{writeConf}}(detectores):}
+\DoxyCodeLine{20     folder = \textcolor{stringliteral}{"{}/home/aquisicao/Documentos/PET\_SYS/ROOT/CorFac/"{}}}
+\DoxyCodeLine{21     \textcolor{keywordflow}{for} key,value \textcolor{keywordflow}{in} detectores.items():}
+\DoxyCodeLine{22         nome = folder+\textcolor{stringliteral}{"{}detector-\/"{}}+key+\textcolor{stringliteral}{"{}.detconf"{}}}
+\DoxyCodeLine{23         \textcolor{keyword}{with} open(nome,\textcolor{stringliteral}{'w'}) \textcolor{keyword}{as} file:}
+\DoxyCodeLine{24             \textcolor{keywordflow}{for} row \textcolor{keywordflow}{in} range (value.shape[0]):}
+\DoxyCodeLine{25                 \textcolor{keywordflow}{for} col \textcolor{keywordflow}{in} range (value.shape[1]):}
+\DoxyCodeLine{26                     out = \mbox{\hyperlink{namespacegenerateConf_ab1f6723d22daa4e8502413a4fa76a6ea}{str}}(value[row,col])+\textcolor{stringliteral}{"{} "{}}}
+\DoxyCodeLine{27                     file.write(out)}
+\DoxyCodeLine{28                 }
+\DoxyCodeLine{29                 file.write(\textcolor{stringliteral}{"{}\(\backslash\)n"{}})}
+\DoxyCodeLine{30 }
+
+\end{DoxyCode}
+
+
+Referências generate\+Conf.\+str.
+
+
+
+\doxysubsection{Documentação das variáveis}
+\mbox{\Hypertarget{namespacecalculateCorrection_a2a5fcb84de2e0b17db4d0d171afcfe6d}\label{namespacecalculateCorrection_a2a5fcb84de2e0b17db4d0d171afcfe6d}} 
+\index{calculateCorrection@{calculateCorrection}!arquivos@{arquivos}}
+\index{arquivos@{arquivos}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{arquivos}{arquivos}}
+{\footnotesize\ttfamily list calculate\+Correction.\+arquivos = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definido na linha 32 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_a47a69498b10e729c6db8fa227ff363ec}\label{namespacecalculateCorrection_a47a69498b10e729c6db8fa227ff363ec}} 
+\index{calculateCorrection@{calculateCorrection}!count@{count}}
+\index{count@{count}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily int calculate\+Correction.\+count = 1}
+
+
+
+Definido na linha 56 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_a97d4d180a74a166fa83dc8f73063e566}\label{namespacecalculateCorrection_a97d4d180a74a166fa83dc8f73063e566}} 
+\index{calculateCorrection@{calculateCorrection}!data@{data}}
+\index{data@{data}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily int calculate\+Correction.\+data = np.\+zeros((8,8))}
+
+
+
+Definido na linha 55 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}\label{namespacecalculateCorrection_a46906062635094b26268e2a127f92eab}} 
+\index{calculateCorrection@{calculateCorrection}!detector@{detector}}
+\index{detector@{detector}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{detector}{detector}}
+{\footnotesize\ttfamily calculate\+Correction.\+detector = \mbox{\hyperlink{namespacecalculateCorrection_ae1700f2651f7a31aae99ff604559531e}{nome}}\mbox{[}-\/1\mbox{]}}
+
+
+
+Definido na linha 48 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_ab872237c85eca295b00b05b4fdbba6d9}\label{namespacecalculateCorrection_ab872237c85eca295b00b05b4fdbba6d9}} 
+\index{calculateCorrection@{calculateCorrection}!detectores@{detectores}}
+\index{detectores@{detectores}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{detectores}{detectores}}
+{\footnotesize\ttfamily dictionary calculate\+Correction.\+detectores}
+
+{\bfseries Valor inicial\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 =  \{}
+\DoxyCodeLine{2                     \textcolor{stringliteral}{'0'}: [],}
+\DoxyCodeLine{3                     \textcolor{stringliteral}{'1'}: []}
+\DoxyCodeLine{4                     \textcolor{comment}{\#'2': [],}}
+\DoxyCodeLine{5                     \textcolor{comment}{\#'3': [],}}
+\DoxyCodeLine{6     \}}
+
+\end{DoxyCode}
+
+
+Definido na linha 39 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}\label{namespacecalculateCorrection_a00e06894075ec7a86f6772e3635ef05d}} 
+\index{calculateCorrection@{calculateCorrection}!mat@{mat}}
+\index{mat@{mat}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{mat}{mat}}
+{\footnotesize\ttfamily def calculate\+Correction.\+mat = \mbox{\hyperlink{namespacecalculateCorrection_a085d2adc900648c61691d0668eb1a1ce}{read\+Conf}}(arquivo)}
+
+
+
+Definido na linha 50 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_ae1700f2651f7a31aae99ff604559531e}\label{namespacecalculateCorrection_ae1700f2651f7a31aae99ff604559531e}} 
+\index{calculateCorrection@{calculateCorrection}!nome@{nome}}
+\index{nome@{nome}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{nome}{nome}}
+{\footnotesize\ttfamily calculate\+Correction.\+nome = arquivo.\+split(sep=\mbox{\hyperlink{namespacecalculateCorrection_ad1df448624052099b265b8a3a80627a1}{separador}})}
+
+
+
+Definido na linha 47 do ficheiro calculate\+Correction.\+py.
+
+\mbox{\Hypertarget{namespacecalculateCorrection_ad1df448624052099b265b8a3a80627a1}\label{namespacecalculateCorrection_ad1df448624052099b265b8a3a80627a1}} 
+\index{calculateCorrection@{calculateCorrection}!separador@{separador}}
+\index{separador@{separador}!calculateCorrection@{calculateCorrection}}
+\doxysubsubsection{\texorpdfstring{separador}{separador}}
+{\footnotesize\ttfamily string calculate\+Correction.\+separador = \char`\"{}groupdetector-\/\char`\"{}}
+
+
+
+Definido na linha 37 do ficheiro calculate\+Correction.\+py.
+

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GimnRoot: Código-Fonte de caracterization/misc/calculateCorrection.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GimnRoot
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_c805f01d97cf84b50c3db43e4b58ba0b.html">caracterization</a></li><li class="navelem"><a class="el" href="dir_3710fa784880ddf664b76215d9f7cb77.html">misc</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">calculateCorrection.py</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="calculateCorrection_8py.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html">    1</a></span>&#160;<span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="keyword">import</span> os</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#a085d2adc900648c61691d0668eb1a1ce">    5</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacecalculateCorrection.html#a085d2adc900648c61691d0668eb1a1ce">readConf</a>(filename):</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    folder = <span class="stringliteral">&quot;/home/aquisicao/Documentos/PET_SYS/ROOT/CorFac/&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    filename = folder+filename</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    output = np.zeros((8,8))</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">with</span> open(filename, <span class="stringliteral">&#39;r&#39;</span>) <span class="keyword">as</span> file:</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        linhas = file.readlines()</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">for</span> i,linha <span class="keywordflow">in</span> enumerate(linhas):</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;             l = linha.split(<span class="stringliteral">&quot; &quot;</span>)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;             l.pop(-1)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;             l= np.asarray(l)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;             output[i,:]=l</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> output</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#aec2667c80764b92a608b5525f6afd1c7">   19</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacecalculateCorrection.html#aec2667c80764b92a608b5525f6afd1c7">writeConf</a>(detectores):</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    folder = <span class="stringliteral">&quot;/home/aquisicao/Documentos/PET_SYS/ROOT/CorFac/&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">for</span> key,value <span class="keywordflow">in</span> detectores.items():</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        nome = folder+<span class="stringliteral">&quot;detector-&quot;</span>+key+<span class="stringliteral">&quot;.detconf&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">with</span> open(nome,<span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> file:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            <span class="keywordflow">for</span> row <span class="keywordflow">in</span> range (value.shape[0]):</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                <span class="keywordflow">for</span> col <span class="keywordflow">in</span> range (value.shape[1]):</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                    out = <a class="code" href="namespacegenerateConf.html#ab1f6723d22daa4e8502413a4fa76a6ea">str</a>(value[row,col])+<span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                    file.write(out)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                file.write(<span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#a2a5fcb84de2e0b17db4d0d171afcfe6d">   32</a></span>&#160;    arquivos =[]</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> arquivo <span class="keywordflow">in</span> os.listdir(<span class="stringliteral">&quot;/home/aquisicao/Documentos/PET_SYS/ROOT/CorFac&quot;</span>):</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> arquivo.find(<span class="stringliteral">&quot;BG&quot;</span>)!=-1:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            arquivos.append(arquivo)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#ad1df448624052099b265b8a3a80627a1">   37</a></span>&#160;    separador = <span class="stringliteral">&quot;groupdetector-&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#ab872237c85eca295b00b05b4fdbba6d9">   39</a></span>&#160;    detectores = {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    <span class="stringliteral">&#39;0&#39;</span>: [],</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="stringliteral">&#39;1&#39;</span>: []</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                    <span class="comment">#&#39;2&#39;: [],</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                    <span class="comment">#&#39;3&#39;: [],</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">for</span> arquivo <span class="keywordflow">in</span> arquivos:</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#ae1700f2651f7a31aae99ff604559531e">   47</a></span>&#160;        nome = arquivo.split(sep=separador)</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#a46906062635094b26268e2a127f92eab">   48</a></span>&#160;        detector = nome[-1]</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        detector = detector.split(sep=<span class="stringliteral">&quot;.&quot;</span>)[0]</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#a00e06894075ec7a86f6772e3635ef05d">   50</a></span>&#160;        mat = <a class="code" href="namespacecalculateCorrection.html#a085d2adc900648c61691d0668eb1a1ce">readConf</a>(arquivo)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        mat = mat/mat.max()</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        detectores[detector].append(mat)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">for</span> key,value <span class="keywordflow">in</span> detectores.items():</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#a97d4d180a74a166fa83dc8f73063e566">   55</a></span>&#160;        data = np.zeros((8,8))</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="namespacecalculateCorrection.html#a47a69498b10e729c6db8fa227ff363ec">   56</a></span>&#160;        count = 1</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">for</span> v <span class="keywordflow">in</span> value:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            data+=v</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            count +=1</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        data = data/count</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        detectores[key]=data</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="namespacecalculateCorrection.html#aec2667c80764b92a608b5525f6afd1c7">writeConf</a>(detectores)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">#b = readConf(&quot;/home/aquisicao/Documentos/PET_SYS/ROOT/CorFac/BG1-CorrFac_groupdetector-0.detconf&quot;)</span></div>
+<div class="ttc" id="anamespacecalculateCorrection_html_a085d2adc900648c61691d0668eb1a1ce"><div class="ttname"><a href="namespacecalculateCorrection.html#a085d2adc900648c61691d0668eb1a1ce">calculateCorrection.readConf</a></div><div class="ttdeci">def readConf(filename)</div><div class="ttdef"><b>Definition:</b> <a href="calculateCorrection_8py_source.html#l00005">calculateCorrection.py:5</a></div></div>
+<div class="ttc" id="anamespacecalculateCorrection_html_aec2667c80764b92a608b5525f6afd1c7"><div class="ttname"><a href="namespacecalculateCorrection.html#aec2667c80764b92a608b5525f6afd1c7">calculateCorrection.writeConf</a></div><div class="ttdeci">def writeConf(detectores)</div><div class="ttdef"><b>Definition:</b> <a href="calculateCorrection_8py_source.html#l00019">calculateCorrection.py:19</a></div></div>
+<div class="ttc" id="anamespacegenerateConf_html_ab1f6723d22daa4e8502413a4fa76a6ea"><div class="ttname"><a href="namespacegenerateConf.html#ab1f6723d22daa4e8502413a4fa76a6ea">generateConf.str</a></div><div class="ttdeci">str</div><div class="ttdef"><b>Definition:</b> <a href="generateConf_8py_source.html#l00044">generateConf.py:44</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

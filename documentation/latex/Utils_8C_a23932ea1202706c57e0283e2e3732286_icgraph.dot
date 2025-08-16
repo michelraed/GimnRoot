@@ -1,0 +1,10 @@
+digraph "divideMatrix"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="divideMatrix",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Esta função irá dividir todos os elementos de uma matriz por um determinado valor."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="ProcessGroup",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$processGroup_8C.html#a0d8e8f735e382523c2be67cd8335ff8c",tooltip=" "];
+}
