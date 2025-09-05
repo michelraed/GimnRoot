@@ -141,5 +141,5 @@ Para detalhes completos de instalação, configuração e exemplos práticos, co
 ## 👨‍🔬 Autor
 
 **Michel David Raed**  
-PhD em Física Médica  
+Físico Médico 
 Desenvolvedor PET | Simulação Monte Carlo | Reconstrução de Imagens
