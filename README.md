@@ -132,6 +132,12 @@ Distribuído sob a Licença MIT. Consulte o arquivo `LICENSE` para mais informa�
 
 ---
 
+## 📖 Manual de Uso
+
+Para detalhes completos de instalação, configuração e exemplos práticos, consulte o [Manual do Sistema](https://github.com/michelraed/GimnRoot/blob/main/LongReadme.md).
+
+---
+
 ## 👨‍🔬 Autor
 
 **Michel David Raed**  
