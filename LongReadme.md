@@ -3826,10 +3826,7 @@ Ao executar o script principal, ele irá carregar as classes e funções definid
 
 ## 5. Conclusão
 
-Esta documentação detalhada visa fornecer uma compreensão clara e abrangente do código-fonte do sistema PET. Ao descrever cada classe e função, seus propósitos, atributos, métodos e exemplos de uso, esperamos facilitar a manutenção, o desenvolvimento e a colaboração neste projeto.
+Esta documentação detalhada visa fornecer uma compreensão clara e abrangente do código-fonte do sistema PET em desenvolvimento no laboratório GIMN-USP ( Faculdade de Filosofia Ciências e Letras de Ribeirão Preto- Universidade de São Paulo). Ao descrever cada classe e função, seus propósitos, atributos, métodos e exemplos de uso, esperamos facilitar a manutenção, o desenvolvimento e a colaboração neste projeto.
 
-O sistema, construído sobre o robusto framework ROOT C++, oferece uma solução modular e escalável para o processamento de dados de tomografia por emissão de pósitrons, desde a aquisição bruta até a análise final e a preparação para a reconstrução de imagens. A modularidade do design permite que componentes individuais sejam aprimorados ou substituídos sem afetar drasticamente o sistema como um todo.
+O sistema, construído sobre o framework ROOT C++, oferece uma solução modular e escalável para o processamento de dados do sistema PET em desenvolvimento, desde a aquisição bruta até a análise final e a preparação para a reconstrução de imagens. A modularidade do design permite que componentes individuais sejam aprimorados ou substituídos sem afetar drasticamente o sistema como um todo.
 
-Para futuras contribuições, é recomendável seguir as convenções de codificação e documentação estabelecidas, garantindo a consistência e a legibilidade do código. A compreensão aprofundada das classes e funções aqui detalhadas será um recurso inestimável para qualquer desenvolvedor ou pesquisador que trabalhe com este sistema.
-
->>>>>>> c5a7e97 (Upload)
