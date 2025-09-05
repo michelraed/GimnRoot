@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # GimnRoot
-A library for processing tomographic data from PETSYS system.
+Uma biblioteca para processamento de dados tomográficos usando o sistema PETSYS.
 =======
 
 ---
